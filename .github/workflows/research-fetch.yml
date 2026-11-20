@@ -1,8 +1,15 @@
-# 데이터 조사용: tools/research-urls.txt의 페이지를 받아 아티팩트로 올립니다(커밋하지 않음).
+# 데이터 조사용: 페이지를 받아 본문 글자만 실행 로그에 출력합니다(저장소에는 남기지 않음).
 name: 조사 페이지 수집
 
 on:
   workflow_dispatch:
+    inputs:
+      list:
+        description: '주소 목록 파일'
+        default: 'tools/research-urls.txt'
+      grep:
+        description: '이 낱말 주변만 출력 (비우면 전체)'
+        default: ''
 
 permissions:
   contents: read
@@ -14,9 +21,4 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: 페이지 받기
-        run: python3 tools/fetch_pages.py tools/research-urls.txt
-      - uses: actions/upload-artifact@v4
-        with:
-          name: pages
-          path: _pages
-          retention-days: 3
+        run: python3 tools/fetch_pages.py "${{ inputs.list }}" print "${{ inputs.grep }}"

@@ -13,7 +13,15 @@ UA = {"User-Agent": "Mozilla/5.0 (MH_OL personal data research)", "Accept-Langua
 OUT = Path("_pages")
 
 
-def main(list_file):
+def text_of(html):
+    html = re.sub(r"(?is)<(script|style|noscript|svg)[^>]*>.*?</\\1>", " ", html)
+    html = re.sub(r"(?i)<(br|/p|/div|/tr|/li|/h\\d|/th|/td)[^>]*>", "\\n", html)
+    t = re.sub(r"<[^>]+>", " ", html)
+    t = re.sub(r"[ \\t\\r\\f\\v]+", " ", t)
+    return re.sub(r"\\n\\s*", "\\n", t)
+
+
+def main(list_file, mode="save", grep=""):
     OUT.mkdir(exist_ok=True)
     urls = [u.strip() for u in Path(list_file).read_text(encoding="utf-8").splitlines() if u.strip() and not u.startswith("#")]
     ok = 0
@@ -22,7 +30,15 @@ def main(list_file):
         try:
             req = urllib.request.Request(u, headers=UA)
             with urllib.request.urlopen(req, timeout=30) as r:
-                (OUT / name).write_bytes(r.read())
+                data = r.read()
+            if mode == "print":
+                t = text_of(data.decode("utf-8", "replace"))
+                if grep:
+                    i = t.find(grep)
+                    t = t[max(0, i - 200): i + 2500] if i >= 0 else "(키워드 없음)"
+                print("=====", u, "\n" + t + "\n===== 끝")
+            else:
+                (OUT / name).write_bytes(data)
             ok += 1
             print("저장", u)
         except Exception as e:  # noqa: BLE001
@@ -32,4 +48,4 @@ def main(list_file):
 
 
 if __name__ == "__main__":
-    main(sys.argv[1])
+    main(sys.argv[1], *(sys.argv[2:4]))
