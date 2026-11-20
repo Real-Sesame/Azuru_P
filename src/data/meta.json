@@ -1,0 +1,100 @@
+{
+  "site": "MH_OL",
+  "dataVersion": "0.1.0",
+  "gameVersion": "1.0 (글로벌 출시판)",
+  "season": "S0",
+  "updated": "2026-11-20",
+  "labels": {
+    "roles": {
+      "assault": "돌격형",
+      "disruptor": "교란",
+      "support": "지원형"
+    },
+    "buddyTypes": {
+      "assault": "아이루",
+      "disruptor": "루타코",
+      "support": "메들리"
+    },
+    "confidence": {
+      "official": "공식",
+      "community": "커뮤니티",
+      "estimate": "추정"
+    }
+  },
+  "elements": [
+    {
+      "id": "fire",
+      "name": "불",
+      "color": "#e8553d"
+    },
+    {
+      "id": "water",
+      "name": "물",
+      "color": "#3d8ee8"
+    },
+    {
+      "id": "thunder",
+      "name": "번개",
+      "color": "#e8c23d"
+    },
+    {
+      "id": "ice",
+      "name": "얼음",
+      "color": "#7fd3ea"
+    },
+    {
+      "id": "dragon",
+      "name": "용",
+      "color": "#8b4fc9"
+    }
+  ],
+  "ailments": [
+    {
+      "id": "poison",
+      "name": "독"
+    },
+    {
+      "id": "sleep",
+      "name": "수면"
+    },
+    {
+      "id": "paralysis",
+      "name": "마비"
+    },
+    {
+      "id": "blast",
+      "name": "폭파"
+    },
+    {
+      "id": "stun",
+      "name": "기절"
+    }
+  ],
+  "sources": [
+    {
+      "id": "gw-ko",
+      "name": "GameWith 한국어",
+      "url": "https://gamewith.ai/monster-hunter-outlanders/ko"
+    },
+    {
+      "id": "gw-en",
+      "name": "GameWith English",
+      "url": "https://gamewith.ai/monster-hunter-outlanders/en"
+    },
+    {
+      "id": "tgw",
+      "name": "TheGamesWiki",
+      "url": "https://thegameswiki.com/monster-hunter-outlanders/wiki"
+    },
+    {
+      "id": "mhwiki",
+      "name": "Monster Hunter Wiki",
+      "url": "https://monsterhunterwiki.org/wiki/Adventurers"
+    },
+    {
+      "id": "grindnstrat",
+      "name": "GrindNStrat",
+      "url": "https://grindnstrat.com/?p=9368"
+    }
+  ]
+}

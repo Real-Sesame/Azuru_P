@@ -1,0 +1,33 @@
+{
+  "_note": "자동 편성 규칙. 게임이 공식 수치를 공개하지 않은 부분이 있어 가중치는 커뮤니티 조언을 점수로 옮긴 추정치(confidence: estimate). 수치만 고치면 로직 수정 없이 결과가 바뀐다.",
+  "partySize": 4,
+  "mainSlot": "첫 번째 슬롯 = 메인 조작",
+  "scoring": {
+    "elementMatchWeakness": { "3": 30, "2": 12, "1": 0, "desc": "멤버 속성이 타깃 몬스터 약점 별점과 맞을수록 가점" },
+    "resonance": { "maxElements": 2, "sameElementBonusPerMember": 8, "threeOrMoreElementsPenalty": -20, "desc": "파티 속성은 1~2종으로. 같은 속성 멤버마다 가점" },
+    "roleBalance": { "allAssaultPenalty": -25, "needSupportOrDisruptor": true, "desc": "4명 전원 돌격형 비추천, 서브 슬롯은 교란·지원으로" },
+    "tierBonus": { "SSS": 10, "SS": 8, "S": 6, "A": 4, "B": 2 },
+    "universalBuffer": { "ids": ["haze"], "bonus": 10, "desc": "속성 무관 회심률 버퍼는 어느 파티에나 가점" },
+    "linkSynergy": {
+      "desc": "연계기 발동 조건 궁합. special=메인 필살기 명중, dodge=메인 회피 성공, suppress=제압 발생",
+      "suppressNeedsDisruptor": 6,
+      "specialNeedsAssaultMain": 4
+    },
+    "conflicts": [
+      { "main": "midori", "avoidRole": "disruptor", "penalty": -10, "desc": "제압 시 미도리 화력 유지가 어려움" }
+    ],
+    "monsterSpecific": [
+      { "class": "elder", "id": "raya", "note": "함정 오의는 고룡에게 통하지 않음(움찔은 유효)", "penalty": -6 },
+      { "radiant": true, "role": "disruptor", "bonus": 6, "note": "융광 광폭화 대처에 교란 오의 유효" }
+    ]
+  },
+  "fated": {
+    "fillsMissingElement": true,
+    "preferredWeaponAsResonance": "great-sword",
+    "preferredType": "disruptor|support",
+    "desc": "보유 모험가로 공명 속성이 부족하면 주인공이 그 속성 무기를 들고 빈 자리를 채운다"
+  },
+  "buddyPick": "메인 조작 모험가의 모티프 동반자(buddies.pair) → 없으면 같은 타입 최고 티어 → 돌격형 대안 사니앙",
+  "output": { "topN": 3, "showReasons": true },
+  "confidence": "estimate"
+}

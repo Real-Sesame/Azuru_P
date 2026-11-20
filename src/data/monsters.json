@@ -1,0 +1,1141 @@
+{
+ "_note": "weakness는 별점(3=최대). weaknessComplete=false인 몬스터는 3★ 약점만 확인된 상태(나머지는 Step 3 전 보강). 융광종은 포획 불가, 전용 소재·장비를 드롭.",
+ "radiantRules": {
+  "name": "융광종",
+  "summary": "루가 에알다의 융광 에너지로 변이한 개체. 일반 개체와 약점이 다른 경우가 있다.",
+  "rules": [
+   "융광 광폭화 상태가 되면 색이 바뀌고 포효하며 일부 패턴이 바뀐다.",
+   "광폭화 중 색이 바뀐 융광 부위를 파괴하면 광폭화가 풀리고 다운된다. 부위는 시간이 지나면 재생되어 다시 파괴 가능.",
+   "포획할 수 없다(필드 사냥 포함). 포획 도구를 쓰지 말 것.",
+   "전용 소재만 드롭하며, 융광종 장비는 일반 장비와 스킬·능력치가 다르다.",
+   "환경생물, 교란 오의(주인공 교란형·페페·케레스·라야·브릭스), 루타코 동반자로 행동을 끊을 수 있다.",
+   "S0 한정 지배자 무기의 특수 효과(극)는 융광종 대상 대미지를 올린다. 약점 속성에 맞춰 제작."
+  ],
+  "confidence": "community",
+  "sources": [
+   "gw-ko"
+  ]
+ },
+ "list": [
+  {
+   "id": "great-jagras",
+   "name": "도스쟈그라스",
+   "nameEn": "Great Jagras",
+   "size": "large",
+   "class": "standard",
+   "radiant": false,
+   "baseId": null,
+   "weakness": {
+    "fire": 3
+   },
+   "ailmentWeakness": {
+    "poison": 3,
+    "sleep": 3,
+    "paralysis": 3,
+    "blast": 3,
+    "stun": 3
+   },
+   "weaknessComplete": false,
+   "img": "img/monsters/great-jagras.png",
+   "confidence": "community",
+   "sources": [
+    "gw-ko"
+   ]
+  },
+  {
+   "id": "tobi-kadachi",
+   "name": "토비카가치",
+   "nameEn": "Tobi Kadachi",
+   "size": "large",
+   "class": "standard",
+   "radiant": false,
+   "baseId": null,
+   "weakness": {},
+   "ailmentWeakness": {
+    "poison": 3
+   },
+   "weaknessComplete": false,
+   "img": "img/monsters/tobi-kadachi.png",
+   "confidence": "community",
+   "sources": [
+    "gw-ko"
+   ]
+  },
+  {
+   "id": "great-girros",
+   "name": "도스기르오스",
+   "nameEn": "Great Girros",
+   "size": "large",
+   "class": "standard",
+   "radiant": false,
+   "baseId": null,
+   "weakness": {
+    "water": 3
+   },
+   "ailmentWeakness": {
+    "sleep": 3
+   },
+   "weaknessComplete": false,
+   "img": "img/monsters/great-girros.png",
+   "confidence": "community",
+   "sources": [
+    "gw-ko"
+   ]
+  },
+  {
+   "id": "odogaron",
+   "name": "오도가론",
+   "nameEn": "Odogaron",
+   "size": "large",
+   "class": "standard",
+   "radiant": false,
+   "baseId": null,
+   "weakness": {
+    "ice": 3
+   },
+   "ailmentWeakness": {
+    "paralysis": 3
+   },
+   "weaknessComplete": false,
+   "img": "img/monsters/odogaron.png",
+   "confidence": "community",
+   "sources": [
+    "gw-ko"
+   ]
+  },
+  {
+   "id": "kulu-ya-ku",
+   "name": "쿠루루야크",
+   "nameEn": "Kulu Ya Ku",
+   "size": "large",
+   "class": "standard",
+   "radiant": false,
+   "baseId": null,
+   "weakness": {
+    "water": 3
+   },
+   "ailmentWeakness": {},
+   "weaknessComplete": false,
+   "img": "img/monsters/kulu-ya-ku.png",
+   "confidence": "community",
+   "sources": [
+    "gw-ko"
+   ]
+  },
+  {
+   "id": "pukei-pukei",
+   "name": "푸케푸케",
+   "nameEn": "Pukei Pukei",
+   "size": "large",
+   "class": "standard",
+   "radiant": false,
+   "baseId": null,
+   "weakness": {
+    "thunder": 3
+   },
+   "ailmentWeakness": {
+    "sleep": 3,
+    "paralysis": 3
+   },
+   "weaknessComplete": false,
+   "img": "img/monsters/pukei-pukei.png",
+   "confidence": "community",
+   "sources": [
+    "gw-ko"
+   ]
+  },
+  {
+   "id": "tzitzi-ya-ku",
+   "name": "치치야크",
+   "nameEn": "Tzitzi Ya Ku",
+   "size": "large",
+   "class": "standard",
+   "radiant": false,
+   "baseId": null,
+   "weakness": {
+    "thunder": 3,
+    "ice": 3
+   },
+   "ailmentWeakness": {},
+   "weaknessComplete": false,
+   "img": "img/monsters/tzitzi-ya-ku.png",
+   "confidence": "community",
+   "sources": [
+    "gw-ko"
+   ]
+  },
+  {
+   "id": "barroth",
+   "name": "볼보로스",
+   "nameEn": "Barroth",
+   "size": "large",
+   "class": "standard",
+   "radiant": false,
+   "baseId": null,
+   "weakness": {
+    "fire": 3,
+    "water": 3
+   },
+   "ailmentWeakness": {
+    "poison": 3,
+    "paralysis": 3,
+    "blast": 3
+   },
+   "weaknessComplete": false,
+   "img": "img/monsters/barroth.png",
+   "confidence": "community",
+   "sources": [
+    "gw-ko"
+   ]
+  },
+  {
+   "id": "anjanath",
+   "name": "안쟈나프",
+   "nameEn": "Anjanath",
+   "size": "large",
+   "class": "standard",
+   "radiant": false,
+   "baseId": null,
+   "weakness": {
+    "water": 3
+   },
+   "ailmentWeakness": {},
+   "weaknessComplete": false,
+   "img": "img/monsters/anjanath.png",
+   "confidence": "community",
+   "sources": [
+    "gw-ko"
+   ]
+  },
+  {
+   "id": "radobaan",
+   "name": "라도발킨",
+   "nameEn": "Radobaan",
+   "size": "large",
+   "class": "standard",
+   "radiant": false,
+   "baseId": null,
+   "weakness": {
+    "dragon": 3
+   },
+   "ailmentWeakness": {
+    "blast": 3
+   },
+   "weaknessComplete": false,
+   "img": "img/monsters/radobaan.png",
+   "confidence": "community",
+   "sources": [
+    "gw-ko"
+   ]
+  },
+  {
+   "id": "rathian",
+   "name": "리오레이아",
+   "nameEn": "Rathian",
+   "size": "large",
+   "class": "standard",
+   "radiant": false,
+   "baseId": null,
+   "weakness": {
+    "dragon": 3
+   },
+   "ailmentWeakness": {
+    "stun": 3
+   },
+   "weaknessComplete": false,
+   "img": "img/monsters/rathian.png",
+   "confidence": "community",
+   "sources": [
+    "gw-ko"
+   ]
+  },
+  {
+   "id": "pink-rathian",
+   "name": "리오레이아 아종",
+   "nameEn": "Pink Rathian",
+   "size": "large",
+   "class": "standard",
+   "radiant": false,
+   "baseId": null,
+   "weakness": {
+    "dragon": 3
+   },
+   "ailmentWeakness": {
+    "stun": 3
+   },
+   "weaknessComplete": false,
+   "img": "img/monsters/pink-rathian.png",
+   "confidence": "community",
+   "sources": [
+    "gw-ko"
+   ]
+  },
+  {
+   "id": "rathalos",
+   "name": "리오레우스",
+   "nameEn": "Rathalos",
+   "size": "large",
+   "class": "standard",
+   "radiant": false,
+   "baseId": null,
+   "weakness": {
+    "dragon": 3
+   },
+   "ailmentWeakness": {},
+   "weaknessComplete": false,
+   "img": "img/monsters/rathalos.png",
+   "confidence": "community",
+   "sources": [
+    "gw-ko"
+   ]
+  },
+  {
+   "id": "diablos",
+   "name": "디아블로스",
+   "nameEn": "Diablos",
+   "size": "large",
+   "class": "standard",
+   "radiant": false,
+   "baseId": null,
+   "weakness": {
+    "ice": 3
+   },
+   "ailmentWeakness": {
+    "paralysis": 3
+   },
+   "weaknessComplete": false,
+   "img": "img/monsters/diablos.png",
+   "confidence": "community",
+   "sources": [
+    "gw-ko"
+   ]
+  },
+  {
+   "id": "black-diablos",
+   "name": "디아블로스 아종",
+   "nameEn": "Black Diablos",
+   "size": "large",
+   "class": "standard",
+   "radiant": false,
+   "baseId": null,
+   "weakness": {
+    "ice": 3
+   },
+   "ailmentWeakness": {
+    "paralysis": 3
+   },
+   "weaknessComplete": false,
+   "img": "img/monsters/black-diablos.png",
+   "confidence": "community",
+   "sources": [
+    "gw-ko"
+   ]
+  },
+  {
+   "id": "paolumu",
+   "name": "파오우르무",
+   "nameEn": "Paolumu",
+   "size": "large",
+   "class": "standard",
+   "radiant": false,
+   "baseId": null,
+   "weakness": {
+    "fire": 3
+   },
+   "ailmentWeakness": {
+    "blast": 3,
+    "stun": 3
+   },
+   "weaknessComplete": false,
+   "img": "img/monsters/paolumu.png",
+   "confidence": "community",
+   "sources": [
+    "gw-ko"
+   ]
+  },
+  {
+   "id": "legiana",
+   "name": "레이기에나",
+   "nameEn": "Legiana",
+   "size": "large",
+   "class": "standard",
+   "radiant": false,
+   "baseId": null,
+   "weakness": {
+    "thunder": 3
+   },
+   "ailmentWeakness": {
+    "poison": 3
+   },
+   "weaknessComplete": false,
+   "img": "img/monsters/legiana.png",
+   "confidence": "community",
+   "sources": [
+    "gw-ko"
+   ]
+  },
+  {
+   "id": "jyuratodus",
+   "name": "쥬라토도스",
+   "nameEn": "Jyuratodus",
+   "size": "large",
+   "class": "standard",
+   "radiant": false,
+   "baseId": null,
+   "weakness": {
+    "water": 3,
+    "thunder": 3
+   },
+   "ailmentWeakness": {
+    "stun": 3
+   },
+   "weaknessComplete": false,
+   "img": "img/monsters/jyuratodus.png",
+   "confidence": "community",
+   "sources": [
+    "gw-ko"
+   ]
+  },
+  {
+   "id": "kushala-daora",
+   "name": "크샬다오라",
+   "nameEn": "Kushala Daora",
+   "size": "large",
+   "class": "elder",
+   "radiant": false,
+   "baseId": null,
+   "weakness": {
+    "thunder": 3
+   },
+   "ailmentWeakness": {
+    "poison": 3,
+    "blast": 3
+   },
+   "weaknessComplete": false,
+   "img": "img/monsters/kushala-daora.png",
+   "confidence": "community",
+   "sources": [
+    "gw-ko"
+   ]
+  },
+  {
+   "id": "nergigante",
+   "name": "네르기간테",
+   "nameEn": "Nergigante",
+   "size": "large",
+   "class": "elder",
+   "radiant": false,
+   "baseId": null,
+   "weakness": {
+    "thunder": 3
+   },
+   "ailmentWeakness": {
+    "blast": 3
+   },
+   "weaknessComplete": false,
+   "img": "img/monsters/nergigante.png",
+   "confidence": "community",
+   "sources": [
+    "gw-ko"
+   ]
+  },
+  {
+   "id": "ruger-aidal",
+   "name": "루가 에알다",
+   "nameEn": "Ruger Aidal",
+   "size": "large",
+   "class": "elder",
+   "radiant": false,
+   "baseId": null,
+   "weakness": {
+    "fire": 3,
+    "water": 1,
+    "thunder": 1,
+    "ice": 3,
+    "dragon": 2
+   },
+   "ailmentWeakness": {
+    "blast": 3
+   },
+   "weaknessComplete": true,
+   "img": "img/monsters/ruger-aidal.png",
+   "confidence": "community",
+   "sources": [
+    "gw-ko",
+    "gw-en"
+   ],
+   "nameJa": "ルガ・エアルダ",
+   "flagship": true,
+   "inflicts": [
+    "화상(불속성 상태이상)",
+    "기절"
+   ],
+   "breakable": [
+    "머리",
+    "앞다리",
+    "뒷다리",
+    "날개",
+    "꼬리",
+    "몸통"
+   ],
+   "unlock": "스토리 6장 6-14 (직전 6-13은 모험 랭크 40 필요). S0 이후 지배자 챌린지에서 반복 사냥 가능, 지배자 무기 소재 획득.",
+   "hitzones": "꼬리는 절단이 가장 잘 통하고, 머리는 절단이 가장 안 통한다.",
+   "tips": [
+    "날개의 창 공격은 가드 불가(랜스 포함). 몸통 쪽으로 피하거나 공격 버튼이 빛날 때 창을 부순다.",
+    "태양 대기술은 바로 아래나 멀리 바깥으로 회피. 가드하면 불속성 상태이상에 걸린다.",
+    "마무리 충돌 공격은 광선이 잦아든 뒤 납도하고 뒤로 달리다가 충돌 타이밍에 긴급 회피. 두 번째 낙석 지점 밑동이 안전지대.",
+    "거리를 벌리면 돌진·창 대응이 어려우니 근접전 권장.",
+    "낙석 지점으로 유도해 다운 가능(대기술 중엔 불가). 비행 중 섬광 날개벌레로 확실히 다운.",
+    "상태 이상 해제는 토리나 류노스케 오의로."
+   ],
+   "teamIds": [
+    "ruger-fire",
+    "ruger-fire-ice"
+   ]
+  },
+  {
+   "id": "radiant-great-jagras",
+   "name": "융광종 도스쟈그라스",
+   "nameEn": "Radiant Great Jagras",
+   "size": "large",
+   "class": "standard",
+   "radiant": true,
+   "baseId": "great-jagras",
+   "weakness": {
+    "fire": 3
+   },
+   "ailmentWeakness": {
+    "poison": 3,
+    "sleep": 3,
+    "paralysis": 3,
+    "blast": 3,
+    "stun": 3
+   },
+   "weaknessComplete": false,
+   "img": "img/monsters/radiant-great-jagras.png",
+   "confidence": "community",
+   "sources": [
+    "gw-ko"
+   ]
+  },
+  {
+   "id": "radiant-kulu-ya-ku",
+   "name": "융광종 쿠루루야크",
+   "nameEn": "Radiant Kulu Ya Ku",
+   "size": "large",
+   "class": "standard",
+   "radiant": true,
+   "baseId": "kulu-ya-ku",
+   "weakness": {
+    "water": 3
+   },
+   "ailmentWeakness": {},
+   "weaknessComplete": false,
+   "img": "img/monsters/radiant-kulu-ya-ku.png",
+   "confidence": "community",
+   "sources": [
+    "gw-ko"
+   ]
+  },
+  {
+   "id": "radiant-pukei-pukei",
+   "name": "융광종 푸케푸케",
+   "nameEn": "Radiant Pukei Pukei",
+   "size": "large",
+   "class": "standard",
+   "radiant": true,
+   "baseId": "pukei-pukei",
+   "weakness": {
+    "thunder": 3
+   },
+   "ailmentWeakness": {
+    "sleep": 3,
+    "paralysis": 3
+   },
+   "weaknessComplete": false,
+   "img": "img/monsters/radiant-pukei-pukei.png",
+   "confidence": "community",
+   "sources": [
+    "gw-ko"
+   ]
+  },
+  {
+   "id": "radiant-jyuratodus",
+   "name": "융광종 쥬라토도스",
+   "nameEn": "Radiant Jyuratodus",
+   "size": "large",
+   "class": "standard",
+   "radiant": true,
+   "baseId": "jyuratodus",
+   "weakness": {
+    "ice": 3
+   },
+   "ailmentWeakness": {
+    "stun": 3
+   },
+   "weaknessComplete": false,
+   "img": "img/monsters/radiant-jyuratodus.png",
+   "confidence": "community",
+   "sources": [
+    "gw-ko"
+   ]
+  },
+  {
+   "id": "radiant-barroth",
+   "name": "융광종 볼보로스",
+   "nameEn": "Radiant Barroth",
+   "size": "large",
+   "class": "standard",
+   "radiant": true,
+   "baseId": "barroth",
+   "weakness": {
+    "fire": 3
+   },
+   "ailmentWeakness": {
+    "poison": 3,
+    "paralysis": 3,
+    "blast": 3
+   },
+   "weaknessComplete": false,
+   "img": "img/monsters/radiant-barroth.png",
+   "confidence": "community",
+   "sources": [
+    "gw-ko"
+   ]
+  },
+  {
+   "id": "radiant-anjanath",
+   "name": "융광종 안쟈나프",
+   "nameEn": "Radiant Anjanath",
+   "size": "large",
+   "class": "standard",
+   "radiant": true,
+   "baseId": "anjanath",
+   "weakness": {
+    "water": 3
+   },
+   "ailmentWeakness": {},
+   "weaknessComplete": false,
+   "img": "img/monsters/radiant-anjanath.png",
+   "confidence": "community",
+   "sources": [
+    "gw-ko"
+   ]
+  },
+  {
+   "id": "radiant-rathian",
+   "name": "융광종 리오레이아",
+   "nameEn": "Radiant Rathian",
+   "size": "large",
+   "class": "standard",
+   "radiant": true,
+   "baseId": "rathian",
+   "weakness": {
+    "thunder": 3
+   },
+   "ailmentWeakness": {
+    "stun": 3
+   },
+   "weaknessComplete": false,
+   "img": "img/monsters/radiant-rathian.png",
+   "confidence": "community",
+   "sources": [
+    "gw-ko"
+   ]
+  },
+  {
+   "id": "radiant-diablos",
+   "name": "융광종 디아블로스",
+   "nameEn": "Radiant Diablos",
+   "size": "large",
+   "class": "standard",
+   "radiant": true,
+   "baseId": "diablos",
+   "weakness": {
+    "ice": 3
+   },
+   "ailmentWeakness": {
+    "paralysis": 3
+   },
+   "weaknessComplete": false,
+   "img": "img/monsters/radiant-diablos.png",
+   "confidence": "community",
+   "sources": [
+    "gw-ko"
+   ]
+  },
+  {
+   "id": "radiant-legiana",
+   "name": "융광종 레이기에나",
+   "nameEn": "Radiant Legiana",
+   "size": "large",
+   "class": "standard",
+   "radiant": true,
+   "baseId": "legiana",
+   "weakness": {
+    "fire": 3
+   },
+   "ailmentWeakness": {
+    "poison": 3
+   },
+   "weaknessComplete": false,
+   "img": "img/monsters/radiant-legiana.png",
+   "confidence": "community",
+   "sources": [
+    "gw-ko"
+   ]
+  },
+  {
+   "id": "radiant-paolumu",
+   "name": "융광종 파오우르무",
+   "nameEn": "Radiant Paolumu",
+   "size": "large",
+   "class": "standard",
+   "radiant": true,
+   "baseId": "paolumu",
+   "weakness": {
+    "fire": 3
+   },
+   "ailmentWeakness": {
+    "blast": 3,
+    "stun": 3
+   },
+   "weaknessComplete": false,
+   "img": "img/monsters/radiant-paolumu.png",
+   "confidence": "community",
+   "sources": [
+    "gw-ko"
+   ]
+  },
+  {
+   "id": "radiant-rathalos",
+   "name": "융광종 리오레우스",
+   "nameEn": "Radiant Rathalos",
+   "size": "large",
+   "class": "standard",
+   "radiant": true,
+   "baseId": "rathalos",
+   "weakness": {
+    "thunder": 3
+   },
+   "ailmentWeakness": {},
+   "weaknessComplete": false,
+   "img": "img/monsters/radiant-rathalos.png",
+   "confidence": "community",
+   "sources": [
+    "gw-ko"
+   ]
+  },
+  {
+   "id": "radiant-pink-rathian",
+   "name": "융광종 리오레이아 아종",
+   "nameEn": "Radiant Pink Rathian",
+   "size": "large",
+   "class": "standard",
+   "radiant": true,
+   "baseId": "pink-rathian",
+   "weakness": {
+    "dragon": 3
+   },
+   "ailmentWeakness": {
+    "stun": 3
+   },
+   "weaknessComplete": false,
+   "img": "img/monsters/radiant-pink-rathian.png",
+   "confidence": "community",
+   "sources": [
+    "gw-ko"
+   ]
+  },
+  {
+   "id": "radiant-black-diablos",
+   "name": "융광종 디아블로스 아종",
+   "nameEn": "Radiant Black Diablos",
+   "size": "large",
+   "class": "standard",
+   "radiant": true,
+   "baseId": "black-diablos",
+   "weakness": {
+    "ice": 3
+   },
+   "ailmentWeakness": {
+    "paralysis": 3
+   },
+   "weaknessComplete": false,
+   "img": "img/monsters/radiant-black-diablos.png",
+   "confidence": "community",
+   "sources": [
+    "gw-ko"
+   ]
+  },
+  {
+   "id": "radiant-radobaan",
+   "name": "융광종 라도발킨",
+   "nameEn": "Radiant Radobaan",
+   "size": "large",
+   "class": "standard",
+   "radiant": true,
+   "baseId": "radobaan",
+   "weakness": {
+    "dragon": 3
+   },
+   "ailmentWeakness": {
+    "blast": 3
+   },
+   "weaknessComplete": false,
+   "img": "img/monsters/radiant-radobaan.png",
+   "confidence": "community",
+   "sources": [
+    "gw-ko"
+   ]
+  },
+  {
+   "id": "radiant-great-girros",
+   "name": "융광종 도스기르오스",
+   "nameEn": "Radiant Great Girros",
+   "size": "large",
+   "class": "standard",
+   "radiant": true,
+   "baseId": "great-girros",
+   "weakness": {
+    "dragon": 3
+   },
+   "ailmentWeakness": {
+    "sleep": 3
+   },
+   "weaknessComplete": false,
+   "img": "img/monsters/radiant-great-girros.png",
+   "confidence": "community",
+   "sources": [
+    "gw-ko"
+   ]
+  },
+  {
+   "id": "radiant-tobi-kadachi",
+   "name": "융광종 토비카가치",
+   "nameEn": "Radiant Tobi Kadachi",
+   "size": "large",
+   "class": "standard",
+   "radiant": true,
+   "baseId": "tobi-kadachi",
+   "weakness": {
+    "water": 3
+   },
+   "ailmentWeakness": {
+    "poison": 3
+   },
+   "weaknessComplete": false,
+   "img": "img/monsters/radiant-tobi-kadachi.png",
+   "confidence": "community",
+   "sources": [
+    "gw-ko"
+   ]
+  },
+  {
+   "id": "radiant-tzitzi-ya-ku",
+   "name": "융광종 치치야크",
+   "nameEn": "Radiant Tzitzi Ya Ku",
+   "size": "large",
+   "class": "standard",
+   "radiant": true,
+   "baseId": "tzitzi-ya-ku",
+   "weakness": {
+    "dragon": 3
+   },
+   "ailmentWeakness": {},
+   "weaknessComplete": false,
+   "img": "img/monsters/radiant-tzitzi-ya-ku.png",
+   "confidence": "community",
+   "sources": [
+    "gw-ko"
+   ]
+  },
+  {
+   "id": "radiant-odogaron",
+   "name": "융광종 오도가론",
+   "nameEn": "Radiant Odogaron",
+   "size": "large",
+   "class": "standard",
+   "radiant": true,
+   "baseId": "odogaron",
+   "weakness": {
+    "ice": 3
+   },
+   "ailmentWeakness": {
+    "paralysis": 3
+   },
+   "weaknessComplete": false,
+   "img": "img/monsters/radiant-odogaron.png",
+   "confidence": "community",
+   "sources": [
+    "gw-ko"
+   ]
+  },
+  {
+   "id": "jagras",
+   "name": "쟈그라스",
+   "nameEn": "Jagras",
+   "size": "small",
+   "class": "standard",
+   "radiant": false,
+   "baseId": null,
+   "img": "img/monsters/jagras.png",
+   "confidence": "community",
+   "sources": [
+    "gw-ko"
+   ]
+  },
+  {
+   "id": "kestodon",
+   "name": "케스토돈",
+   "nameEn": "Kestodon",
+   "size": "small",
+   "class": "standard",
+   "radiant": false,
+   "baseId": null,
+   "img": "img/monsters/kestodon.png",
+   "confidence": "community",
+   "sources": [
+    "gw-ko"
+   ]
+  },
+  {
+   "id": "vespoid",
+   "name": "랑고스타",
+   "nameEn": "Vespoid",
+   "size": "small",
+   "class": "standard",
+   "radiant": false,
+   "baseId": null,
+   "img": "img/monsters/vespoid.png",
+   "confidence": "community",
+   "sources": [
+    "gw-ko"
+   ]
+  },
+  {
+   "id": "aptonoth",
+   "name": "아프토노스",
+   "nameEn": "Aptonoth",
+   "size": "small",
+   "class": "standard",
+   "radiant": false,
+   "baseId": null,
+   "img": "img/monsters/aptonoth.png",
+   "confidence": "community",
+   "sources": [
+    "gw-ko"
+   ]
+  },
+  {
+   "id": "gajau",
+   "name": "가쟈우",
+   "nameEn": "Gajau",
+   "size": "small",
+   "class": "standard",
+   "radiant": false,
+   "baseId": null,
+   "img": "img/monsters/gajau.png",
+   "confidence": "community",
+   "sources": [
+    "gw-ko"
+   ]
+  },
+  {
+   "id": "mernos",
+   "name": "메르노스",
+   "nameEn": "Mernos",
+   "size": "small",
+   "class": "standard",
+   "radiant": false,
+   "baseId": null,
+   "img": "img/monsters/mernos.png",
+   "confidence": "community",
+   "sources": [
+    "gw-ko"
+   ]
+  },
+  {
+   "id": "warrior-atecoli",
+   "name": "파자푸 전사",
+   "nameEn": "Warrior Atecoli",
+   "size": "small",
+   "class": "standard",
+   "radiant": false,
+   "baseId": null,
+   "img": "img/monsters/warrior-atecoli.png",
+   "confidence": "community",
+   "sources": [
+    "gw-ko"
+   ]
+  },
+  {
+   "id": "girros",
+   "name": "기르오스",
+   "nameEn": "Girros",
+   "size": "small",
+   "class": "standard",
+   "radiant": false,
+   "baseId": null,
+   "img": "img/monsters/girros.png",
+   "confidence": "community",
+   "sources": [
+    "gw-ko"
+   ]
+  },
+  {
+   "id": "apceros",
+   "name": "아프케로스",
+   "nameEn": "Apceros",
+   "size": "small",
+   "class": "standard",
+   "radiant": false,
+   "baseId": null,
+   "img": "img/monsters/apceros.png",
+   "confidence": "community",
+   "sources": [
+    "gw-ko"
+   ]
+  },
+  {
+   "id": "hornetaur",
+   "name": "칸타로스",
+   "nameEn": "Hornetaur",
+   "size": "small",
+   "class": "standard",
+   "radiant": false,
+   "baseId": null,
+   "img": "img/monsters/hornetaur.png",
+   "confidence": "community",
+   "sources": [
+    "gw-ko"
+   ]
+  },
+  {
+   "id": "kelbi",
+   "name": "켈비",
+   "nameEn": "Kelbi",
+   "size": "small",
+   "class": "standard",
+   "radiant": false,
+   "baseId": null,
+   "img": "img/monsters/kelbi.png",
+   "confidence": "community",
+   "sources": [
+    "gw-ko"
+   ]
+  },
+  {
+   "id": "noios",
+   "name": "노이오스",
+   "nameEn": "Noios",
+   "size": "small",
+   "class": "standard",
+   "radiant": false,
+   "baseId": null,
+   "img": "img/monsters/noios.png",
+   "confidence": "community",
+   "sources": [
+    "gw-ko"
+   ]
+  },
+  {
+   "id": "radiant-jagras",
+   "name": "융광종 쟈그라스",
+   "nameEn": "Radiant Jagras",
+   "size": "small",
+   "class": "standard",
+   "radiant": true,
+   "baseId": "jagras",
+   "img": "img/monsters/radiant-jagras.png",
+   "confidence": "community",
+   "sources": [
+    "gw-ko"
+   ]
+  },
+  {
+   "id": "radiant-mernos",
+   "name": "융광종 메르노스",
+   "nameEn": "Radiant Mernos",
+   "size": "small",
+   "class": "standard",
+   "radiant": true,
+   "baseId": "mernos",
+   "img": "img/monsters/radiant-mernos.png",
+   "confidence": "community",
+   "sources": [
+    "gw-ko"
+   ]
+  },
+  {
+   "id": "radiant-kestodon",
+   "name": "융광종 케스토돈",
+   "nameEn": "Radiant Kestodon",
+   "size": "small",
+   "class": "standard",
+   "radiant": true,
+   "baseId": "kestodon",
+   "img": "img/monsters/radiant-kestodon.png",
+   "confidence": "community",
+   "sources": [
+    "gw-ko"
+   ]
+  },
+  {
+   "id": "radiant-gajau",
+   "name": "융광종 가쟈우",
+   "nameEn": "Radiant Gajau",
+   "size": "small",
+   "class": "standard",
+   "radiant": true,
+   "baseId": "gajau",
+   "img": "img/monsters/radiant-gajau.png",
+   "confidence": "community",
+   "sources": [
+    "gw-ko"
+   ]
+  },
+  {
+   "id": "radiant-vespoid",
+   "name": "융광종 랑고스타",
+   "nameEn": "Radiant Vespoid",
+   "size": "small",
+   "class": "standard",
+   "radiant": true,
+   "baseId": "vespoid",
+   "img": "img/monsters/radiant-vespoid.png",
+   "confidence": "community",
+   "sources": [
+    "gw-ko"
+   ]
+  },
+  {
+   "id": "radiant-hornetaur",
+   "name": "융광종 칸타로스",
+   "nameEn": "Radiant Hornetaur",
+   "size": "small",
+   "class": "standard",
+   "radiant": true,
+   "baseId": "hornetaur",
+   "img": "img/monsters/radiant-hornetaur.png",
+   "confidence": "community",
+   "sources": [
+    "gw-ko"
+   ]
+  },
+  {
+   "id": "radiant-girros",
+   "name": "융광종 기르오스",
+   "nameEn": "Radiant Girros",
+   "size": "small",
+   "class": "standard",
+   "radiant": true,
+   "baseId": "girros",
+   "img": "img/monsters/radiant-girros.png",
+   "confidence": "community",
+   "sources": [
+    "gw-ko"
+   ]
+  }
+ ]
+}

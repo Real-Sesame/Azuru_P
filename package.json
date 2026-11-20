@@ -1,0 +1,15 @@
+{
+  "name": "mh-ol",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "check": "python3 tools/validate.py src/data"
+  },
+  "devDependencies": {
+    "vite": "5.4.11"
+  }
+}
