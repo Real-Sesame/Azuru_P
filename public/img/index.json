@@ -1,1 +1,32 @@
-{"adventurers":[],"monsters":[],"buddyTypes":[]}
+{
+ "adventurers": [
+  "raya",
+  "madelyn",
+  "midori",
+  "pepper",
+  "ouyang-varen",
+  "pyro",
+  "keres",
+  "luka",
+  "arkaya",
+  "rhodes",
+  "ryunosuke",
+  "haze",
+  "luxheart"
+ ],
+ "monsters": [
+  "radiant-rathalos",
+  "rathalos",
+  "radiant-rathian",
+  "radiant-diablos",
+  "radiant-anjanath",
+  "radiant-kulu-ya-ku",
+  "pink-rathian"
+ ],
+ "buddyTypes": [
+  "disruptor",
+  "support",
+  "assault"
+ ],
+ "unmapped": []
+}
