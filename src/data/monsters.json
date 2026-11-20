@@ -1,5 +1,5 @@
 {
- "_note": "weakness는 별점(3=최대). weaknessComplete=false인 몬스터는 3★ 약점만 확인된 상태(나머지는 Step 3 전 보강). 융광종은 포획 불가, 전용 소재·장비를 드롭.",
+ "_note": "weakness·ailmentWeakness는 별점(1~3, 3=가장 잘 통함). weaknessStates는 상태(진흙 등)에 따라 달라지는 값. hitzones는 부위별 절단·타격·탄 별점. 대형 몬스터 데이터는 GameWith 한국어 몬스터 페이지(2026-11-20 수집) 기준. 융광종은 포획 불가, 전용 소재·장비를 드롭.",
  "radiantRules": {
   "name": "융광종",
   "summary": "루가 에알다의 융광 에너지로 변이한 개체. 일반 개체와 약점이 다른 경우가 있다.",
@@ -26,7 +26,11 @@
    "radiant": false,
    "baseId": null,
    "weakness": {
-    "fire": 3
+    "fire": 3,
+    "water": 1,
+    "thunder": 2,
+    "ice": 2,
+    "dragon": 1
    },
    "ailmentWeakness": {
     "poison": 3,
@@ -35,12 +39,40 @@
     "blast": 3,
     "stun": 3
    },
-   "weaknessComplete": false,
+   "weaknessComplete": true,
    "img": "img/monsters/great-jagras.png",
    "confidence": "community",
    "sources": [
     "gw-ko"
-   ]
+   ],
+   "species": "아룡종",
+   "hitzones": {
+    "헤드": {
+     "cut": 3,
+     "blunt": 3,
+     "shot": 3
+    },
+    "앞다리": {
+     "cut": 2,
+     "blunt": 2,
+     "shot": 2
+    },
+    "배": {
+     "cut": 3,
+     "blunt": 3,
+     "shot": 3
+    }
+   },
+   "breakable": [
+    "헤드",
+    "앞다리",
+    "몸통"
+   ],
+   "items": {
+    "flash": "유효",
+    "pitfall": "유효",
+    "sonic": "무효"
+   }
   },
   {
    "id": "tobi-kadachi",
@@ -50,16 +82,53 @@
    "class": "standard",
    "radiant": false,
    "baseId": null,
-   "weakness": {},
-   "ailmentWeakness": {
-    "poison": 3
+   "weakness": {
+    "fire": 2,
+    "water": 2,
+    "thunder": 1,
+    "ice": 2,
+    "dragon": 1
    },
-   "weaknessComplete": false,
+   "ailmentWeakness": {
+    "poison": 3,
+    "sleep": 2,
+    "paralysis": 2,
+    "blast": 2,
+    "stun": 2
+   },
+   "weaknessComplete": true,
    "img": "img/monsters/tobi-kadachi.png",
    "confidence": "community",
    "sources": [
     "gw-ko"
-   ]
+   ],
+   "species": "아룡종",
+   "hitzones": {
+    "헤드": {
+     "cut": 2,
+     "blunt": 2,
+     "shot": 2
+    },
+    "꼬리": {
+     "cut": 3,
+     "blunt": 3,
+     "shot": 3
+    }
+   },
+   "breakable": [
+    "헤드",
+    "앞다리",
+    "몸통",
+    "꼬리"
+   ],
+   "inflicts": [
+    "번개속성 피해"
+   ],
+   "items": {
+    "flash": "유효",
+    "pitfall": "유효",
+    "sonic": "무효"
+   }
   },
   {
    "id": "great-girros",
@@ -70,17 +139,56 @@
    "radiant": false,
    "baseId": null,
    "weakness": {
-    "water": 3
+    "fire": 2,
+    "water": 3,
+    "thunder": 1,
+    "ice": 2,
+    "dragon": 1
    },
    "ailmentWeakness": {
-    "sleep": 3
+    "poison": 2,
+    "sleep": 3,
+    "paralysis": 1,
+    "blast": 2,
+    "stun": 2
    },
-   "weaknessComplete": false,
+   "weaknessComplete": true,
    "img": "img/monsters/great-girros.png",
    "confidence": "community",
    "sources": [
     "gw-ko"
-   ]
+   ],
+   "species": "아룡종",
+   "hitzones": {
+    "헤드": {
+     "cut": 3,
+     "blunt": 3,
+     "shot": 3
+    },
+    "앞다리": {
+     "cut": 2,
+     "blunt": 2,
+     "shot": 2
+    },
+    "꼬리": {
+     "cut": 2,
+     "blunt": 2,
+     "shot": 1
+    }
+   },
+   "breakable": [
+    "헤드",
+    "앞다리",
+    "꼬리"
+   ],
+   "inflicts": [
+    "마비"
+   ],
+   "items": {
+    "flash": "유효",
+    "pitfall": "유효",
+    "sonic": "유효"
+   }
   },
   {
    "id": "odogaron",
@@ -91,17 +199,57 @@
    "radiant": false,
    "baseId": null,
    "weakness": {
-    "ice": 3
+    "fire": 1,
+    "water": 1,
+    "thunder": 2,
+    "ice": 3,
+    "dragon": 1
    },
    "ailmentWeakness": {
-    "paralysis": 3
+    "poison": 1,
+    "sleep": 2,
+    "paralysis": 3,
+    "blast": 2,
+    "stun": 2
    },
-   "weaknessComplete": false,
+   "weaknessComplete": true,
    "img": "img/monsters/odogaron.png",
    "confidence": "community",
    "sources": [
     "gw-ko"
-   ]
+   ],
+   "species": "아룡종",
+   "hitzones": {
+    "헤드": {
+     "cut": 3,
+     "blunt": 3,
+     "shot": 3
+    },
+    "앞다리": {
+     "cut": 2,
+     "blunt": 2,
+     "shot": 2
+    },
+    "꼬리": {
+     "cut": 2,
+     "blunt": 2,
+     "shot": 2
+    }
+   },
+   "breakable": [
+    "헤드",
+    "앞다리",
+    "뒷다리",
+    "꼬리"
+   ],
+   "inflicts": [
+    "열상"
+   ],
+   "items": {
+    "flash": "유효",
+    "pitfall": "유효",
+    "sonic": "유효"
+   }
   },
   {
    "id": "kulu-ya-ku",
@@ -112,15 +260,45 @@
    "radiant": false,
    "baseId": null,
    "weakness": {
-    "water": 3
+    "fire": 2,
+    "water": 3,
+    "thunder": 2,
+    "ice": 2,
+    "dragon": 2
    },
-   "ailmentWeakness": {},
-   "weaknessComplete": false,
+   "ailmentWeakness": {
+    "poison": 2,
+    "sleep": 2,
+    "paralysis": 2,
+    "blast": 2,
+    "stun": 2
+   },
+   "weaknessComplete": true,
    "img": "img/monsters/kulu-ya-ku.png",
    "confidence": "community",
    "sources": [
     "gw-ko"
-   ]
+   ],
+   "species": "조룡종",
+   "hitzones": {
+    "헤드": {
+     "cut": 3,
+     "blunt": 3,
+     "shot": 3
+    }
+   },
+   "breakable": [
+    "헤드",
+    "앞다리"
+   ],
+   "inflicts": [
+    "불속성 피해"
+   ],
+   "items": {
+    "flash": "유효",
+    "pitfall": "유효",
+    "sonic": "무효"
+   }
   },
   {
    "id": "pukei-pukei",
@@ -131,18 +309,58 @@
    "radiant": false,
    "baseId": null,
    "weakness": {
-    "thunder": 3
+    "fire": 2,
+    "water": 1,
+    "thunder": 3,
+    "ice": 2,
+    "dragon": 1
    },
    "ailmentWeakness": {
+    "poison": 1,
     "sleep": 3,
-    "paralysis": 3
+    "paralysis": 3,
+    "blast": 2,
+    "stun": 2
    },
-   "weaknessComplete": false,
+   "weaknessComplete": true,
    "img": "img/monsters/pukei-pukei.png",
    "confidence": "community",
    "sources": [
     "gw-ko"
-   ]
+   ],
+   "species": "조룡종",
+   "hitzones": {
+    "헤드": {
+     "cut": 3,
+     "blunt": 3,
+     "shot": 3
+    },
+    "날개": {
+     "cut": 2,
+     "blunt": 2,
+     "shot": 2
+    },
+    "꼬리": {
+     "cut": 2,
+     "blunt": 2,
+     "shot": 2
+    }
+   },
+   "breakable": [
+    "헤드",
+    "날개",
+    "몸통",
+    "꼬리"
+   ],
+   "inflicts": [
+    "독",
+    "맹독"
+   ],
+   "items": {
+    "flash": "유효",
+    "pitfall": "유효",
+    "sonic": "무효"
+   }
   },
   {
    "id": "tzitzi-ya-ku",
@@ -153,16 +371,41 @@
    "radiant": false,
    "baseId": null,
    "weakness": {
+    "fire": 2,
+    "water": 2,
     "thunder": 3,
-    "ice": 3
+    "ice": 3,
+    "dragon": 2
    },
-   "ailmentWeakness": {},
-   "weaknessComplete": false,
+   "ailmentWeakness": {
+    "poison": 2,
+    "sleep": 2,
+    "paralysis": 2,
+    "blast": 2,
+    "stun": 2
+   },
+   "weaknessComplete": true,
    "img": "img/monsters/tzitzi-ya-ku.png",
    "confidence": "community",
    "sources": [
     "gw-ko"
-   ]
+   ],
+   "species": "조룡종",
+   "hitzones": {
+    "발광기관": {
+     "cut": 3,
+     "blunt": 3,
+     "shot": 3
+    }
+   },
+   "breakable": [
+    "헤드"
+   ],
+   "items": {
+    "flash": "무효",
+    "pitfall": "유효",
+    "sonic": "무효"
+   }
   },
   {
    "id": "barroth",
@@ -174,19 +417,71 @@
    "baseId": null,
    "weakness": {
     "fire": 3,
-    "water": 3
+    "water": 1,
+    "thunder": 1,
+    "ice": 2,
+    "dragon": 1
    },
    "ailmentWeakness": {
     "poison": 3,
+    "sleep": 2,
     "paralysis": 3,
-    "blast": 3
+    "blast": 3,
+    "stun": 1
    },
-   "weaknessComplete": false,
+   "weaknessComplete": true,
    "img": "img/monsters/barroth.png",
    "confidence": "community",
    "sources": [
     "gw-ko"
-   ]
+   ],
+   "species": "수룡종",
+   "weaknessStates": {
+    "fire": {
+     "일반": 3,
+     "진흙": 1
+    },
+    "water": {
+     "일반": 1,
+     "진흙": 3
+    }
+   },
+   "hitzones": {
+    "앞다리 (일반)": {
+     "cut": 3,
+     "blunt": 3,
+     "shot": 3
+    },
+    "앞다리 (진흙)": {
+     "cut": 1,
+     "blunt": 1,
+     "shot": 1
+    },
+    "꼬리 (일반)": {
+     "cut": 2,
+     "blunt": 2,
+     "shot": 2
+    },
+    "꼬리 (진흙)": {
+     "cut": 1,
+     "blunt": 1,
+     "shot": 1
+    }
+   },
+   "breakable": [
+    "헤드",
+    "앞다리",
+    "뒷다리",
+    "꼬리"
+   ],
+   "inflicts": [
+    "물속성 피해"
+   ],
+   "items": {
+    "flash": "유효",
+    "pitfall": "유효",
+    "sonic": "무효"
+   }
   },
   {
    "id": "anjanath",
@@ -197,15 +492,51 @@
    "radiant": false,
    "baseId": null,
    "weakness": {
-    "water": 3
+    "fire": 1,
+    "water": 3,
+    "thunder": 2,
+    "ice": 2,
+    "dragon": 1
    },
-   "ailmentWeakness": {},
-   "weaknessComplete": false,
+   "ailmentWeakness": {
+    "poison": 2,
+    "sleep": 2,
+    "paralysis": 2,
+    "blast": 1,
+    "stun": 2
+   },
+   "weaknessComplete": true,
    "img": "img/monsters/anjanath.png",
    "confidence": "community",
    "sources": [
     "gw-ko"
-   ]
+   ],
+   "species": "수룡종",
+   "hitzones": {
+    "헤드": {
+     "cut": 3,
+     "blunt": 3,
+     "shot": 3
+    },
+    "꼬리": {
+     "cut": 2,
+     "blunt": 2,
+     "shot": 2
+    }
+   },
+   "breakable": [
+    "헤드",
+    "뒷다리",
+    "꼬리"
+   ],
+   "inflicts": [
+    "불속성 피해"
+   ],
+   "items": {
+    "flash": "유효",
+    "pitfall": "유효",
+    "sonic": "무효"
+   }
   },
   {
    "id": "radobaan",
@@ -216,17 +547,48 @@
    "radiant": false,
    "baseId": null,
    "weakness": {
+    "fire": 2,
+    "water": 2,
+    "thunder": 2,
+    "ice": 2,
     "dragon": 3
    },
    "ailmentWeakness": {
-    "blast": 3
+    "poison": 2,
+    "sleep": 1,
+    "paralysis": 2,
+    "blast": 3,
+    "stun": 2
    },
-   "weaknessComplete": false,
+   "weaknessComplete": true,
    "img": "img/monsters/radobaan.png",
    "confidence": "community",
    "sources": [
     "gw-ko"
-   ]
+   ],
+   "species": "수룡종",
+   "hitzones": {
+    "헤드": {
+     "cut": 3,
+     "blunt": 3,
+     "shot": 3
+    },
+    "뒷다리": {
+     "cut": 2,
+     "blunt": 2,
+     "shot": 2
+    }
+   },
+   "breakable": [
+    "턱",
+    "몸통(측면)",
+    "꼬리"
+   ],
+   "items": {
+    "flash": "유효",
+    "pitfall": "유효",
+    "sonic": "유효"
+   }
   },
   {
    "id": "rathian",
@@ -237,17 +599,63 @@
    "radiant": false,
    "baseId": null,
    "weakness": {
+    "fire": 1,
+    "water": 1,
+    "thunder": 2,
+    "ice": 1,
     "dragon": 3
    },
    "ailmentWeakness": {
+    "poison": 1,
+    "sleep": 2,
+    "paralysis": 2,
+    "blast": 1,
     "stun": 3
    },
-   "weaknessComplete": false,
+   "weaknessComplete": true,
    "img": "img/monsters/rathian.png",
    "confidence": "community",
    "sources": [
     "gw-ko"
-   ]
+   ],
+   "species": "비룡종",
+   "hitzones": {
+    "헤드": {
+     "cut": 3,
+     "blunt": 3,
+     "shot": 3
+    },
+    "왼쪽 날개": {
+     "cut": 2,
+     "blunt": 2,
+     "shot": 2
+    },
+    "오른쪽 날개": {
+     "cut": 2,
+     "blunt": 2,
+     "shot": 2
+    },
+    "꼬리": {
+     "cut": 2,
+     "blunt": 2,
+     "shot": 2
+    }
+   },
+   "breakable": [
+    "헤드",
+    "날개",
+    "몸통",
+    "꼬리"
+   ],
+   "inflicts": [
+    "독",
+    "불속성 피해"
+   ],
+   "items": {
+    "flash": "유효",
+    "pitfall": "유효",
+    "sonic": "무효"
+   }
   },
   {
    "id": "pink-rathian",
@@ -258,17 +666,63 @@
    "radiant": false,
    "baseId": null,
    "weakness": {
+    "fire": 1,
+    "water": 1,
+    "thunder": 2,
+    "ice": 1,
     "dragon": 3
    },
    "ailmentWeakness": {
+    "poison": 1,
+    "sleep": 2,
+    "paralysis": 2,
+    "blast": 1,
     "stun": 3
    },
-   "weaknessComplete": false,
+   "weaknessComplete": true,
    "img": "img/monsters/pink-rathian.png",
    "confidence": "community",
    "sources": [
     "gw-ko"
-   ]
+   ],
+   "species": "비룡종",
+   "hitzones": {
+    "헤드": {
+     "cut": 3,
+     "blunt": 3,
+     "shot": 3
+    },
+    "왼쪽 날개": {
+     "cut": 2,
+     "blunt": 2,
+     "shot": 2
+    },
+    "오른쪽 날개": {
+     "cut": 2,
+     "blunt": 2,
+     "shot": 2
+    },
+    "꼬리": {
+     "cut": 2,
+     "blunt": 2,
+     "shot": 2
+    }
+   },
+   "breakable": [
+    "헤드",
+    "날개",
+    "몸통",
+    "꼬리"
+   ],
+   "inflicts": [
+    "독",
+    "불속성 피해"
+   ],
+   "items": {
+    "flash": "유효",
+    "pitfall": "유효",
+    "sonic": "유효"
+   }
   },
   {
    "id": "rathalos",
@@ -279,15 +733,63 @@
    "radiant": false,
    "baseId": null,
    "weakness": {
+    "fire": 1,
+    "water": 1,
+    "thunder": 2,
+    "ice": 1,
     "dragon": 3
    },
-   "ailmentWeakness": {},
-   "weaknessComplete": false,
+   "ailmentWeakness": {
+    "poison": 1,
+    "sleep": 2,
+    "paralysis": 2,
+    "blast": 1,
+    "stun": 2
+   },
+   "weaknessComplete": true,
    "img": "img/monsters/rathalos.png",
    "confidence": "community",
    "sources": [
     "gw-ko"
-   ]
+   ],
+   "species": "비룡종",
+   "hitzones": {
+    "헤드": {
+     "cut": 3,
+     "blunt": 3,
+     "shot": 3
+    },
+    "왼쪽 날개": {
+     "cut": 2,
+     "blunt": 2,
+     "shot": 2
+    },
+    "오른쪽 날개": {
+     "cut": 2,
+     "blunt": 2,
+     "shot": 2
+    },
+    "꼬리": {
+     "cut": 2,
+     "blunt": 2,
+     "shot": 2
+    }
+   },
+   "breakable": [
+    "헤드",
+    "날개",
+    "몸통",
+    "꼬리"
+   ],
+   "inflicts": [
+    "독",
+    "불속성 피해"
+   ],
+   "items": {
+    "flash": "유효",
+    "pitfall": "유효",
+    "sonic": "무효"
+   }
   },
   {
    "id": "diablos",
@@ -298,17 +800,58 @@
    "radiant": false,
    "baseId": null,
    "weakness": {
-    "ice": 3
+    "fire": 1,
+    "water": 2,
+    "thunder": 1,
+    "ice": 3,
+    "dragon": 2
    },
    "ailmentWeakness": {
-    "paralysis": 3
+    "poison": 2,
+    "sleep": 2,
+    "paralysis": 3,
+    "blast": 2,
+    "stun": 1
    },
-   "weaknessComplete": false,
+   "weaknessComplete": true,
    "img": "img/monsters/diablos.png",
    "confidence": "community",
    "sources": [
     "gw-ko"
-   ]
+   ],
+   "species": "비룡종",
+   "hitzones": {
+    "헤드": {
+     "cut": 2,
+     "blunt": 3,
+     "shot": 2
+    },
+    "배": {
+     "cut": 3,
+     "blunt": 3,
+     "shot": 2
+    },
+    "왼쪽 날개": {
+     "cut": 2,
+     "blunt": 1,
+     "shot": 3
+    },
+    "오른쪽 날개": {
+     "cut": 2,
+     "blunt": 1,
+     "shot": 3
+    }
+   },
+   "breakable": [
+    "헤드",
+    "몸통",
+    "꼬리"
+   ],
+   "items": {
+    "flash": "유효",
+    "pitfall": "유효",
+    "sonic": "유효"
+   }
   },
   {
    "id": "black-diablos",
@@ -319,17 +862,58 @@
    "radiant": false,
    "baseId": null,
    "weakness": {
-    "ice": 3
+    "fire": 1,
+    "water": 2,
+    "thunder": 1,
+    "ice": 3,
+    "dragon": 1
    },
    "ailmentWeakness": {
-    "paralysis": 3
+    "poison": 2,
+    "sleep": 2,
+    "paralysis": 3,
+    "blast": 2,
+    "stun": 1
    },
-   "weaknessComplete": false,
+   "weaknessComplete": true,
    "img": "img/monsters/black-diablos.png",
    "confidence": "community",
    "sources": [
     "gw-ko"
-   ]
+   ],
+   "species": "비룡종",
+   "hitzones": {
+    "헤드": {
+     "cut": 2,
+     "blunt": 3,
+     "shot": 2
+    },
+    "배": {
+     "cut": 3,
+     "blunt": 3,
+     "shot": 2
+    },
+    "왼쪽 날개": {
+     "cut": 2,
+     "blunt": 1,
+     "shot": 3
+    },
+    "오른쪽 날개": {
+     "cut": 2,
+     "blunt": 1,
+     "shot": 3
+    }
+   },
+   "breakable": [
+    "헤드",
+    "몸통",
+    "꼬리"
+   ],
+   "items": {
+    "flash": "유효",
+    "pitfall": "유효",
+    "sonic": "유효"
+   }
   },
   {
    "id": "paolumu",
@@ -340,18 +924,49 @@
    "radiant": false,
    "baseId": null,
    "weakness": {
-    "fire": 3
+    "fire": 3,
+    "water": 1,
+    "thunder": 2,
+    "ice": 1,
+    "dragon": 1
    },
    "ailmentWeakness": {
+    "poison": 2,
+    "sleep": 2,
+    "paralysis": 2,
     "blast": 3,
     "stun": 3
    },
-   "weaknessComplete": false,
+   "weaknessComplete": true,
    "img": "img/monsters/paolumu.png",
    "confidence": "community",
    "sources": [
     "gw-ko"
-   ]
+   ],
+   "species": "비룡종",
+   "hitzones": {
+    "헤드": {
+     "cut": 2,
+     "blunt": 2,
+     "shot": 2
+    },
+    "목주머니": {
+     "cut": 3,
+     "blunt": 3,
+     "shot": 3
+    }
+   },
+   "breakable": [
+    "가슴",
+    "날개",
+    "몸통",
+    "꼬리"
+   ],
+   "items": {
+    "flash": "유효",
+    "pitfall": "유효",
+    "sonic": "무효"
+   }
   },
   {
    "id": "legiana",
@@ -362,17 +977,62 @@
    "radiant": false,
    "baseId": null,
    "weakness": {
-    "thunder": 3
+    "fire": 2,
+    "water": 1,
+    "thunder": 3,
+    "ice": 1,
+    "dragon": 1
    },
    "ailmentWeakness": {
-    "poison": 3
+    "poison": 3,
+    "sleep": 2,
+    "paralysis": 2,
+    "blast": 2,
+    "stun": 2
    },
-   "weaknessComplete": false,
+   "weaknessComplete": true,
    "img": "img/monsters/legiana.png",
    "confidence": "community",
    "sources": [
     "gw-ko"
-   ]
+   ],
+   "species": "비룡종",
+   "hitzones": {
+    "헤드": {
+     "cut": 3,
+     "blunt": 3,
+     "shot": 3
+    },
+    "왼쪽 날개": {
+     "cut": 2,
+     "blunt": 2,
+     "shot": 2
+    },
+    "오른쪽 날개": {
+     "cut": 2,
+     "blunt": 2,
+     "shot": 2
+    },
+    "꼬리": {
+     "cut": 2,
+     "blunt": 2,
+     "shot": 2
+    }
+   },
+   "breakable": [
+    "헤드",
+    "날개",
+    "몸통",
+    "꼬리"
+   ],
+   "inflicts": [
+    "얼음속성 피해"
+   ],
+   "items": {
+    "flash": "유효",
+    "pitfall": "유효",
+    "sonic": "무효"
+   }
   },
   {
    "id": "jyuratodus",
@@ -383,18 +1043,67 @@
    "radiant": false,
    "baseId": null,
    "weakness": {
-    "water": 3,
-    "thunder": 3
+    "fire": 1,
+    "water": 1,
+    "thunder": 3,
+    "ice": 1,
+    "dragon": 1
    },
    "ailmentWeakness": {
+    "poison": 2,
+    "sleep": 1,
+    "paralysis": 2,
+    "blast": 1,
     "stun": 3
    },
-   "weaknessComplete": false,
+   "weaknessComplete": true,
    "img": "img/monsters/jyuratodus.png",
    "confidence": "community",
    "sources": [
     "gw-ko"
-   ]
+   ],
+   "species": "어룡종",
+   "weaknessStates": {
+    "water": {
+     "일반": 1,
+     "진흙": 3
+    },
+    "thunder": {
+     "일반": 3,
+     "진흙": 1
+    }
+   },
+   "hitzones": {
+    "헤드 (일반)": {
+     "cut": 3,
+     "blunt": 3,
+     "shot": 3
+    },
+    "헤드 (진흙)": {
+     "cut": 3,
+     "blunt": 3,
+     "shot": 2
+    },
+    "꼬리": {
+     "cut": 3,
+     "blunt": 3,
+     "shot": 2
+    }
+   },
+   "breakable": [
+    "헤드",
+    "몸통",
+    "꼬리",
+    "지느러미"
+   ],
+   "inflicts": [
+    "물속성 피해"
+   ],
+   "items": {
+    "flash": "유효",
+    "pitfall": "유효",
+    "sonic": "유효"
+   }
   },
   {
    "id": "kushala-daora",
@@ -405,17 +1114,66 @@
    "radiant": false,
    "baseId": null,
    "weakness": {
-    "thunder": 3
+    "fire": 1,
+    "water": 1,
+    "thunder": 3,
+    "ice": 1,
+    "dragon": 2
    },
    "ailmentWeakness": {
     "poison": 3,
-    "blast": 3
+    "sleep": 1,
+    "paralysis": 1,
+    "blast": 3,
+    "stun": 2
    },
-   "weaknessComplete": false,
+   "weaknessComplete": true,
    "img": "img/monsters/kushala-daora.png",
    "confidence": "community",
    "sources": [
     "gw-ko"
+   ],
+   "species": "고룡종",
+   "hitzones": {
+    "헤드": {
+     "cut": 3,
+     "blunt": 3,
+     "shot": 2
+    },
+    "앞다리": {
+     "cut": 2,
+     "blunt": 2,
+     "shot": 2
+    },
+    "꼬리": {
+     "cut": 2,
+     "blunt": 2,
+     "shot": 3
+    }
+   },
+   "breakable": [
+    "헤드",
+    "날개",
+    "꼬리"
+   ],
+   "items": {
+    "flash": "유효",
+    "pitfall": "—",
+    "sonic": "—"
+   },
+   "unlock": "테마 이벤트 '강철 날개가 드리우는 그림자'(2026-11-13 ~ 11-26) 기간에 사냥 가능. 보통 난이도 기준 모험 랭크 40 이상. 솔로 도전 시 NPC 모험가가 합류해 내 편성은 메인만 쓰인다.",
+   "eventNote": "이벤트 크샬다오라는 갈무리 소재가 없고 장비도 해금되지 않는다. 루타 코인 보상 1,200포인트는 보통 난이도 3회 클리어로 충분(후반부 11-20 이후 1회).",
+   "tips": [
+    "시작 직후 등장 지점 근처의 낙석을 먼저 써서 확정 다운과 큰 대미지를 노린다.",
+    "몸에 두른 바람은 시간이 갈수록 강해진다. 넘어뜨리거나 경직시키면 약해지고, 머리를 파괴하면 크게 약해진다.",
+    "날아오르면 섬광탄으로 떨어뜨린다. 단, 회오리바람 근처에서 떨어뜨리면 바람을 두른 채 내려오니 피한다.",
+    "정면은 브레스, 날개 쪽은 튕김이 잦으니 패턴을 익힐 때까지 머리 옆에 선다.",
+    "예비 동작이 길어 저스트 회피가 쉽다: 물기는 목이 뻗는 순간, 브레스는 앞다리가 땅에 닿기 직전, 돌진은 스쳐 지나가기 직전.",
+    "브레스는 일직선이고 얼굴이 내 쪽이 아니어도 나오니 좌우로 크게 피한다.",
+    "풍압 내성(기에나·우르무 방어구, 삽화-파오우르무 조합)보다 화력과 머리 파괴를 우선하는 편이 안정적."
+   ],
+   "teamIds": [
+    "kushala-thunder"
    ]
   },
   {
@@ -427,16 +1185,58 @@
    "radiant": false,
    "baseId": null,
    "weakness": {
-    "thunder": 3
+    "fire": 1,
+    "water": 1,
+    "thunder": 3,
+    "ice": 1,
+    "dragon": 2
    },
    "ailmentWeakness": {
-    "blast": 3
+    "poison": 2,
+    "sleep": 2,
+    "paralysis": 2,
+    "blast": 3,
+    "stun": 2
    },
-   "weaknessComplete": false,
+   "weaknessComplete": true,
    "img": "img/monsters/nergigante.png",
-   "confidence": "community",
+   "confidence": "estimate",
    "sources": [
     "gw-ko"
+   ],
+   "species": "고룡종",
+   "hitzones": {
+    "헤드": {
+     "cut": 2,
+     "blunt": 3,
+     "shot": 2
+    },
+    "오른쪽 앞다리": {
+     "cut": 3,
+     "blunt": 2,
+     "shot": 2
+    },
+    "왼쪽 앞다리": {
+     "cut": 3,
+     "blunt": 2,
+     "shot": 2
+    }
+   },
+   "breakable": [
+    "뿔",
+    "꼬리"
+   ],
+   "items": {
+    "flash": "유효",
+    "pitfall": "무효",
+    "sonic": "무효"
+   },
+   "unlock": "사냥 개방: 2026-12-04 12:00 (일본 시간, 한국도 같은 시각). 약점·육질 일부는 클로즈드 베타 기준이라 출시 때 바뀔 수 있음.",
+   "hitzoneStates": "헤드·양 앞다리 육질은 상태에 따라 바뀜: 일반(헤드 타격 ★3, 앞다리 절단 ★3) → 재생(전부 ★3) → 경화(전부 ★1). 재생 상태일 때 몰아친다.",
+   "tips": [
+    "번개 무기·번개 모험가를 미리 준비하고, 차선으로 용 속성. 크샬다오라와 같은 번개 장비로 둘 다 대응된다.",
+    "고룡종이라 포획 불가. 섬광탄은 통하지만 구멍 함정·음폭탄은 무효.",
+    "가시가 검게 굳은 경화 상태는 모든 부위가 ★1이니 무리하지 말고, 재생 상태(하얀 가시)일 때 화력을 쏟는다."
    ]
   },
   {
@@ -455,7 +1255,11 @@
     "dragon": 2
    },
    "ailmentWeakness": {
-    "blast": 3
+    "poison": 1,
+    "sleep": 1,
+    "paralysis": 1,
+    "blast": 3,
+    "stun": 1
    },
    "weaknessComplete": true,
    "img": "img/monsters/ruger-aidal.png",
@@ -467,11 +1271,11 @@
    "nameJa": "ルガ・エアルダ",
    "flagship": true,
    "inflicts": [
-    "화상(불속성 상태이상)",
+    "불속성 피해",
     "기절"
    ],
    "breakable": [
-    "머리",
+    "헤드",
     "앞다리",
     "뒷다리",
     "날개",
@@ -479,7 +1283,28 @@
     "몸통"
    ],
    "unlock": "스토리 6장 6-14 (직전 6-13은 모험 랭크 40 필요). S0 이후 지배자 챌린지에서 반복 사냥 가능, 지배자 무기 소재 획득.",
-   "hitzones": "꼬리는 절단이 가장 잘 통하고, 머리는 절단이 가장 안 통한다.",
+   "hitzones": {
+    "헤드": {
+     "cut": 1,
+     "blunt": 2,
+     "shot": 2
+    },
+    "날개": {
+     "cut": 2,
+     "blunt": 1,
+     "shot": 2
+    },
+    "앞다리": {
+     "cut": 2,
+     "blunt": 2,
+     "shot": 2
+    },
+    "꼬리": {
+     "cut": 3,
+     "blunt": 1,
+     "shot": 1
+    }
+   },
    "tips": [
     "날개의 창 공격은 가드 불가(랜스 포함). 몸통 쪽으로 피하거나 공격 버튼이 빛날 때 창을 부순다.",
     "태양 대기술은 바로 아래나 멀리 바깥으로 회피. 가드하면 불속성 상태이상에 걸린다.",
@@ -491,7 +1316,13 @@
    "teamIds": [
     "ruger-fire",
     "ruger-fire-ice"
-   ]
+   ],
+   "species": "고룡종",
+   "items": {
+    "flash": "유효",
+    "pitfall": "—",
+    "sonic": "—"
+   }
   },
   {
    "id": "radiant-great-jagras",
@@ -502,7 +1333,11 @@
    "radiant": true,
    "baseId": "great-jagras",
    "weakness": {
-    "fire": 3
+    "fire": 3,
+    "water": 1,
+    "thunder": 1,
+    "ice": 1,
+    "dragon": 1
    },
    "ailmentWeakness": {
     "poison": 3,
@@ -511,12 +1346,30 @@
     "blast": 3,
     "stun": 3
    },
-   "weaknessComplete": false,
+   "weaknessComplete": true,
    "img": "img/monsters/radiant-great-jagras.png",
    "confidence": "community",
    "sources": [
     "gw-ko"
-   ]
+   ],
+   "species": "융광종",
+   "hitzones": {
+    "배": {
+     "cut": 2,
+     "blunt": 3,
+     "shot": 1
+    }
+   },
+   "breakable": [
+    "헤드",
+    "앞다리",
+    "몸통"
+   ],
+   "items": {
+    "flash": "유효",
+    "pitfall": "유효",
+    "sonic": "무효"
+   }
   },
   {
    "id": "radiant-kulu-ya-ku",
@@ -527,15 +1380,50 @@
    "radiant": true,
    "baseId": "kulu-ya-ku",
    "weakness": {
-    "water": 3
+    "fire": 1,
+    "water": 3,
+    "thunder": 1,
+    "ice": 1,
+    "dragon": 1
    },
-   "ailmentWeakness": {},
-   "weaknessComplete": false,
+   "ailmentWeakness": {
+    "poison": 2,
+    "sleep": 2,
+    "paralysis": 2,
+    "blast": 2,
+    "stun": 2
+   },
+   "weaknessComplete": true,
    "img": "img/monsters/radiant-kulu-ya-ku.png",
    "confidence": "community",
    "sources": [
     "gw-ko"
-   ]
+   ],
+   "species": "융광종",
+   "hitzones": {
+    "헤드": {
+     "cut": 3,
+     "blunt": 3,
+     "shot": 3
+    },
+    "앞다리": {
+     "cut": 2,
+     "blunt": 3,
+     "shot": 1
+    }
+   },
+   "breakable": [
+    "헤드",
+    "앞다리"
+   ],
+   "inflicts": [
+    "불속성 피해"
+   ],
+   "items": {
+    "flash": "유효",
+    "pitfall": "유효",
+    "sonic": "무효"
+   }
   },
   {
    "id": "radiant-pukei-pukei",
@@ -546,18 +1434,47 @@
    "radiant": true,
    "baseId": "pukei-pukei",
    "weakness": {
-    "thunder": 3
+    "fire": 1,
+    "water": 1,
+    "thunder": 3,
+    "ice": 1,
+    "dragon": 1
    },
    "ailmentWeakness": {
+    "poison": 1,
     "sleep": 3,
-    "paralysis": 3
+    "paralysis": 3,
+    "blast": 2,
+    "stun": 2
    },
-   "weaknessComplete": false,
+   "weaknessComplete": true,
    "img": "img/monsters/radiant-pukei-pukei.png",
    "confidence": "community",
    "sources": [
     "gw-ko"
-   ]
+   ],
+   "species": "융광종",
+   "hitzones": {
+    "헤드": {
+     "cut": 3,
+     "blunt": 2,
+     "shot": 1
+    }
+   },
+   "breakable": [
+    "헤드",
+    "날개",
+    "몸통",
+    "꼬리"
+   ],
+   "inflicts": [
+    "독"
+   ],
+   "items": {
+    "flash": "유효",
+    "pitfall": "유효",
+    "sonic": "무효"
+   }
   },
   {
    "id": "radiant-jyuratodus",
@@ -568,17 +1485,57 @@
    "radiant": true,
    "baseId": "jyuratodus",
    "weakness": {
-    "ice": 3
+    "fire": 1,
+    "water": 1,
+    "thunder": 1,
+    "ice": 3,
+    "dragon": 1
    },
    "ailmentWeakness": {
+    "poison": 2,
+    "sleep": 1,
+    "paralysis": 2,
+    "blast": 1,
     "stun": 3
    },
-   "weaknessComplete": false,
+   "weaknessComplete": true,
    "img": "img/monsters/radiant-jyuratodus.png",
    "confidence": "community",
    "sources": [
     "gw-ko"
-   ]
+   ],
+   "species": "융광종",
+   "hitzones": {
+    "헤드 (일반)": {
+     "cut": 3,
+     "blunt": 3,
+     "shot": 3
+    },
+    "헤드 (진흙)": {
+     "cut": 3,
+     "blunt": 3,
+     "shot": 2
+    },
+    "몸통": {
+     "cut": 3,
+     "blunt": 3,
+     "shot": 2
+    }
+   },
+   "breakable": [
+    "헤드",
+    "몸통",
+    "꼬리",
+    "지느러미"
+   ],
+   "inflicts": [
+    "물속성 피해"
+   ],
+   "items": {
+    "flash": "유효",
+    "pitfall": "유효",
+    "sonic": "유효"
+   }
   },
   {
    "id": "radiant-barroth",
@@ -589,19 +1546,62 @@
    "radiant": true,
    "baseId": "barroth",
    "weakness": {
-    "fire": 3
+    "fire": 3,
+    "water": 1,
+    "thunder": 1,
+    "ice": 1,
+    "dragon": 1
    },
    "ailmentWeakness": {
     "poison": 3,
+    "sleep": 2,
     "paralysis": 3,
-    "blast": 3
+    "blast": 3,
+    "stun": 1
    },
-   "weaknessComplete": false,
+   "weaknessComplete": true,
    "img": "img/monsters/radiant-barroth.png",
    "confidence": "community",
    "sources": [
     "gw-ko"
-   ]
+   ],
+   "species": "융광종",
+   "hitzones": {
+    "헤드 (일반)": {
+     "cut": 2,
+     "blunt": 3,
+     "shot": 1
+    },
+    "헤드 (진흙)": {
+     "cut": 1,
+     "blunt": 1,
+     "shot": 1
+    },
+    "앞다리 (일반)": {
+     "cut": 3,
+     "blunt": 3,
+     "shot": 3
+    },
+    "앞다리 (진흙)": {
+     "cut": 1,
+     "blunt": 1,
+     "shot": 1
+    }
+   },
+   "breakable": [
+    "헤드",
+    "앞다리",
+    "뒷다리",
+    "꼬리"
+   ],
+   "inflicts": [
+    "물속성 피해"
+   ],
+   "items": {
+    "flash": "유효",
+    "pitfall": "유효",
+    "sonic": "무효"
+   }
   },
   {
    "id": "radiant-anjanath",
@@ -612,15 +1612,46 @@
    "radiant": true,
    "baseId": "anjanath",
    "weakness": {
-    "water": 3
+    "fire": 1,
+    "water": 3,
+    "thunder": 1,
+    "ice": 1,
+    "dragon": 1
    },
-   "ailmentWeakness": {},
-   "weaknessComplete": false,
+   "ailmentWeakness": {
+    "poison": 2,
+    "sleep": 2,
+    "paralysis": 2,
+    "blast": 1,
+    "stun": 2
+   },
+   "weaknessComplete": true,
    "img": "img/monsters/radiant-anjanath.png",
    "confidence": "community",
    "sources": [
     "gw-ko"
-   ]
+   ],
+   "species": "융광종",
+   "hitzones": {
+    "헤드": {
+     "cut": 3,
+     "blunt": 3,
+     "shot": 2
+    }
+   },
+   "breakable": [
+    "헤드",
+    "뒷다리",
+    "꼬리"
+   ],
+   "inflicts": [
+    "불속성 피해"
+   ],
+   "items": {
+    "flash": "유효",
+    "pitfall": "유효",
+    "sonic": "무효"
+   }
   },
   {
    "id": "radiant-rathian",
@@ -631,17 +1662,53 @@
    "radiant": true,
    "baseId": "rathian",
    "weakness": {
-    "thunder": 3
+    "fire": 1,
+    "water": 1,
+    "thunder": 3,
+    "ice": 1,
+    "dragon": 1
    },
    "ailmentWeakness": {
+    "poison": 1,
+    "sleep": 2,
+    "paralysis": 2,
+    "blast": 1,
     "stun": 3
    },
-   "weaknessComplete": false,
+   "weaknessComplete": true,
    "img": "img/monsters/radiant-rathian.png",
    "confidence": "community",
    "sources": [
     "gw-ko"
-   ]
+   ],
+   "species": "융광종",
+   "hitzones": {
+    "헤드": {
+     "cut": 3,
+     "blunt": 3,
+     "shot": 3
+    },
+    "꼬리": {
+     "cut": 3,
+     "blunt": 2,
+     "shot": 1
+    }
+   },
+   "breakable": [
+    "헤드",
+    "날개",
+    "몸통",
+    "꼬리"
+   ],
+   "inflicts": [
+    "독",
+    "불속성 피해"
+   ],
+   "items": {
+    "flash": "유효",
+    "pitfall": "유효",
+    "sonic": "무효"
+   }
   },
   {
    "id": "radiant-diablos",
@@ -652,17 +1719,48 @@
    "radiant": true,
    "baseId": "diablos",
    "weakness": {
-    "ice": 3
+    "fire": 1,
+    "water": 1,
+    "thunder": 1,
+    "ice": 3,
+    "dragon": 1
    },
    "ailmentWeakness": {
-    "paralysis": 3
+    "poison": 2,
+    "sleep": 2,
+    "paralysis": 3,
+    "blast": 2,
+    "stun": 1
    },
-   "weaknessComplete": false,
+   "weaknessComplete": true,
    "img": "img/monsters/radiant-diablos.png",
    "confidence": "community",
    "sources": [
     "gw-ko"
-   ]
+   ],
+   "species": "융광종",
+   "hitzones": {
+    "헤드": {
+     "cut": 2,
+     "blunt": 3,
+     "shot": 1
+    },
+    "배": {
+     "cut": 3,
+     "blunt": 3,
+     "shot": 2
+    }
+   },
+   "breakable": [
+    "헤드",
+    "몸통",
+    "꼬리"
+   ],
+   "items": {
+    "flash": "유효",
+    "pitfall": "유효",
+    "sonic": "유효"
+   }
   },
   {
    "id": "radiant-legiana",
@@ -673,17 +1771,57 @@
    "radiant": true,
    "baseId": "legiana",
    "weakness": {
-    "fire": 3
+    "fire": 3,
+    "water": 1,
+    "thunder": 1,
+    "ice": 1,
+    "dragon": 1
    },
    "ailmentWeakness": {
-    "poison": 3
+    "poison": 3,
+    "sleep": 2,
+    "paralysis": 2,
+    "blast": 2,
+    "stun": 2
    },
-   "weaknessComplete": false,
+   "weaknessComplete": true,
    "img": "img/monsters/radiant-legiana.png",
    "confidence": "community",
    "sources": [
     "gw-ko"
-   ]
+   ],
+   "species": "융광종",
+   "hitzones": {
+    "헤드": {
+     "cut": 3,
+     "blunt": 3,
+     "shot": 3
+    },
+    "왼쪽 날개": {
+     "cut": 3,
+     "blunt": 2,
+     "shot": 1
+    },
+    "오른쪽 날개": {
+     "cut": 3,
+     "blunt": 2,
+     "shot": 1
+    }
+   },
+   "breakable": [
+    "헤드",
+    "날개",
+    "몸통",
+    "꼬리"
+   ],
+   "inflicts": [
+    "얼음속성 피해"
+   ],
+   "items": {
+    "flash": "유효",
+    "pitfall": "유효",
+    "sonic": "무효"
+   }
   },
   {
    "id": "radiant-paolumu",
@@ -694,18 +1832,49 @@
    "radiant": true,
    "baseId": "paolumu",
    "weakness": {
-    "fire": 3
+    "fire": 3,
+    "water": 1,
+    "thunder": 1,
+    "ice": 1,
+    "dragon": 1
    },
    "ailmentWeakness": {
+    "poison": 2,
+    "sleep": 2,
+    "paralysis": 2,
     "blast": 3,
     "stun": 3
    },
-   "weaknessComplete": false,
+   "weaknessComplete": true,
    "img": "img/monsters/radiant-paolumu.png",
    "confidence": "community",
    "sources": [
     "gw-ko"
-   ]
+   ],
+   "species": "융광종",
+   "hitzones": {
+    "헤드": {
+     "cut": 3,
+     "blunt": 3,
+     "shot": 2
+    },
+    "목주머니": {
+     "cut": 3,
+     "blunt": 3,
+     "shot": 2
+    }
+   },
+   "breakable": [
+    "목주머니",
+    "날개",
+    "몸통",
+    "꼬리"
+   ],
+   "items": {
+    "flash": "유효",
+    "pitfall": "유효",
+    "sonic": "유효"
+   }
   },
   {
    "id": "radiant-rathalos",
@@ -716,15 +1885,48 @@
    "radiant": true,
    "baseId": "rathalos",
    "weakness": {
-    "thunder": 3
+    "fire": 1,
+    "water": 1,
+    "thunder": 3,
+    "ice": 1,
+    "dragon": 1
    },
-   "ailmentWeakness": {},
-   "weaknessComplete": false,
+   "ailmentWeakness": {
+    "poison": 1,
+    "sleep": 2,
+    "paralysis": 2,
+    "blast": 1,
+    "stun": 2
+   },
+   "weaknessComplete": true,
    "img": "img/monsters/radiant-rathalos.png",
    "confidence": "community",
    "sources": [
     "gw-ko"
-   ]
+   ],
+   "species": "융광종",
+   "hitzones": {
+    "헤드": {
+     "cut": 2,
+     "blunt": 3,
+     "shot": 1
+    }
+   },
+   "breakable": [
+    "헤드",
+    "날개",
+    "몸통",
+    "꼬리"
+   ],
+   "inflicts": [
+    "독",
+    "불속성 피해"
+   ],
+   "items": {
+    "flash": "유효",
+    "pitfall": "유효",
+    "sonic": "무효"
+   }
   },
   {
    "id": "radiant-pink-rathian",
@@ -735,17 +1937,54 @@
    "radiant": true,
    "baseId": "pink-rathian",
    "weakness": {
+    "fire": 1,
+    "water": 1,
+    "thunder": 1,
+    "ice": 1,
     "dragon": 3
    },
    "ailmentWeakness": {
+    "poison": 1,
+    "sleep": 2,
+    "paralysis": 2,
+    "blast": 1,
     "stun": 3
    },
-   "weaknessComplete": false,
+   "weaknessComplete": true,
    "img": "img/monsters/radiant-pink-rathian.png",
    "confidence": "community",
    "sources": [
     "gw-ko"
-   ]
+   ],
+   "species": "융광종",
+   "hitzones": {
+    "헤드": {
+     "cut": 3,
+     "blunt": 3,
+     "shot": 3
+    },
+    "꼬리": {
+     "cut": 3,
+     "blunt": 2,
+     "shot": 1
+    }
+   },
+   "breakable": [
+    "헤드",
+    "날개",
+    "몸통",
+    "꼬리"
+   ],
+   "inflicts": [
+    "독",
+    "맹독",
+    "불속성 피해"
+   ],
+   "items": {
+    "flash": "유효",
+    "pitfall": "유효",
+    "sonic": "유효"
+   }
   },
   {
    "id": "radiant-black-diablos",
@@ -756,17 +1995,48 @@
    "radiant": true,
    "baseId": "black-diablos",
    "weakness": {
-    "ice": 3
+    "fire": 1,
+    "water": 1,
+    "thunder": 1,
+    "ice": 3,
+    "dragon": 1
    },
    "ailmentWeakness": {
-    "paralysis": 3
+    "poison": 2,
+    "sleep": 2,
+    "paralysis": 3,
+    "blast": 2,
+    "stun": 1
    },
-   "weaknessComplete": false,
+   "weaknessComplete": true,
    "img": "img/monsters/radiant-black-diablos.png",
    "confidence": "community",
    "sources": [
     "gw-ko"
-   ]
+   ],
+   "species": "융광종",
+   "hitzones": {
+    "헤드": {
+     "cut": 2,
+     "blunt": 3,
+     "shot": 1
+    },
+    "배": {
+     "cut": 3,
+     "blunt": 3,
+     "shot": 2
+    }
+   },
+   "breakable": [
+    "헤드",
+    "몸통",
+    "꼬리"
+   ],
+   "items": {
+    "flash": "유효",
+    "pitfall": "유효",
+    "sonic": "유효"
+   }
   },
   {
    "id": "radiant-radobaan",
@@ -777,17 +2047,48 @@
    "radiant": true,
    "baseId": "radobaan",
    "weakness": {
+    "fire": 1,
+    "water": 1,
+    "thunder": 1,
+    "ice": 1,
     "dragon": 3
    },
    "ailmentWeakness": {
-    "blast": 3
+    "poison": 2,
+    "sleep": 1,
+    "paralysis": 2,
+    "blast": 3,
+    "stun": 2
    },
-   "weaknessComplete": false,
+   "weaknessComplete": true,
    "img": "img/monsters/radiant-radobaan.png",
    "confidence": "community",
    "sources": [
     "gw-ko"
-   ]
+   ],
+   "species": "융광종",
+   "hitzones": {
+    "헤드": {
+     "cut": 3,
+     "blunt": 3,
+     "shot": 3
+    },
+    "몸통": {
+     "cut": 3,
+     "blunt": 3,
+     "shot": 3
+    }
+   },
+   "breakable": [
+    "턱",
+    "몸통(측면)",
+    "꼬리"
+   ],
+   "items": {
+    "flash": "유효",
+    "pitfall": "유효",
+    "sonic": "유효"
+   }
   },
   {
    "id": "radiant-great-girros",
@@ -798,17 +2099,46 @@
    "radiant": true,
    "baseId": "great-girros",
    "weakness": {
+    "fire": 1,
+    "water": 1,
+    "thunder": 1,
+    "ice": 1,
     "dragon": 3
    },
    "ailmentWeakness": {
-    "sleep": 3
+    "poison": 2,
+    "sleep": 3,
+    "paralysis": 1,
+    "blast": 2,
+    "stun": 2
    },
-   "weaknessComplete": false,
+   "weaknessComplete": true,
    "img": "img/monsters/radiant-great-girros.png",
    "confidence": "community",
    "sources": [
     "gw-ko"
-   ]
+   ],
+   "species": "융광종",
+   "hitzones": {
+    "헤드": {
+     "cut": 2,
+     "blunt": 3,
+     "shot": 1
+    }
+   },
+   "breakable": [
+    "헤드",
+    "앞다리",
+    "꼬리"
+   ],
+   "inflicts": [
+    "마비"
+   ],
+   "items": {
+    "flash": "유효",
+    "pitfall": "유효",
+    "sonic": "유효"
+   }
   },
   {
    "id": "radiant-tobi-kadachi",
@@ -819,17 +2149,47 @@
    "radiant": true,
    "baseId": "tobi-kadachi",
    "weakness": {
-    "water": 3
+    "fire": 1,
+    "water": 3,
+    "thunder": 1,
+    "ice": 1,
+    "dragon": 1
    },
    "ailmentWeakness": {
-    "poison": 3
+    "poison": 3,
+    "sleep": 2,
+    "paralysis": 2,
+    "blast": 2,
+    "stun": 2
    },
-   "weaknessComplete": false,
+   "weaknessComplete": true,
    "img": "img/monsters/radiant-tobi-kadachi.png",
    "confidence": "community",
    "sources": [
     "gw-ko"
-   ]
+   ],
+   "species": "융광종",
+   "hitzones": {
+    "꼬리": {
+     "cut": 3,
+     "blunt": 3,
+     "shot": 2
+    }
+   },
+   "breakable": [
+    "헤드",
+    "앞다리",
+    "몸통",
+    "꼬리"
+   ],
+   "inflicts": [
+    "번개속성 피해"
+   ],
+   "items": {
+    "flash": "유효",
+    "pitfall": "유효",
+    "sonic": "유효"
+   }
   },
   {
    "id": "radiant-tzitzi-ya-ku",
@@ -840,15 +2200,41 @@
    "radiant": true,
    "baseId": "tzitzi-ya-ku",
    "weakness": {
+    "fire": 1,
+    "water": 1,
+    "thunder": 1,
+    "ice": 1,
     "dragon": 3
    },
-   "ailmentWeakness": {},
-   "weaknessComplete": false,
+   "ailmentWeakness": {
+    "poison": 2,
+    "sleep": 2,
+    "paralysis": 2,
+    "blast": 2,
+    "stun": 2
+   },
+   "weaknessComplete": true,
    "img": "img/monsters/radiant-tzitzi-ya-ku.png",
    "confidence": "community",
    "sources": [
     "gw-ko"
-   ]
+   ],
+   "species": "융광종",
+   "hitzones": {
+    "발광기관": {
+     "cut": 3,
+     "blunt": 1,
+     "shot": 2
+    }
+   },
+   "breakable": [
+    "헤드"
+   ],
+   "items": {
+    "flash": "유효",
+    "pitfall": "유효",
+    "sonic": "유효"
+   }
   },
   {
    "id": "radiant-odogaron",
@@ -859,17 +2245,52 @@
    "radiant": true,
    "baseId": "odogaron",
    "weakness": {
-    "ice": 3
+    "fire": 1,
+    "water": 1,
+    "thunder": 1,
+    "ice": 3,
+    "dragon": 1
    },
    "ailmentWeakness": {
-    "paralysis": 3
+    "poison": 1,
+    "sleep": 2,
+    "paralysis": 3,
+    "blast": 2,
+    "stun": 2
    },
-   "weaknessComplete": false,
+   "weaknessComplete": true,
    "img": "img/monsters/radiant-odogaron.png",
    "confidence": "community",
    "sources": [
     "gw-ko"
-   ]
+   ],
+   "species": "융광종",
+   "hitzones": {
+    "헤드": {
+     "cut": 3,
+     "blunt": 3,
+     "shot": 3
+    },
+    "앞다리": {
+     "cut": 3,
+     "blunt": 2,
+     "shot": 1
+    }
+   },
+   "breakable": [
+    "헤드",
+    "앞다리",
+    "뒷다리",
+    "꼬리"
+   ],
+   "inflicts": [
+    "열상"
+   ],
+   "items": {
+    "flash": "유효",
+    "pitfall": "유효",
+    "sonic": "유효"
+   }
   },
   {
    "id": "jagras",

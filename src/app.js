@@ -92,7 +92,7 @@ views.home = () => {
 
 function weakList(m) {
   const w = Object.entries(m.weakness || {}).filter(([, n]) => n >= 3).map(([e]) => el(e));
-  const a = Object.entries(m.ailmentWeakness || {}).map(([k]) => `<span class="chip">${AIL[k]}</span>`);
+  const a = Object.entries(m.ailmentWeakness || {}).filter(([, n]) => n >= 3).map(([k]) => `<span class="chip">${AIL[k]}</span>`);
   return [...w, ...a].join(' ') || '<span class="note">미확인</span>';
 }
 
@@ -340,14 +340,20 @@ views.monster = (q, id) => {
   return `
   <a class="note" href="${href('monsters')}" data-link>← 몬스터 목록</a>
   ${(IMG.monsters || []).includes(m.id) ? `<img class="mon-hero" src="${href('img/monsters/' + m.id + '.png')}" alt="${esc(m.name)}">` : ''}
-  <div class="page-h"><h1>${esc(m.name)} ${m.radiant ? '<span class="chip acc">융광종</span>' : ''}${m.class === 'elder' ? '<span class="chip">고룡</span>' : ''} ${conf(m.confidence)}</h1><p class="note">${esc(m.nameEn)}${m.nameJa ? ' · ' + esc(m.nameJa) : ''}</p></div>
+  <div class="page-h"><h1>${esc(m.name)} ${m.species && m.species !== '융광종' ? `<span class="chip">${esc(m.species)}</span>` : ''}${m.radiant ? '<span class="chip acc">융광종</span>' : ''}${m.class === 'elder' ? '<span class="chip">고룡</span>' : ''} ${conf(m.confidence)}</h1><p class="note">${esc(m.nameEn)}${m.nameJa ? ' · ' + esc(m.nameJa) : ''}</p></div>
   <div class="card"><h3>속성 약점</h3>
     <div class="weak-t">${meta.elements.map(e => { const n = (m.weakness || {})[e.id]; return `<div>${el(e.id)}${n ? stars(n) : `<span class="note">${m.weaknessComplete ? '-' : '?'}</span>`}</div>`; }).join('')}</div>
-    ${Object.keys(m.ailmentWeakness || {}).length ? `<div class="row" style="margin-top:10px"><span class="note">상태이상 3★</span>${Object.keys(m.ailmentWeakness).map(k => `<span class="chip">${AIL[k]}</span>`).join('')}</div>` : ''}
+    ${m.weaknessStates ? `<p class="note" style="margin:8px 0 0">상태에 따라 달라짐: ${Object.entries(m.weaknessStates).map(([e, v]) => `${EL[e]} ${Object.entries(v).map(([k, n]) => `${esc(k)} ★${n}`).join(' / ')}`).join(' · ')}</p>` : ''}
+    <h3 style="margin-top:14px">상태이상</h3>
+    <div class="weak-t">${meta.ailments.map(a => { const n = (m.ailmentWeakness || {})[a.id]; return `<div><span class="note" style="font-weight:700">${a.name}</span>${n ? stars(n) : '<span class="note">?</span>'}</div>`; }).join('')}</div>
     ${m.weaknessComplete ? '' : '<p class="note" style="margin:8px 0 0">? 표시는 2★ 이하로, 아직 정확한 별점을 확인하지 못했습니다.</p>'}
     <div class="row" style="margin-top:10px"><a class="btn primary sm" href="${href('builder?m=' + m.id)}" data-link>이 몬스터용 자동 편성</a>${twin ? `<a class="btn sm" href="${href('monster/' + twin.id)}" data-link>${esc(twin.name)}</a>` : ''}</div>
   </div>
-  ${m.unlock || m.breakable ? `<div class="grid">${m.unlock ? `<div class="card"><h3>출현</h3><p style="margin:0">${esc(m.unlock)}</p></div>` : ''}${m.breakable ? `<div class="card"><h3>파괴 부위</h3><div class="chips">${m.breakable.map(b => `<span class="chip">${esc(b)}</span>`).join('')}</div>${m.hitzones ? `<p class="note">${esc(m.hitzones)}</p>` : ''}${m.inflicts ? `<p class="note">거는 상태이상: ${m.inflicts.map(esc).join(', ')}</p>` : ''}</div>` : ''}</div>` : ''}
+  ${m.unlock || m.breakable ? `<div class="grid">${m.unlock ? `<div class="card"><h3>출현</h3><p style="margin:0">${esc(m.unlock)}</p></div>` : ''}${m.breakable ? `<div class="card"><h3>파괴 부위</h3><div class="chips">${m.breakable.map(b => `<span class="chip">${esc(b)}</span>`).join('')}</div>${m.inflicts ? `<p class="note">거는 상태이상: ${m.inflicts.map(esc).join(', ')}</p>` : ''}</div>` : ''}</div>` : ''}
+  ${m.hitzones && Object.keys(m.hitzones).length ? `<div class="card"><h3>약점 부위</h3><table class="hz"><thead><tr><th>부위</th><th>절단</th><th>타격</th><th>탄</th></tr></thead><tbody>${Object.entries(m.hitzones).map(([k, v]) => `<tr><td>${esc(k)}</td><td>${stars(v.cut)}</td><td>${stars(v.blunt)}</td><td>${stars(v.shot)}</td></tr>`).join('')}</tbody></table>
+    ${m.items ? `<div class="row" style="margin-top:10px">${[['flash', '섬광탄'], ['pitfall', '구멍 함정'], ['sonic', '음폭탄']].map(([k, t]) => `<span class="chip ${m.items[k] === '유효' ? 'ok' : ''}">${t} ${esc(m.items[k])}</span>`).join('')}</div>` : ''}</div>` : ''}
+  ${m.hitzoneStates ? `<div class="card note">${esc(m.hitzoneStates)}</div>` : ''}
+  ${m.eventNote ? `<div class="card note">${esc(m.eventNote)}</div>` : ''}
   ${m.tips ? `<div class="card"><h3>파훼 포인트</h3><ul class="plain">${m.tips.map(t => `<li>${esc(t)}</li>`).join('')}</ul></div>` : ''}
   ${m.radiant ? `<div class="card"><h3>융광종 공통 규칙</h3><ul class="plain">${monsters.radiantRules.rules.map(r => `<li>${esc(r)}</li>`).join('')}</ul></div>` : ''}
   ${presets.length ? `<div class="sec-h"><h2>추천 편성</h2></div><div class="grid">${presets.map(presetCard).join('')}</div>` : ''}
