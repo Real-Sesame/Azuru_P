@@ -1,0 +1,23 @@
+{
+ "name": "아웃랜더스 이모저모",
+ "short_name": "이모저모",
+ "start_url": "/MH_OL/",
+ "scope": "/MH_OL/",
+ "display": "standalone",
+ "background_color": "#141310",
+ "theme_color": "#141310",
+ "lang": "ko",
+ "icons": [
+  {
+   "src": "/MH_OL/icons/icon-192.png",
+   "sizes": "192x192",
+   "type": "image/png"
+  },
+  {
+   "src": "/MH_OL/icons/icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "any maskable"
+  }
+ ]
+}

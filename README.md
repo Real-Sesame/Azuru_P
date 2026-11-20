@@ -38,6 +38,35 @@ docs/SCHEMA.md          데이터 스키마 설명
 `공식 이미지 갱신` 워크플로가 매주(또는 **Actions → 공식 이미지 갱신 → Run workflow**) 공식 사이트에서 모험가 · 동반자 · 몬스터 이미지를 받아 `public/img/`에 커밋하고 다시 배포합니다.
 공식 사이트에 새 그림이 생기면 `tools/fetch_images.py`의 번호 표(`MAP`)에 추가합니다. 이미지가 없는 항목은 속성 색 이니셜로 표시됩니다.
 
+## 배포 · 운영 가이드
+
+### 배포 흐름
+1. `main`에 올리면(웹에서 ✏️ 고치고 **Commit changes**도 됨) **사이트 배포** 워크플로가 돕니다.
+2. `tools/validate.py`가 데이터 참조를 점검합니다. 오류가 있으면 여기서 멈추고 사이트는 이전 버전이 유지됩니다.
+3. Vite 빌드 → GitHub Pages 배포. 1~2분 뒤 반영됩니다.
+4. 처음 한 번만: **Settings → Pages → Source = GitHub Actions** (완료).
+
+### 게임 업데이트 때 체크리스트
+- [ ] 새 모험가 → `adventurers.json` (`team`의 id는 실제 있는 모험가·`fated:<무기>`만)
+- [ ] 새 동반자 → `buddies.json` (`pair`에 짝 모험가 id)
+- [ ] 새 몬스터 · 융광종 → `monsters.json` (`radiant: true`면 `baseId`에 일반 개체 id)
+- [ ] 티어 · 추천 편성 변경 → `adventurers.json`의 `tier`, `teams.json`
+- [ ] `meta.json`의 `dataVersion` · `updated` · `season` 올리기 (사이트 아래쪽에 표시)
+- [ ] 공식 사이트에 새 그림 → **Actions → 공식 이미지 갱신 → Run workflow**, 로그에 "번호 대응이 없는 새 이미지" 경고가 나오면 `tools/fetch_images.py`의 `MAP`에 추가
+
+### 문제가 생겼을 때
+- **배포가 빨간불:** Actions에서 실패한 실행을 열어 `데이터 점검` 단계 로그를 봅니다. "unknown adventurer xxx"처럼 어느 파일 어느 id가 틀렸는지 나옵니다.
+- **새로 고쳤는데 그대로:** 휴대폰 브라우저 캐시 때문일 수 있습니다. 새로 고침을 한 번 더 하거나 1~2분 기다립니다.
+- **이미지 갱신 실패:** 공식 사이트 구조가 바뀐 경우입니다. 이미지는 기존 파일이 그대로 남으니 사이트는 정상 동작합니다.
+
+### 휴대폰 홈 화면에 추가
+- 안드로이드 크롬: 메뉴 → **홈 화면에 추가**
+- 아이폰 사파리: 공유 → **홈 화면에 추가**
+- 앱처럼 주소창 없이 열립니다(이모저모 아이콘).
+
+### 글꼴
+본문과 제목은 프리텐다드(자체 호스팅, `npm` 패키지)입니다. 제목 글꼴은 `src/styles/app.css`의 `--f-display`에서 바꿉니다.
+
 ## 내 컴퓨터에서 보기
 
 Node.js 설치 후 `npm install` → `npm run dev`.

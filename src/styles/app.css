@@ -7,9 +7,9 @@
   --el-fire: #c8402b; --el-water: #1f6fc4; --el-thunder: #a07800; --el-ice: #1c8aa8; --el-dragon: #7b3fb8;
   --role-assault: #c8402b; --role-disruptor: #8a5a00; --role-support: #17784d;
   --r-ssr: #b07d0c; --r-sr: #7d52c7;
-  --f-display: "Orbit", "Pretendard Variable", sans-serif;
+  --f-display: "Pretendard Variable", sans-serif;
   --f-body: "Pretendard Variable", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
-  --f-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --f-mono: "Pretendard Variable", ui-monospace, monospace;
 }
 :root[data-theme="dark"], :root:not([data-theme="light"]) {
   --bg: #141310; --surface: #1d1b17; --surface-2: #26231d; --ink: #f2eee4; --muted: #b0a892; --faint: #7d7765;
@@ -24,7 +24,7 @@
 
 * { box-sizing: border-box; }
 html, body { margin: 0; }
-body { background: var(--bg); color: var(--ink); font: 15px/1.6 var(--f-body); -webkit-font-smoothing: antialiased; min-height: 100vh; }
+body { background: var(--bg); color: var(--ink); font: 15px/1.65 var(--f-body); letter-spacing: -.1px; -webkit-font-smoothing: antialiased; min-height: 100vh; }
 img { max-width: 100%; display: block; }
 [hidden] { display: none !important; }
 button, select, input { font: inherit; color: inherit; }
@@ -37,7 +37,7 @@ main a:not([class]) { color: var(--gold); text-underline-offset: 2px; }
 /* 헤더 */
 header.site { position: sticky; top: 0; z-index: 30; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
 .site-in { max-width: var(--site-w); margin: 0 auto; padding: 0 20px; height: var(--head-h); display: flex; align-items: center; gap: 28px; }
-.logo { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; font-weight: 700; font-size: 16px; white-space: nowrap; }
+.logo { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; font: 800 18px var(--f-display); white-space: nowrap; letter-spacing: -.5px; }
 .logo b, .logo-mark { color: var(--gold); font-weight: 800; }
 .gnb { display: flex; gap: 4px; flex: 1; min-width: 0; }
 .gnb a { color: var(--muted); text-decoration: none; font-weight: 600; font-size: 14px; padding: 8px 12px; border-radius: 8px; white-space: nowrap; position: relative; }
@@ -52,13 +52,13 @@ main { max-width: var(--site-w); margin: 0 auto; padding: 22px 20px 70px; }
 
 /* 공통 블록 */
 .page-h { display: grid; gap: 4px; }
-.page-h h1 { margin: 0; font: 400 26px/1.25 var(--f-display); }
+.page-h h1 { margin: 0; font: 800 28px/1.25 var(--f-display); letter-spacing: -.6px; }
 .page-h p { margin: 0; color: var(--muted); max-width: 72ch; }
 .sec-h { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 6px; }
-.sec-h h2 { margin: 0; font-size: 19px; font-weight: 800; display: flex; align-items: center; gap: 10px; }
+.sec-h h2 { margin: 0; font: 700 20px var(--f-display); display: flex; align-items: center; gap: 10px; }
 .sec-h h2::before { content: ""; width: 7px; height: 7px; border-radius: 2px; background: var(--gold); transform: rotate(45deg); }
 .card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px; min-width: 0; }
-.card h3 { margin: 0 0 6px; font-size: 16px; font-weight: 800; }
+.card h3 { margin: 0 0 6px; font-size: 16px; font-weight: 700; letter-spacing: -.3px; }
 .note { font-size: 12.5px; color: var(--muted); }
 .grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
 .grid.sm { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
@@ -103,18 +103,19 @@ ul.plain li + li { margin-top: 4px; }
 .pf:has(img) { background: radial-gradient(circle at 50% 35%, color-mix(in srgb, var(--gold) 14%, var(--surface-2)), var(--surface-2) 70%); }
 .mon-img { width: 100%; aspect-ratio: 16/9; object-fit: contain; border-radius: 10px; background: radial-gradient(circle, color-mix(in srgb, var(--gold) 10%, transparent), transparent 70%); }
 .mon-hero { width: 100%; max-height: 320px; object-fit: contain; border-radius: 14px; }
-.pf .ini { font: 400 22px var(--f-display); color: #fff; width: 100%; height: 100%; display: grid; place-items: center; }
+.pf .ini { font: 700 22px var(--f-display); color: #fff; width: 100%; height: 100%; display: grid; place-items: center; }
 .pf.fire .ini { background: var(--el-fire); } .pf.water .ini { background: var(--el-water); } .pf.thunder .ini { background: var(--el-thunder); } .pf.ice .ini { background: var(--el-ice); } .pf.dragon .ini { background: var(--el-dragon); } .pf.any .ini { background: var(--gold); }
 
 /* 모험가 카드 */
 .adv { display: grid; grid-template-columns: 64px 1fr; gap: 12px; align-items: center; text-decoration: none; }
 .adv .pf { width: 64px; }
-.adv .nm { font-weight: 800; font-size: 16px; display: flex; gap: 6px; align-items: baseline; }
+.adv .nm { font-weight: 800; font-size: 16px; display: flex; flex-wrap: wrap; gap: 4px 6px; align-items: center; }
+.adv .nm .n { white-space: nowrap; }
 a.card:hover { border-color: var(--gold); }
 
 /* 홈 */
 .hero { border-radius: 18px; padding: 26px 22px; background: linear-gradient(135deg, color-mix(in srgb, var(--gold) 22%, var(--surface)), var(--surface)); border: 1px solid var(--line); display: grid; gap: 10px; }
-.hero h1 { margin: 0; font: 400 clamp(24px, 4vw, 38px)/1.2 var(--f-display); }
+.hero h1 { margin: 0; font: 800 clamp(26px, 4.2vw, 40px)/1.25 var(--f-display); letter-spacing: -1px; }
 .hero h1 em { font-style: normal; color: var(--gold); }
 .steps { counter-reset: s; display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
 .steps li { counter-increment: s; display: grid; grid-template-columns: 30px 1fr; gap: 10px; }
@@ -128,7 +129,7 @@ a.card:hover { border-color: var(--gold); }
 .mem .pf { width: 100%; }
 .mem .slot { font-size: 11px; color: var(--faint); }
 .mem.main .pf { outline: 2px solid var(--gold); outline-offset: 1px; }
-.score { font: 600 22px var(--f-mono); color: var(--gold); }
+.score { font: 800 24px var(--f-body); color: var(--gold); font-variant-numeric: tabular-nums; }
 .roster { display: grid; gap: 8px; grid-template-columns: repeat(auto-fill, minmax(64px, 1fr)); }
 .roster .pf { max-width: 72px; margin: 0 auto; width: 100%; }
 .roster-box summary { cursor: pointer; list-style: none; }

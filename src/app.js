@@ -1,3 +1,4 @@
+import 'pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css';
 import './styles/app.css';
 import meta from './data/meta.json';
 import adventurers from './data/adventurers.json';
@@ -225,7 +226,7 @@ views.adventurers = () => {
 function advListHtml() {
   const list = adventurers.list.filter(a => (!advFilter.role || a.role === advFilter.role) && (!advFilter.element || a.element === advFilter.element) && (!advFilter.weapon || a.weapon === advFilter.weapon));
   if (!list.length) return `<div class="card empty">조건에 맞는 모험가가 없습니다.</div>`;
-  return list.map(a => `<a class="card adv" href="${href('adventurer/' + a.id)}" data-link>${advPf(a)}<div><div class="nm">${esc(a.name)} <span class="rar ${a.rarity}">${a.rarity}</span> <span class="tier">${a.tier}</span></div>
+  return list.map(a => `<a class="card adv" href="${href('adventurer/' + a.id)}" data-link>${advPf(a)}<div><div class="nm"><span class="n">${esc(a.name)}</span> <span class="rar ${a.rarity}">${a.rarity}</span> <span class="tier">${a.tier}</span></div>
     <div class="row">${role(a.role)} <span class="note">${esc(WEP[a.weapon].name)}</span> ${el(a.element)}</div><div class="note">${esc(a.ult.name)}: ${esc(a.ult.desc)}</div></div></a>`).join('');
 }
 function buddyList() {
@@ -251,7 +252,7 @@ views.adventurer = (q, id) => {
   return `
   <a class="note" href="${href('adventurers')}" data-link>← 모험가 목록</a>
   <div class="card adv" style="grid-template-columns:96px 1fr">${advPf(a).replace('class="pf', 'style="width:96px" class="pf')}<div>
-    <div class="nm" style="font-size:24px">${esc(a.name)} <span class="rar ${a.rarity}">${a.rarity}</span> <span class="tier">${a.tier}</span> ${conf(a.confidence)}</div>
+    <div class="nm" style="font-size:24px"><span class="n">${esc(a.name)}</span> <span class="rar ${a.rarity}">${a.rarity}</span> <span class="tier">${a.tier}</span> ${conf(a.confidence)}</div>
     <div class="row">${role(a.role)} <a class="note" href="${href('weapon/' + a.weapon)}" data-link>${esc(WEP[a.weapon].name)}</a> ${el(a.element)}</div>
     <div class="note">입수: ${a.obtain.map(esc).join(', ')}</div>
     <div class="row" style="margin-top:8px"><a class="btn primary sm" href="${href('builder?main=' + a.id)}" data-link>이 모험가로 편성</a></div></div></div>

@@ -16,7 +16,7 @@ const CSP = `<meta http-equiv="Content-Security-Policy" content="${[
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net",
   "font-src 'self' data: https://fonts.gstatic.com https://cdn.jsdelivr.net",
   "img-src 'self' data: blob:",
-  "connect-src 'self'",
+  "connect-src 'self'", "manifest-src 'self'",
   "object-src 'none'", "base-uri 'self'", "form-action 'self'"
 ].join('; ')}">`;
 const esc = s => String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
