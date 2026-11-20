@@ -14,11 +14,11 @@ OUT = Path("_pages")
 
 
 def text_of(html):
-    html = re.sub(r"(?is)<(script|style|noscript|svg)[^>]*>.*?</\\1>", " ", html)
-    html = re.sub(r"(?i)<(br|/p|/div|/tr|/li|/h\\d|/th|/td)[^>]*>", "\\n", html)
+    html = re.sub(r"(?is)<(script|style|noscript|svg)[^>]*>.*?</\1>", " ", html)
+    html = re.sub(r"(?i)<(br|/p|/div|/tr|/li|/h\d|/th|/td)[^>]*>", "\n", html)
     t = re.sub(r"<[^>]+>", " ", html)
-    t = re.sub(r"[ \\t\\r\\f\\v]+", " ", t)
-    return re.sub(r"\\n\\s*", "\\n", t)
+    t = re.sub(r"[ \t\r\f\v]+", " ", t)
+    return re.sub(r"\n\s*", "\n", t)
 
 
 def main(list_file, mode="save", grep=""):
