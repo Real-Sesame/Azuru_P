@@ -399,7 +399,7 @@ function show(view, id) {
   const navKey = { adventurer: 'adventurers', weapon: 'weapons', monster: 'monsters' }[view] || view;
   document.querySelectorAll('[data-nav]').forEach(a => { if (a.dataset.nav.split(' ').includes(navKey)) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
   const h1 = sec.querySelector('h1');
-  document.title = (view === 'home' ? '' : (h1 ? h1.textContent.trim().replace(/\s+(커뮤니티|공식|추정)$/, '') + ' · ' : '')) + '아웃랜더스 헌터 노트';
+  document.title = (view === 'home' ? '' : (h1 ? h1.textContent.trim().replace(/\s+(커뮤니티|공식|추정)$/, '') + ' · ' : '')) + '아웃랜더스 이모저모';
 }
 function route(keepScroll) { const { view, id } = parse(); show(view, id); if (!keepScroll) window.scrollTo(0, 0); }
 

@@ -1,4 +1,4 @@
-# 아웃랜더스 헌터 노트 — 사이트 배포 (GitHub Pages · GitHub Actions 방식, 띵조 ATM과 같은 구성)
+# 아웃랜더스 이모저모 — 사이트 배포 (GitHub Pages · GitHub Actions 방식, 띵조 ATM과 같은 구성)
 # main에 올리면 Vite로 빌드한 dist/를 GitHub Pages에 배포합니다.
 name: 사이트 배포
 

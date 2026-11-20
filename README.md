@@ -1,4 +1,4 @@
-# 아웃랜더스 헌터 노트 (MH_OL)
+# 아웃랜더스 이모저모 (MH_OL)
 
 몬스터헌터 아웃랜더스 개인용 공략 노트입니다. 범용 성장 가이드, 자동 파티 편성, 모험가·동반자·무기·몬스터 정보를 한곳에 모았습니다.
 구조는 [띵조 AUTO TEAM MAKER](https://github.com/Real-Sesame/-)와 같습니다(Vite + GitHub Actions 배포).

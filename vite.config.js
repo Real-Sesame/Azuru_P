@@ -5,7 +5,7 @@ import { resolve, dirname } from 'node:path';
 // GitHub Pages 주소: https://real-sesame.github.io/MH_OL/
 const BASE = '/MH_OL/';
 const SITE = 'https://real-sesame.github.io' + BASE;
-const NAME = '아웃랜더스 헌터 노트';
+const NAME = '아웃랜더스 이모저모';
 
 const J = f => JSON.parse(readFileSync(resolve('src/data', f), 'utf8'));
 
