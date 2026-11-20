@@ -1,0 +1,22 @@
+# 데이터 조사용: tools/research-urls.txt의 페이지를 받아 아티팩트로 올립니다(커밋하지 않음).
+name: 조사 페이지 수집
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: 페이지 받기
+        run: python3 tools/fetch_pages.py tools/research-urls.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pages
+          path: _pages
+          retention-days: 3
