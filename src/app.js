@@ -1,4 +1,5 @@
 import 'pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css';
+import '@fontsource/black-han-sans/400.css';
 import './styles/app.css';
 import meta from './data/meta.json';
 import adventurers from './data/adventurers.json';
@@ -340,7 +341,7 @@ views.monster = (q, id) => {
   return `
   <a class="note" href="${href('monsters')}" data-link>← 몬스터 목록</a>
   ${(IMG.monsters || []).includes(m.id) ? `<img class="mon-hero" src="${href('img/monsters/' + m.id + '.png')}" alt="${esc(m.name)}">` : ''}
-  <div class="page-h"><h1>${esc(m.name)} ${m.species && m.species !== '융광종' ? `<span class="chip">${esc(m.species)}</span>` : ''}${m.radiant ? '<span class="chip acc">융광종</span>' : ''}${m.class === 'elder' ? '<span class="chip">고룡</span>' : ''} ${conf(m.confidence)}</h1><p class="note">${esc(m.nameEn)}${m.nameJa ? ' · ' + esc(m.nameJa) : ''}</p></div>
+  <div class="page-h"><h1>${esc(m.name)} ${m.species && m.species !== '융광종' && m.class !== 'elder' ? `<span class="chip">${esc(m.species)}</span>` : ''}${m.radiant ? '<span class="chip acc">융광종</span>' : ''}${m.class === 'elder' ? '<span class="chip">고룡</span>' : ''} ${conf(m.confidence)}</h1><p class="note">${esc(m.nameEn)}${m.nameJa ? ' · ' + esc(m.nameJa) : ''}</p></div>
   <div class="card"><h3>속성 약점</h3>
     <div class="weak-t">${meta.elements.map(e => { const n = (m.weakness || {})[e.id]; return `<div>${el(e.id)}${n ? stars(n) : `<span class="note">${m.weaknessComplete ? '-' : '?'}</span>`}</div>`; }).join('')}</div>
     ${m.weaknessStates ? `<p class="note" style="margin:8px 0 0">상태에 따라 달라짐: ${Object.entries(m.weaknessStates).map(([e, v]) => `${EL[e]} ${Object.entries(v).map(([k, n]) => `${esc(k)} ★${n}`).join(' / ')}`).join(' · ')}</p>` : ''}
