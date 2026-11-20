@@ -47,10 +47,14 @@ def find_assets():
     return found
 
 
-def save(data, path):
+def save(data, path, trim=False):
     try:
         from PIL import Image  # Actions에서 pip install pillow
         im = Image.open(io.BytesIO(data))
+        if trim and im.mode in ("RGBA", "LA"):
+            box = im.getbbox()  # 투명 여백을 잘라 인물이 칸을 채우게
+            if box:
+                im = im.crop(box)
         if im.width > MAX_W:
             im = im.resize((MAX_W, round(im.height * MAX_W / im.width)), Image.LANCZOS)
         im.save(path, "PNG", optimize=True)
@@ -74,7 +78,7 @@ def main():
         d = OUT / kind
         d.mkdir(parents=True, exist_ok=True)
         try:
-            save(get(SITE + url), d / f"{ident}.png")
+            save(get(SITE + url), d / f"{ident}.png", trim=kind != "monsters")
             index[kind].append(ident)
             print("저장", kind, ident)
         except Exception as e:  # noqa: BLE001

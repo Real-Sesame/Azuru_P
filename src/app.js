@@ -319,7 +319,8 @@ function monListHtml() {
     && (!monFilter.weak || (m.weakness || {})[monFilter.weak] >= 3));
   if (!list.length) return `<div class="card empty">조건에 맞는 몬스터가 없습니다.</div>`;
   return list.map(m => {
-    const body = `<span class="nm">${esc(m.name)} ${m.radiant ? '<span class="chip acc">융광종</span>' : ''}${m.class === 'elder' ? '<span class="chip">고룡</span>' : ''}</span>${m.size === 'large' ? `<span class="note">약점 ${weakList(m)}</span>` : '<span class="note">소형 몬스터</span>'}`;
+    const pic = (IMG.monsters || []).includes(m.id) ? `<img class="mon-img" src="${href('img/monsters/' + m.id + '.png')}" alt="" loading="lazy">` : '';
+    const body = `${pic}<span class="nm">${esc(m.name)} ${m.radiant ? '<span class="chip acc">융광종</span>' : ''}${m.class === 'elder' ? '<span class="chip">고룡</span>' : ''}</span>${m.size === 'large' ? `<span class="note">약점 ${weakList(m)}</span>` : '<span class="note">소형 몬스터</span>'}`;
     return m.size === 'large' ? `<a class="card mon" href="${href('monster/' + m.id)}" data-link>${body}</a>` : `<div class="card mon">${body}</div>`;
   }).join('');
 }
@@ -337,6 +338,7 @@ views.monster = (q, id) => {
   const presets = teams.list.filter(t => t.target.type === 'monster' && t.target.id === m.id);
   return `
   <a class="note" href="${href('monsters')}" data-link>← 몬스터 목록</a>
+  ${(IMG.monsters || []).includes(m.id) ? `<img class="mon-hero" src="${href('img/monsters/' + m.id + '.png')}" alt="${esc(m.name)}">` : ''}
   <div class="page-h"><h1>${esc(m.name)} ${m.radiant ? '<span class="chip acc">융광종</span>' : ''}${m.class === 'elder' ? '<span class="chip">고룡</span>' : ''} ${conf(m.confidence)}</h1><p class="note">${esc(m.nameEn)}${m.nameJa ? ' · ' + esc(m.nameJa) : ''}</p></div>
   <div class="card"><h3>속성 약점</h3>
     <div class="weak-t">${meta.elements.map(e => { const n = (m.weakness || {})[e.id]; return `<div>${el(e.id)}${n ? stars(n) : `<span class="note">${m.weaknessComplete ? '-' : '?'}</span>`}</div>`; }).join('')}</div>
