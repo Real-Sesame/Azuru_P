@@ -2,396 +2,320 @@ import 'pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css';
 import '@fontsource/black-han-sans/400.css';
 import './styles/app.css';
 import meta from './data/meta.json';
-import adventurers from './data/adventurers.json';
-import buddies from './data/buddies.json';
-import weapons from './data/weapons.json';
-import monsters from './data/monsters.json';
+import characters from './data/characters.json';
 import teams from './data/teams.json';
-import growth from './data/growth.json';
+import guide from './data/guide.json';
 import rules from './data/builder-rules.json';
-import { buildTeams } from './builder.js';
+import { buildParties, matchup } from './builder.js';
 
-const DATA = { meta, adventurers, buddies, weapons, monsters, teams, growth, rules };
-const BASE = import.meta.env.BASE_URL; // '/MH_OL/'
-const STORE = 'mhol-v1';
+const DATA = { meta, characters, teams, guide, rules };
+const BASE = import.meta.env.BASE_URL; // '/Azuru_P/'
+const STORE = 'azurp-v1';
+const SITE_NAME = meta.name;
 
 // ---------- 도우미 ----------
 const $ = (s, r = document) => r.querySelector(s);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const L = meta.labels;
-const EL = Object.fromEntries(meta.elements.map(e => [e.id, e.name]));
-const AIL = Object.fromEntries(meta.ailments.map(e => [e.id, e.name]));
-const ADV = Object.fromEntries(adventurers.list.map(a => [a.id, a]));
-const WEP = Object.fromEntries(weapons.list.map(w => [w.id, w]));
-const MON = Object.fromEntries(monsters.list.map(m => [m.id, m]));
-const BUD = Object.fromEntries(buddies.list.map(b => [b.id, b]));
+const ELS = meta.elements;
+const EL = Object.fromEntries(ELS.map(e => [e.id, e]));
+const ALL = [...characters.list, characters.starborn];
+const CH = Object.fromEntries(ALL.map(c => [c.id, c]));
 const SRC = Object.fromEntries(meta.sources.map(s => [s.id, s]));
 const href = p => BASE + p.replace(/^\//, '');
-const el = id => id && EL[id] ? `<span class="el ${id}">${EL[id]}</span>` : '';
-const role = id => L.roles[id] ? `<span class="role ${id}">${L.roles[id]}</span>` : '';
+const el = id => EL[id] ? `<span class="el" style="--c:${EL[id].color}">${EL[id].name}</span>` : '';
+const els = ids => (ids || []).map(el).join(' ');
+const prof = c => `<span class="prof ${c.prof}">${L.prof[c.prof]}</span>`;
 const conf = c => c ? `<span class="conf ${c}" title="정보 출처 신뢰도">${L.confidence[c]}</span>` : '';
-const stars = n => `<span class="stars">${'★'.repeat(n)}<span class="off">${'★'.repeat(3 - n)}</span></span>`;
+const rar = n => `<span class="rar r${n}">${n}★</span>`;
+const tier = t => t && t !== '-' ? `<span class="tier t-${t}">${t}</span>` : '';
 const srcLinks = ids => (ids || []).map(id => SRC[id] ? `<a href="${esc(SRC[id].url)}" target="_blank" rel="noopener">${esc(SRC[id].name)}</a>` : '').filter(Boolean).join(' · ');
+const pf = (c, big) => {
+  const color = c.elements && c.elements[0] ? EL[c.elements[0]].color : 'var(--gold)';
+  return `<div class="pf${big ? ' big' : ''}" style="--c:${color}"><span class="ini">${esc(c.name.slice(0, c.name.length > 3 ? 2 : 1))}</span>${c.rarity === 5 ? '<i class="r5"></i>' : ''}</div>`;
+};
+const markChips = (ids, cls = '') => (ids || []).length ? ids.map(e => `<span class="mk ${cls}" style="--c:${EL[e].color}">${EL[e].name}</span>`).join('') : '<span class="note">없음</span>';
 
-let state = { owned: adventurers.list.map(a => a.id), target: '', main: '', advTab: 'adv' };
+// ---------- 상태 ----------
+const defaults = { owned: characters.list.map(c => c.id), parties: 3, targets: ['', '', ''], mains: ['', '', ''], pinned: [null, null, null], kibo: false, rar: 'all' };
+let state = structuredClone(defaults);
 try { Object.assign(state, JSON.parse(localStorage.getItem(STORE) || '{}')); } catch (e) { /* 저장소 못 씀 */ }
+state.owned = state.owned.filter(id => CH[id] && id !== 'starborn');
 const save = () => { try { localStorage.setItem(STORE, JSON.stringify(state)); } catch (e) { /* 무시 */ } };
 
-// 공식 이미지: tools/fetch_images.py가 public/img/index.json에 보유 목록을 적어 둠
-let IMG = { adventurers: [], monsters: [], buddyTypes: [] };
-async function loadImages() {
-  try { const r = await fetch(href('img/index.json'), { cache: 'no-cache' }); if (r.ok) IMG = await r.json(); } catch (e) { /* 이미지 없음 */ }
-}
-function pf(kind, id, label, elem) {
-  const has = (IMG[kind] || []).includes(id);
-  const inner = has ? `<img src="${href(`img/${kind}/${id}.png`)}" alt="" loading="lazy">` : `<span class="ini">${esc((label || '?').slice(0, 1))}</span>`;
-  return `<div class="pf ${elem || 'any'}">${inner}</div>`;
-}
-const advPf = a => pf('adventurers', a.id, a.name, a.element);
-
-// 편성 표기 "fated:great-sword" 해석
-function member(x) {
-  if (typeof x === 'string' && x.startsWith('fated:')) { const w = WEP[x.split(':')[1]]; return { fated: true, id: 'fated', name: '주인공', sub: w ? w.name : '', element: null }; }
-  const a = ADV[x]; return a ? { id: a.id, name: a.name, sub: L.roles[a.role], element: a.element, a } : { id: x, name: x, sub: '' };
-}
-function memberChip(x) {
-  const m = member(x);
-  return m.a ? `<a class="chip" href="${href('adventurer/' + m.id)}" data-link>${esc(m.name)}</a>` : `<span class="chip">${esc(m.name)}${m.sub ? ' (' + esc(m.sub) + ')' : ''}</span>`;
-}
-
-// ---------- 화면 ----------
+// ---------- 홈 ----------
 const views = {};
-
 views.home = () => {
-  const top = teams.list.filter(t => t.tier === 'top');
-  const ra = MON['ruger-aidal'];
+  const top = teams.list.filter(t => t.top);
+  const free = guide.free.map(f => CH[f.id]).filter(Boolean);
   return `
   <div class="hero">
-    <h1>아웃랜더스 <em>범용 세팅</em>부터<br>파티 편성까지 한 곳에서</h1>
-    <p class="note" style="margin:0">데이터 기준 ${esc(meta.updated)} · 게임 ${esc(meta.gameVersion)} · 시즌 ${esc(meta.season)}</p>
-    <div class="row"><a class="btn primary" href="${href('builder')}" data-link>⚔ 자동 편성</a><a class="btn" href="${href('guide')}" data-link>성장 가이드 전체</a></div>
+    <span class="chip acc">한국 정식 출시 ${esc(meta.updated)}</span>
+    <h1>보유 캐릭터만 체크하면<br><em>각인이 맞는 3파티</em>를 자동으로</h1>
+    <p class="note" style="margin:0">아주르 프로밀리아 파티 자동 편성 · 각인(조율 표식) 수급 · 원소 상성 · 캐릭터 도감</p>
+    <div class="row"><a class="btn primary" href="${href('builder')}" data-link>⚡ 자동 편성</a><a class="btn" href="${href('elements')}" data-link>원소 · 각인 보기</a></div>
   </div>
+  <div class="card notice">ⓘ ${esc(meta.dataBasis)}</div>
 
-  <div class="sec-h"><h2>초반 필수 동선</h2>${conf(growth.confidence)}</div>
-  <div class="card"><ol class="steps">${growth.earlyRoute.map(s => `<li><div><b>${esc(s.title)}</b><span class="note">${esc(s.desc)}</span></div></li>`).join('')}</ol></div>
+  <div class="sec-h"><h2>사용 순서</h2></div>
+  <div class="card"><ol class="steps">
+    <li><div><b>보유 캐릭터 체크</b><span class="note">파티 편성 화면의 보유 캐릭터에서 가진 캐릭터만 남깁니다. 주인공(성림자)은 항상 보유로 봅니다.</span></div></li>
+    <li><div><b>파티 수 · 적 원소 고르기</b><span class="note">1~3파티를 겹치지 않게 짜고, 파티마다 상대할 적의 원소를 정하면 상성까지 반영합니다.</span></div></li>
+    <li><div><b>교체 · 고정</b><span class="note">캐릭터 아래 칸으로 직접 바꾸면 그 파티는 고정되고 나머지 파티가 다시 계산됩니다.</span></div></li>
+  </ol></div>
 
-  <div class="grid">
-    <div class="card"><h3>육성 우선순위</h3><ol class="plain" style="padding-left:20px;margin:0">${growth.priority.map(p => `<li>${esc(p.item)} <span class="stars">${'★'.repeat(p.weight)}</span></li>`).join('')}</ol></div>
-    <div class="card"><h3>매일 할 일</h3><ul class="plain">${growth.daily.map(d => `<li>${esc(d)}</li>`).join('')}</ul><h3 style="margin-top:12px">먼저 해금</h3><div class="chips">${growth.unlockFirst.map(d => `<span class="chip">${esc(d)}</span>`).join('')}</div></div>
-    <div class="card"><h3>${esc(growth.keepsake.name)} 한눈에</h3><p class="note" style="margin:0 0 8px">${esc(growth.keepsake.summary)}</p><ul class="plain"><li>${esc(growth.keepsake.levelUp)}</li><li>${esc(growth.keepsake.ascension.desc)}</li></ul><a href="${href('guide')}" data-link>기념품 · 인장 자세히</a></div>
-  </div>
-
-  <div class="sec-h"><h2>속성별 추천 편성</h2><a class="btn sm" href="${href('builder')}" data-link>내 모험가로 짜기</a></div>
+  <div class="sec-h"><h2>추천 편성</h2><a class="btn sm" href="${href('builder')}" data-link>내 캐릭터로 짜기</a></div>
   <div class="grid">${top.map(presetCard).join('')}</div>
 
-  <div class="sec-h"><h2>주목 몬스터</h2></div>
   <div class="grid">
-    <a class="card mon" href="${href('monster/' + ra.id)}" data-link><span class="nm">${esc(ra.name)} <span class="chip acc">시즌 0 고룡</span></span><span class="note">약점 ${weakList(ra)}</span><span class="note">스토리 6장 · 모험 랭크 40</span></a>
-    <a class="card mon" href="${href('monsters?r=1')}" data-link><span class="nm">${esc(monsters.radiantRules.name)} ${monsters.list.filter(m => m.radiant).length}종</span><span class="note">${esc(monsters.radiantRules.rules[1])}</span></a>
+    <div class="card"><h3>무료로 얻는 캐릭터</h3><div class="mini-list">${free.map(c => `<a href="${href('character/' + c.id)}" data-link class="mini">${pf(c)}<span><b>${esc(c.name)}</b><span class="note">${esc(guide.free.find(f => f.id === c.id).how)}</span></span></a>`).join('')}</div></div>
+    <div class="card"><h3>관측(뽑기)</h3><ul class="plain">${guide.gacha.map(g => `<li>${esc(g)}</li>`).join('')}</ul></div>
   </div>`;
 };
-
-function weakList(m) {
-  const w = Object.entries(m.weakness || {}).filter(([, n]) => n >= 3).map(([e]) => el(e));
-  const a = Object.entries(m.ailmentWeakness || {}).filter(([, n]) => n >= 3).map(([k]) => `<span class="chip">${AIL[k]}</span>`);
-  return [...w, ...a].join(' ') || '<span class="note">미확인</span>';
-}
 
 function presetCard(t) {
-  const target = t.target.type === 'monster' && MON[t.target.id] ? ` · ${MON[t.target.id].name}` : '';
   return `<div class="card team">
-    <div class="row" style="justify-content:space-between"><h3 style="margin:0">${esc(t.name)}</h3><span>${t.element !== 'mixed' ? el(t.element) : ''} ${t.budget ? '<span class="chip ok">가성비</span>' : ''} ${conf(t.confidence)}</span></div>
-    <div class="team-m">${t.members.map((x, i) => {
-      const m = member(x.id);
-      const sub = m.fated ? `${m.sub}${x.fatedElement ? ' · ' + EL[x.fatedElement] : ''}` : m.sub;
-      const pic = m.a ? advPf(m.a) : pf('x', 'fated', '주', x.fatedElement);
-      const tag = m.a ? 'a' : 'div';
-      return `<${tag} class="mem${i === 0 ? ' main' : ''}" ${m.a ? `href="${href('adventurer/' + m.id)}" data-link` : ''}>${pic}<b>${esc(m.name)}</b><span class="slot">${esc(sub || '')}</span></${tag}>`;
-    }).join('')}</div>
-    ${t.buddy && BUD[t.buddy] ? `<div class="note">동반자: <b>${esc(BUD[t.buddy].name)}</b> (${esc(L.buddyTypes[BUD[t.buddy].type])})${target}</div>` : (target ? `<div class="note">대상${target}</div>` : '')}
+    <div class="row" style="justify-content:space-between"><h3 style="margin:0">${esc(t.name)}</h3><span>${el(t.element)} ${t.budget ? '<span class="chip ok">무과금</span>' : ''} ${conf(t.confidence)}</span></div>
+    <div class="team-m">${t.members.map((id, i) => { const c = CH[id]; return `<a class="mem${i === 0 ? ' main' : ''}" href="${href('character/' + id)}" data-link>${pf(c)}<b>${esc(c.name)}</b><span class="slot">${i === 0 ? '메인 · ' : ''}${L.prof[c.prof]}</span></a>`; }).join('')}</div>
     <p class="note" style="margin:0">${esc(t.note)}</p>
-    ${t.swaps && t.swaps.length ? `<div class="chips">${t.swaps.map(s => `<span class="chip">${esc(member(s.out).name)} → ${esc(member(s.in).name)}</span>`).join('')}</div>` : ''}
+    ${t.swaps && t.swaps.length ? `<div class="chips">${t.swaps.map(s => `<span class="chip">${esc(CH[s.out].name)} → ${esc(CH[s.in].name)}</span>`).join('')}</div>` : ''}
   </div>`;
 }
 
-// ---------- 자동 편성 ----------
+// ---------- 파티 편성 ----------
 const REASON = {
-  weak: v => `약점 일치 ${v.map(e => EL[e]).join('·')}`,
-  reso: v => `공명 ${EL[v[0]]}×${v[1]}`,
-  spread: v => `속성 ${v}종 분산`,
-  allAssault: () => '전원 돌격형',
-  buffer: v => `범용 버퍼 ${ADV[v]?.name || v}`,
-  link: v => `연계기 궁합 +${v}`,
-  conflict: v => v,
-  special: v => v
+  breakerMain: () => '브레이커가 메인',
+  twoDps: v => `메인급 딜러 ${v}명 겹침`,
+  noSup: () => '서포터 없음',
+  hc: () => '하이퍼캐리 구성',
+  bal: () => '밸런스 구성',
+  sustain: v => `생존: ${v.map(id => CH[id].name).join('·')}`,
+  noSustain: () => '회복 · 보호막 없음',
+  markAlly: v => `${EL[v[0]].name} 각인 ← ${v[1].map(id => CH[id].name).join('·')}`,
+  markSelf: v => `${EL[v].name} 각인 자급만`,
+  markKibo: v => `${EL[v].name} 각인은 키보로`,
+  markOpt: v => `보조 ${EL[v].name} 각인 없음`,
+  markMiss: v => `${EL[v].name} 각인 부족`,
+  star: () => '성림자 각인 증폭',
+  adv: v => `상성 우위(${EL[v].name})`,
+  dis: v => `상성 열세(${EL[v].name})`,
+  preset: v => `추천 편성: ${v}`
 };
+const MARK_ST = { ally: ['ok', '동료 공급'], self: ['warn', '자급'], kibo: ['warn', '키보'], miss: ['bad', '부족'] };
 
 views.builder = (q) => {
-  if (q.get('m')) state.target = 'm:' + q.get('m');
-  if (q.get('main')) { state.main = q.get('main'); if (!state.owned.includes(state.main)) state.owned.push(state.main); }
-  const large = monsters.list.filter(m => m.size === 'large');
-  const opt = (v, t) => `<option value="${esc(v)}" ${state.target === v ? 'selected' : ''}>${esc(t)}</option>`;
+  if (q.get('o')) { state.owned = q.get('o').split('.').filter(id => CH[id] && id !== 'starborn'); state.pinned = [null, null, null]; }
+  if (q.get('p')) state.parties = Math.max(1, Math.min(3, +q.get('p') || 1));
+  if (q.get('main') && CH[q.get('main')]) { const m = q.get('main'); state.mains[0] = m; state.pinned = [null, null, null]; if (m !== 'starborn' && !state.owned.includes(m)) state.owned.push(m); }
+  save();
+  const n5 = characters.list.filter(c => c.rarity === 5), n4 = characters.list.filter(c => c.rarity === 4);
   return `
-  <div class="page-h"><h1>파티 편성</h1><p>보유한 모험가를 고르고 타깃을 정하면, 약점 속성 · 속성 공명 · 역할 밸런스 · 연계기 궁합으로 점수를 매겨 4인 편성 3개를 추천합니다. 주인공은 항상 보유로 보고, 빈 속성을 채우는 데 씁니다.</p></div>
+  <div class="page-h"><h1>파티 편성</h1><p>보유 캐릭터로 겹치지 않는 1~3파티를 짭니다. 메인 딜러가 쓰는 각인을 동료가 공급하는지, 하이퍼캐리 · 밸런스 구성인지, 적 원소와 상성이 맞는지로 점수를 매깁니다.</p></div>
   <div class="card filters">
-    <label class="row" style="flex:1 1 260px"><span class="note">타깃</span>
-      <select id="b-target" style="flex:1">
-        ${opt('', '정하지 않음 (범용)')}
-        <optgroup label="속성으로">${meta.elements.map(e => opt('e:' + e.id, e.name + ' 약점 몬스터')).join('')}</optgroup>
-        <optgroup label="고룡 · 플래그십">${large.filter(m => m.class === 'elder').map(m => opt('m:' + m.id, m.name)).join('')}</optgroup>
-        <optgroup label="대형 몬스터">${large.filter(m => m.class !== 'elder' && !m.radiant).map(m => opt('m:' + m.id, m.name)).join('')}</optgroup>
-        <optgroup label="융광종">${large.filter(m => m.radiant).map(m => opt('m:' + m.id, m.name)).join('')}</optgroup>
-      </select></label>
-    <label class="row" style="flex:1 1 200px"><span class="note">메인 고정</span>
-      <select id="b-main" style="flex:1"><option value="">자동</option>${adventurers.list.filter(a => state.owned.includes(a.id)).map(a => `<option value="${a.id}" ${state.main === a.id ? 'selected' : ''}>${esc(a.name)}</option>`).join('')}</select></label>
+    <span class="note">파티 수</span>
+    <div class="seg" id="b-n">${[1, 2, 3].map(n => `<button data-v="${n}" aria-pressed="${state.parties === n}">${n}파티</button>`).join('')}</div>
+    <label class="switch"><input type="checkbox" id="b-kibo" ${state.kibo ? 'checked' : ''}><span>부족한 핵심 각인 1개는 키보로 보충</span></label>
+    <span style="flex:1"></span>
+    <button class="btn sm" id="b-reset">고정 모두 해제</button>
+    <button class="btn sm" id="b-share">공유 링크</button>
+    <button class="btn sm" id="b-copy">편성 텍스트 복사</button>
   </div>
-  <details class="card roster-box" ${state.owned.length === adventurers.list.length ? '' : 'open'}>
-    <summary class="row" style="justify-content:space-between"><b>보유 모험가 <span class="note" id="b-count">${state.owned.length}/${adventurers.list.length}</span></b><span class="note">눌러서 편집</span></summary>
-    <div class="row" style="justify-content:flex-end;margin:10px 0"><button class="btn sm" data-act="all">전체</button><button class="btn sm" data-act="none">해제</button></div>
-    <div class="roster">${adventurers.list.map(a => `<label title="${esc(a.name)}"><input type="checkbox" value="${a.id}" ${state.owned.includes(a.id) ? 'checked' : ''}>${advPf(a)}<span>${esc(a.name)}</span></label>`).join('')}</div>
+  <details class="card roster-box" ${state.owned.length ? '' : 'open'}>
+    <summary class="row" style="justify-content:space-between"><b>보유 캐릭터 <span class="note" id="b-count">${state.owned.length}/${characters.list.length}</span></b><span class="note">눌러서 편집 · 성림자는 항상 보유</span></summary>
+    <div class="row" style="justify-content:flex-end;margin:10px 0"><button class="btn sm" data-act="all">전체</button><button class="btn sm" data-act="r5">5★만</button><button class="btn sm" data-act="free">무료만</button><button class="btn sm" data-act="none">해제</button></div>
+    <h4 class="rost-h">5★</h4><div class="roster">${n5.map(rosterItem).join('')}</div>
+    <h4 class="rost-h">4★</h4><div class="roster">${n4.map(rosterItem).join('')}</div>
   </details>
   <div id="b-out"></div>`;
 };
+const rosterItem = c => `<label title="${esc(c.name)} · ${L.prof[c.prof]}"><input type="checkbox" value="${c.id}" ${state.owned.includes(c.id) ? 'checked' : ''}>${pf(c)}<span>${esc(c.name)}</span></label>`;
 
+let lastResult = null;
 function renderBuild() {
   const out = $('#b-out'); if (!out) return;
-  const t = state.target;
-  const target = t.startsWith('m:') ? { monsterId: t.slice(2) } : t.startsWith('e:') ? { element: t.slice(2) } : {};
-  const main = state.owned.includes(state.main) ? state.main : '';
-  const r = buildTeams(DATA, state.owned, target, { fixedMain: main });
-  const mon = r.monster;
-  const presets = teams.list.filter(p => (mon && p.target.type === 'monster' && p.target.id === mon.id) || (target.element && p.element === target.element));
-  let h = '';
-  if (mon) h += `<div class="card"><div class="row" style="justify-content:space-between"><h3 style="margin:0">${esc(mon.name)}</h3><a class="btn sm" href="${href('monster/' + mon.id)}" data-link>공략 보기</a></div>
-    <div class="note">3★ 약점: ${weakList(mon)}${mon.weaknessComplete ? '' : ' · 2★ 이하는 아직 미확인이라 점수에 반영하지 않음'}</div></div>`;
-  h += `<div class="sec-h"><h2>추천 편성</h2><span class="note">${r.total.toLocaleString()}개 조합 채점 ${conf('estimate')}</span></div>`;
-  if (!r.results.length) h += `<div class="card empty">조합을 만들 수 없습니다. 보유 모험가를 3명 이상 골라 주세요.</div>`;
-  h += `<div class="grid">${r.results.map((x, i) => `<div class="card team">
-    <div class="row" style="justify-content:space-between"><h3 style="margin:0">${i + 1}안</h3><span class="score">${x.score}</span></div>
-    <div class="team-m">${x.team.map((u, j) => {
-      const a = u.fated ? null : ADV[u.id];
-      const pic = a ? advPf(a) : pf('x', 'fated', '주', u.element);
-      const sub = u.fated ? `${WEP[u.weapon].name} · ${EL[u.element]} 무기` : L.roles[u.role];
-      const tag = a ? 'a' : 'div';
-      return `<${tag} class="mem${j === 0 ? ' main' : ''}" ${a ? `href="${href('adventurer/' + a.id)}" data-link` : ''}>${pic}<b>${esc(u.fated ? '주인공' : u.name)}</b><span class="slot">${j === 0 ? '메인 · ' : ''}${esc(sub)}</span></${tag}>`;
+  const N = state.parties;
+  const r = buildParties(DATA, state.owned, { parties: N, targets: state.targets, kibo: state.kibo, fixedMains: state.mains, pinned: state.pinned });
+  lastResult = r;
+  const usedAll = new Set(r.parties.filter(Boolean).flatMap(p => p.team.map(u => u.id)));
+  const ownedList = ALL.filter(c => c.id === 'starborn' || state.owned.includes(c.id));
+  let h = `<div class="sec-h"><h2>편성 결과</h2><span class="note">${r.total.toLocaleString()}개 조합 채점 · 합계 <b class="score sm">${r.parties.reduce((s, p) => s + (p ? p.score : 0), 0)}</b> ${conf('estimate')}</span></div>`;
+  h += `<div class="parties n${N}">`;
+  for (let i = 0; i < N; i++) {
+    const p = r.parties[i];
+    const tsel = `<select data-target="${i}" aria-label="${i + 1}파티 적 원소"><option value="">적 원소: 무관</option>${ELS.map(e => `<option value="${e.id}" ${state.targets[i] === e.id ? 'selected' : ''}>적 원소: ${e.name}</option>`).join('')}</select>`;
+    const msel = `<select data-main="${i}" aria-label="${i + 1}파티 메인 고정"><option value="">메인: 자동</option>${ownedList.filter(c => c.group !== 'support' || c.id === state.mains[i]).map(c => `<option value="${c.id}" ${state.mains[i] === c.id ? 'selected' : ''}>메인: ${esc(c.name)}</option>`).join('')}</select>`;
+    h += `<div class="card team party p${i + 1}${p && p.pinned ? ' pinned' : ''}">
+      <div class="row" style="justify-content:space-between"><h3 style="margin:0"><span class="pno">${i + 1}</span>파티</h3>
+        <span class="row">${p ? `<span class="score">${p.score}</span>` : ''}<button class="btn sm pin" data-pin="${i}" aria-pressed="${!!(p && p.pinned)}" ${p ? '' : 'disabled'}>${p && p.pinned ? '📌 고정됨' : '📌 고정'}</button></span></div>
+      <div class="row party-sel">${tsel}${msel}</div>`;
+    if (!p) { h += `<div class="empty">남은 캐릭터로 파티를 만들 수 없습니다. 보유 캐릭터를 늘리거나 파티 수를 줄여 주세요.</div></div>`; continue; }
+    h += `<div class="team-m">${p.team.map((u, j) => {
+      const opts = ownedList.filter(c => c.id === u.id || !usedAll.has(c.id));
+      const tgt = state.targets[i];
+      const mu = tgt ? matchup(meta.chart, u.elements[0], tgt) : 0;
+      return `<div class="mem${j === 0 ? ' main' : ''}">
+        <a href="${href('character/' + u.id)}" data-link class="mem-a">${pf(u)}${mu ? `<span class="mu ${mu > 0 ? 'up' : 'down'}">${mu > 0 ? '▲' : '▼'}</span>` : ''}</a>
+        <b>${esc(u.name)}</b><span class="slot">${j === 0 ? '메인 · ' : ''}${L.prof[u.prof]}</span>
+        <select class="swap" data-p="${i}" data-j="${j}" aria-label="${esc(u.name)} 교체">${opts.map(c => `<option value="${c.id}" ${c.id === u.id ? 'selected' : ''}>${c.id === u.id ? '교체…' : esc(c.name)}</option>`).join('')}</select>
+      </div>`;
     }).join('')}</div>
-    ${x.buddy ? `<div class="note">동반자: <b>${esc(x.buddy.buddy.name)}</b> (${esc(L.buddyTypes[x.buddy.buddy.type])} · ${esc(x.buddy.why)})</div>` : ''}
-    <div class="reasons">${x.reasons.map(z => `<span class="chip ${z.t === 'good' ? 'ok' : 'bad'}">${esc(REASON[z.k](z.v))}</span>`).join('')}</div>
-  </div>`).join('')}</div>
-  <p class="note">점수는 커뮤니티 조언(속성 1~2종, 전원 돌격형 회피, 약점 속성 맞추기 등)을 수치로 옮긴 비교용 추정치입니다. 실제 화력 계산이 아닙니다. 가중치는 <code>src/data/builder-rules.json</code>에서 바꿀 수 있습니다.</p>`;
-  if (presets.length) h += `<div class="sec-h"><h2>공략 사이트 추천 편성</h2></div><div class="grid">${presets.map(presetCard).join('')}</div>`;
+    <div class="marks"><span class="note">${esc(p.main.name)} 각인</span>${p.marks.length ? p.marks.map(m => `<span class="chip ${m.opt && m.st === 'miss' ? 'warn' : MARK_ST[m.st][0]}" title="${m.opt ? '보조 소모 각인' : '핵심 각인'}"><i class="dot" style="--c:${EL[m.e].color}"></i>${EL[m.e].name}${m.opt ? '(보조)' : ''} · ${MARK_ST[m.st][1]}</span>`).join('') : '<span class="chip">각인 소모 없음</span>'}</div>
+    <div class="reasons">${p.reasons.filter(z => !z.k.startsWith('mark')).map(z => `<span class="chip ${z.t === 'good' ? 'ok' : z.t === 'bad' ? 'bad' : 'warn'}">${esc(REASON[z.k](z.v))}</span>`).join('')}</div>
+    ${r.alts[i] && r.alts[i].length ? `<div class="alts"><span class="note">다른 후보</span>${r.alts[i].map((a, k) => `<button class="alt" data-alt="${i}:${k}">${a.team.map(u => esc(u.name)).join(' · ')} <b>${a.score}</b></button>`).join('')}</div>` : ''}
+    </div>`;
+  }
+  h += `</div>
+  <p class="note">점수는 공략 조언(메인의 각인을 동료가 공급, 딜러 1 + 서포터 2 또는 딜러 1 + 브레이커 1 + 서포터 1, 원소 상성 ±25%)을 수치로 옮긴 비교용 추정치이며 실제 피해량 계산이 아닙니다. ▲▼는 고른 적 원소에 대한 상성입니다. 가중치는 <code>src/data/builder-rules.json</code>에서 바꿀 수 있습니다.</p>`;
   out.innerHTML = h;
 }
 
+function teamText() {
+  if (!lastResult) return '';
+  return lastResult.parties.slice(0, state.parties).map((p, i) => p ? `${i + 1}파티${state.targets[i] ? `(적 ${EL[state.targets[i]].name})` : ''}: ${p.team.map(u => u.name).join(' / ')} [${p.score}]` : `${i + 1}파티: -`).join('\n') + `\n— ${SITE_NAME}`;
+}
+async function copy(text, btn) {
+  try { await navigator.clipboard.writeText(text); const o = btn.textContent; btn.textContent = '복사됨 ✓'; setTimeout(() => { btn.textContent = o; }, 1400); }
+  catch (e) { prompt('복사해서 쓰세요', text); }
+}
+
 function bindBuilder(root) {
+  const rerender = () => { save(); renderBuild(); };
   root.addEventListener('change', e => {
     const t = e.target;
-    if (t.matches('.roster input')) { state.owned = [...root.querySelectorAll('.roster input:checked')].map(i => i.value); save(); updateCount(root); refreshMainSelect(root); renderBuild(); }
-    if (t.id === 'b-target') { state.target = t.value; save(); syncUrl(); renderBuild(); }
-    if (t.id === 'b-main') { state.main = t.value; save(); renderBuild(); }
+    if (t.matches('.roster input')) { state.owned = [...root.querySelectorAll('.roster input:checked')].map(i => i.value); state.pinned = [null, null, null]; updateCount(root); rerender(); }
+    else if (t.id === 'b-kibo') { state.kibo = t.checked; rerender(); }
+    else if (t.dataset.target) { state.targets[+t.dataset.target] = t.value; rerender(); }
+    else if (t.dataset.main) { const i = +t.dataset.main; state.mains[i] = t.value; state.pinned[i] = null; rerender(); }
+    else if (t.matches('.swap')) {
+      const i = +t.dataset.p, j = +t.dataset.j;
+      const team = lastResult.parties[i].team.map(u => u.id);
+      team[j] = t.value;
+      state.pinned[i] = team;
+      if (state.mains[i] && !team.includes(state.mains[i])) state.mains[i] = '';
+      rerender();
+    }
   });
   root.addEventListener('click', e => {
+    const n = e.target.closest('#b-n button');
+    if (n) { state.parties = +n.dataset.v; root.querySelectorAll('#b-n button').forEach(b => b.setAttribute('aria-pressed', b === n)); rerender(); return; }
+    const pin = e.target.closest('[data-pin]');
+    if (pin) { const i = +pin.dataset.pin; const p = lastResult.parties[i]; state.pinned[i] = p && !p.pinned ? p.team.map(u => u.id) : null; rerender(); return; }
+    const alt = e.target.closest('[data-alt]');
+    if (alt) { const [i, k] = alt.dataset.alt.split(':').map(Number); state.pinned[i] = lastResult.alts[i][k].team.map(u => u.id); rerender(); return; }
+    if (e.target.closest('#b-reset')) { state.pinned = [null, null, null]; rerender(); return; }
+    if (e.target.closest('#b-share')) { copy(location.origin + href('builder') + `?o=${state.owned.join('.')}&p=${state.parties}`, e.target.closest('button')); return; }
+    if (e.target.closest('#b-copy')) { copy(teamText(), e.target.closest('button')); return; }
     const b = e.target.closest('[data-act]'); if (!b) return;
-    state.owned = b.dataset.act === 'all' ? adventurers.list.map(a => a.id) : [];
+    const act = b.dataset.act;
+    const freeIds = guide.free.map(f => f.id);
+    state.owned = characters.list.filter(c => act === 'all' || (act === 'r5' && c.rarity === 5) || (act === 'free' && freeIds.includes(c.id))).map(c => c.id);
+    state.pinned = [null, null, null];
     root.querySelectorAll('.roster input').forEach(i => { i.checked = state.owned.includes(i.value); });
-    save(); updateCount(root); refreshMainSelect(root); renderBuild();
+    updateCount(root); rerender();
   });
 }
-function updateCount(root) { const c = $('#b-count', root); if (c) c.textContent = `${state.owned.length}/${adventurers.list.length}`; }
-function refreshMainSelect(root) {
-  const s = $('#b-main', root); if (!s) return;
-  if (!state.owned.includes(state.main)) state.main = '';
-  s.innerHTML = `<option value="">자동</option>` + adventurers.list.filter(a => state.owned.includes(a.id)).map(a => `<option value="${a.id}" ${state.main === a.id ? 'selected' : ''}>${esc(a.name)}</option>`).join('');
-}
-function syncUrl() {
-  const m = state.target.startsWith('m:') ? '?m=' + state.target.slice(2) : '';
-  history.replaceState(null, '', href('builder') + m);
-}
+function updateCount(root) { const c = $('#b-count', root); if (c) c.textContent = `${state.owned.length}/${characters.list.length}`; }
 
-// ---------- 모험가 · 동반자 ----------
-let advFilter = { role: '', element: '', weapon: '' };
-views.adventurers = () => {
-  const tab = state.advTab;
-  const head = `<div class="page-h"><h1>모험가 · 동반자</h1><p>티어는 커뮤니티 평가(GameWith 한국어 2026-11-19 기준)이며, 같은 티어 안에서는 순위 차이가 없습니다.</p></div>
-  <div class="seg" id="adv-tab"><button data-v="adv" aria-pressed="${tab === 'adv'}">모험가</button><button data-v="bud" aria-pressed="${tab === 'bud'}">동반자</button></div>`;
-  if (tab === 'bud') return head + buddyList();
-  const sel = (k, opts) => `<select data-f="${k}"><option value="">${{ role: '역할', element: '속성', weapon: '무기' }[k]} 전체</option>${opts.map(([v, t]) => `<option value="${v}" ${advFilter[k] === v ? 'selected' : ''}>${esc(t)}</option>`).join('')}</select>`;
-  const f = adventurers.fated;
-  return head + `
-  <div class="filters">${sel('role', Object.entries(L.roles))}${sel('element', meta.elements.map(e => [e.id, e.name]))}${sel('weapon', weapons.list.map(w => [w.id, w.name]))}</div>
-  <div class="grid" id="adv-list"></div>
-  <div class="sec-h"><h2>${esc(f.name)}</h2>${conf(f.confidence)}</div>
-  <div class="card"><p style="margin:0 0 8px">${esc(f.summary)}</p><ul class="plain">${f.notes.map(n => `<li>${esc(n)}</li>`).join('')}</ul>
-    <h3 style="margin-top:12px">무기별 평가</h3><div class="chips">${Object.entries(f.tierByWeapon).map(([w, t]) => `<a class="chip" href="${href('weapon/' + w)}" data-link>${esc(WEP[w].name)} <b>${t}</b></a>`).join('')}</div></div>`;
+// ---------- 캐릭터 ----------
+let chFilter = { prof: '', element: '', rarity: '' };
+views.characters = () => {
+  const sel = (k, label, opts) => `<select data-f="${k}"><option value="">${label} 전체</option>${opts.map(([v, t]) => `<option value="${v}" ${chFilter[k] === v ? 'selected' : ''}>${esc(t)}</option>`).join('')}</select>`;
+  return `<div class="page-h"><h1>캐릭터</h1><p>티어는 국내 정리(2026-11-24, CBT 기준)이며 GameWith CBT 티어를 함께 적었습니다. 같은 티어 안에서는 순서 차이가 없습니다.</p></div>
+  <div class="filters">${sel('prof', '직업', Object.entries(L.prof).filter(([k]) => k !== 'none'))}${sel('element', '속성', ELS.map(e => [e.id, e.name]))}${sel('rarity', '등급', [['5', '5★'], ['4', '4★']])}</div>
+  <div class="grid" id="ch-list"></div>
+  <div class="sec-h"><h2>직업 5종</h2></div>
+  <div class="grid">${Object.entries(L.profDesc).map(([k, d]) => `<div class="card"><h3><span class="prof ${k}">${L.prof[k]}</span> <span class="note">${{ eruption: '딜러', assault: '딜러', rupture: '브레이커', amplifier: '서포터', imbuement: '서포터' }[k]}</span></h3><p class="note" style="margin:0">${esc(d)}</p></div>`).join('')}</div>`;
 };
-function advListHtml() {
-  const list = adventurers.list.filter(a => (!advFilter.role || a.role === advFilter.role) && (!advFilter.element || a.element === advFilter.element) && (!advFilter.weapon || a.weapon === advFilter.weapon));
-  if (!list.length) return `<div class="card empty">조건에 맞는 모험가가 없습니다.</div>`;
-  return list.map(a => `<a class="card adv" href="${href('adventurer/' + a.id)}" data-link>${advPf(a)}<div><div class="nm"><span class="n">${esc(a.name)}</span> <span class="rar ${a.rarity}">${a.rarity}</span> <span class="tier">${a.tier}</span></div>
-    <div class="row">${role(a.role)} <span class="note">${esc(WEP[a.weapon].name)}</span> ${el(a.element)}</div><div class="note">${esc(a.ult.name)}: ${esc(a.ult.desc)}</div></div></a>`).join('');
+function chListHtml() {
+  const list = ALL.filter(c => (!chFilter.prof || c.prof === chFilter.prof) && (!chFilter.element || c.elements.includes(chFilter.element)) && (!chFilter.rarity || String(c.rarity) === chFilter.rarity));
+  if (!list.length) return `<div class="card empty">조건에 맞는 캐릭터가 없습니다.</div>`;
+  return list.map(c => `<a class="card adv" href="${href('character/' + c.id)}" data-link>${pf(c)}<div><div class="nm"><span class="n">${esc(c.name)}</span> ${rar(c.rarity)} ${tier(c.tier)} ${c.limited ? '<span class="chip acc">한정</span>' : ''}</div>
+    <div class="row">${prof(c)} ${els(c.elements) || '<span class="note">무속성</span>'}</div>
+    <div class="row mk-row"><span class="note">각인</span>${c.wildcard ? '<span class="mk any">기존 각인 증폭</span>' : markChips(c.gains)}${c.consumes.length ? `<span class="note">→ 소모</span>${markChips(c.consumes, 'use')}` : ''}</div></div></a>`).join('');
 }
-function buddyList() {
-  return `<div class="grid">${buddies.types.map(t => `<div class="card">${pf('buddyTypes', t.id, t.label, null)}<h3 style="margin-top:10px">${esc(L.buddyTypes[t.id])} <span class="role ${t.id}">${esc(t.role)}</span></h3><p class="note" style="margin:0 0 6px">${esc(t.summary)}</p><ul class="plain">${t.whenToUse.map(w => `<li>${esc(w)}</li>`).join('')}</ul>${t.warning ? `<p class="note" style="color:var(--warn)">⚠ ${esc(t.warning)}</p>` : ''}</div>`).join('')}</div>
-  <div class="card note">${esc(buddies.rule)}</div>
-  <div class="sec-h"><h2>핵심 동반자</h2>${conf(buddies.confidence)}</div>
-  <div class="grid">${buddies.list.map(b => `<div class="card"><div class="row" style="justify-content:space-between"><b>${esc(b.name)}</b><span><span class="rar ${b.rarity}">${b.rarity}</span> <span class="tier">${b.tier}</span></span></div>
-    <div class="row"><span class="role ${b.type}">${esc(L.buddyTypes[b.type])}</span>${b.pair ? `<a class="chip acc" href="${href('adventurer/' + b.pair)}" data-link>${esc(ADV[b.pair].name)} 모티프</a>` : ''}</div><p class="note" style="margin:6px 0 0">${esc(b.effect)}</p></div>`).join('')}</div>
-  <p class="note">${esc(buddies._note)}</p>`;
-}
-function bindAdventurers(root) {
-  const list = $('#adv-list', root); if (list) list.innerHTML = advListHtml();
-  root.addEventListener('change', e => { const k = e.target.dataset.f; if (!k) return; advFilter[k] = e.target.value; $('#adv-list', root).innerHTML = advListHtml(); });
-  root.addEventListener('click', e => { const b = e.target.closest('#adv-tab button'); if (!b) return; state.advTab = b.dataset.v; save(); show('adventurers'); });
+function bindCharacters(root) {
+  const draw = () => { $('#ch-list', root).innerHTML = chListHtml(); };
+  draw();
+  root.addEventListener('change', e => { const k = e.target.dataset.f; if (!k) return; chFilter[k] = e.target.value; draw(); });
 }
 
-const TRIG = { special: '메인 필살기 명중 시', dodge: '메인 회피 성공 시', suppress: '몬스터 제압 시' };
-const SLOT = { main: '메인 조작', resonance: '속성 공명', buffer: '버퍼', support: '지원', suppress: '제압', flex: '자유', debuff: '디버프', swaps: '교체 후보' };
-views.adventurer = (q, id) => {
-  const a = ADV[id]; if (!a) return views.notfound();
-  const inTeams = teams.list.filter(t => t.members.some(m => m.id === a.id));
-  const bl = a.buddies.map(b => BUD[b]).filter(Boolean);
+views.character = (q, id) => {
+  const c = CH[id]; if (!c) return views.notfound();
+  const inTeams = teams.list.filter(t => t.members.includes(c.id) || (t.swaps || []).some(s => s.in === c.id));
+  const need = [...new Set([...c.requires, ...c.consumes])];
+  const suppliers = need.map(e => [e, ALL.filter(x => x.id !== c.id && x.gains.includes(e) && x.group === 'support')]);
+  const takers = c.gains.map(e => [e, ALL.filter(x => x.id !== c.id && x.group !== 'support' && (x.consumes.includes(e) || x.requires.includes(e)))]);
+  const strong = c.elements[0] ? meta.chart.strong[c.elements[0]] : [];
+  const weak = c.elements[0] ? meta.chart.weak[c.elements[0]] : [];
+  const link = x => `<a class="chip" href="${href('character/' + x.id)}" data-link>${esc(x.name)}</a>`;
   return `
-  <a class="note" href="${href('adventurers')}" data-link>← 모험가 목록</a>
-  <div class="card adv" style="grid-template-columns:96px 1fr">${advPf(a).replace('class="pf', 'style="width:96px" class="pf')}<div>
-    <div class="nm" style="font-size:24px"><span class="n">${esc(a.name)}</span> <span class="rar ${a.rarity}">${a.rarity}</span> <span class="tier">${a.tier}</span> ${conf(a.confidence)}</div>
-    <div class="row">${role(a.role)} <a class="note" href="${href('weapon/' + a.weapon)}" data-link>${esc(WEP[a.weapon].name)}</a> ${el(a.element)}</div>
-    <div class="note">입수: ${a.obtain.map(esc).join(', ')}</div>
-    <div class="row" style="margin-top:8px"><a class="btn primary sm" href="${href('builder?main=' + a.id)}" data-link>이 모험가로 편성</a></div></div></div>
+  <a class="note" href="${href('characters')}" data-link>← 캐릭터 목록</a>
+  <div class="card adv head">${pf(c, true)}<div>
+    <div class="nm" style="font-size:24px"><span class="n">${esc(c.name)}</span> ${rar(c.rarity)} ${tier(c.tier)} ${c.gwTier && c.gwTier !== '-' ? `<span class="chip">GameWith ${c.gwTier}</span>` : ''} ${conf(c.confidence)}</div>
+    <div class="note">${esc(c.nameEn)}</div>
+    <div class="row">${prof(c)} <span class="note">${L.group[c.group]}</span> ${els(c.elements)}</div>
+    <div class="note">입수: ${c.obtain.map(esc).join(', ')}</div>
+    <div class="row" style="margin-top:8px"><a class="btn primary sm" href="${href('builder?main=' + c.id)}" data-link>이 캐릭터를 메인으로 편성</a></div></div></div>
+  <div class="card"><p style="margin:0">${esc(c.summary)}</p></div>
   <div class="grid">
-    <div class="card"><h3>오의 · ${esc(a.ult.name)}</h3><p style="margin:0">${esc(a.ult.desc)}</p></div>
-    <div class="card"><h3>연계기 · ${esc(a.link.name)}</h3><p style="margin:0">${esc(a.link.desc)}</p><div class="note">발동: ${esc(TRIG[a.link.trigger])} · ${a.link.cooldown}초에 1회</div></div>
-    <div class="card"><h3>고유 특성 · ${esc(a.trait.name)}</h3><p style="margin:0">${esc(a.trait.desc)}</p></div>
-    ${a.corePassive ? `<div class="card"><h3>코어 패시브</h3><p style="margin:0">${esc(a.corePassive)}</p><div class="note">기념품 인장 '코어 패시브'(Lv50~)로 강화</div></div>` : ''}
-    ${a.survival ? `<div class="card"><h3>서바이벌 특성</h3><p style="margin:0">${esc(a.survival)}</p></div>` : ''}
+    <div class="card"><h3>각인</h3><dl class="kv">
+      <dt>만드는 각인</dt><dd class="chips">${c.wildcard ? '<span class="mk any">파티에 있는 각인을 증폭</span>' : markChips(c.gains)}</dd>
+      <dt>소모</dt><dd class="chips">${markChips(c.consumes, 'use')}</dd>
+      ${c.requires.length ? `<dt>필요</dt><dd class="chips">${markChips(c.requires, 'use')}</dd>` : ''}
+    </dl></div>
+    <div class="card"><h3>핵심 패시브</h3><p style="margin:0">${esc(c.passive)}</p></div>
+    ${strong.length || weak.length ? `<div class="card"><h3>원소 상성 (${EL[c.elements[0]].name} 공격)</h3><dl class="kv"><dt>우위 +25%</dt><dd>${els(strong) || '-'}</dd><dt>열세 -25%</dt><dd>${els(weak) || '-'}</dd></dl></div>` : ''}
   </div>
   <div class="grid">
-    <div class="card"><h3>추천 동반자</h3><ul class="plain">${bl.map(b => `<li><b>${esc(b.name)}</b> <span class="note">${esc(L.buddyTypes[b.type])} · ${b.rarity}${b.pair === a.id ? ' · 모티프' : ''}</span><br><span class="note">${esc(b.effect)}</span></li>`).join('')}</ul></div>
-    <div class="card"><h3>추천 파티</h3><dl class="kv">${Object.entries(a.team).map(([k, v]) => `<dt>${esc(SLOT[k] || k)}</dt><dd class="chips">${(Array.isArray(v) ? v : [v]).map(memberChip).join('')}</dd>`).join('')}</dl></div>
-    <div class="card"><h3>장점</h3><ul class="plain">${a.pros.map(p => `<li>${esc(p)}</li>`).join('')}</ul><h3 style="margin-top:10px">주의점</h3><ul class="plain">${a.cons.map(p => `<li>${esc(p)}</li>`).join('')}</ul></div>
+    ${need.length ? `<div class="card"><h3>각인을 대 줄 서포터</h3><dl class="kv">${suppliers.map(([e, xs]) => `<dt>${el(e)}</dt><dd class="chips">${xs.map(link).join('') || '<span class="note">없음 · 키보로 보충</span>'}</dd>`).join('')}</dl></div>` : ''}
+    ${c.group === 'support' && c.gains.length ? `<div class="card"><h3>이 각인을 쓰는 딜러 · 브레이커</h3><dl class="kv">${takers.map(([e, xs]) => `<dt>${el(e)}</dt><dd class="chips">${xs.map(link).join('') || '<span class="note">없음</span>'}</dd>`).join('')}</dl></div>` : ''}
+    <div class="card"><h3>장점</h3><ul class="plain">${c.pros.map(p => `<li>${esc(p)}</li>`).join('')}</ul>${c.cons.length ? `<h3 style="margin-top:10px">주의점</h3><ul class="plain">${c.cons.map(p => `<li>${esc(p)}</li>`).join('')}</ul>` : ''}</div>
   </div>
   ${inTeams.length ? `<div class="sec-h"><h2>포함된 추천 편성</h2></div><div class="grid">${inTeams.map(presetCard).join('')}</div>` : ''}
-  <p class="note">출처: ${srcLinks(a.sources)}</p>`;
+  <p class="note">출처: ${srcLinks(c.sources)}</p>`;
 };
 
-// ---------- 무기 ----------
-views.weapons = () => `
-  <div class="page-h"><h1>주인공 무기 8종</h1><p>주인공은 장비 화면에서 언제든 무기를 바꿀 수 있고, 모든 무기를 가지고 시작합니다. 속성은 몬스터 약점에 맞춰 고르는 것이 공통 원칙입니다.</p></div>
-  <div class="grid">${weapons.list.map(w => `<a class="card" href="${href('weapon/' + w.id)}" data-link style="text-decoration:none">
-    <div class="row" style="justify-content:space-between"><h3 style="margin:0">${esc(w.name)}</h3><span><span class="tier">${w.tier}</span> <span class="note">난이도 ${'●'.repeat(w.difficulty)}${'○'.repeat(3 - w.difficulty)}</span></span></div>
-    <p class="note" style="margin:6px 0">${esc(w.summary)}</p>
-    <div class="chips">${w.range === 'ranged' ? '<span class="chip">원거리</span>' : '<span class="chip">근거리</span>'}${(w.insights || []).map(i => `<span class="chip acc">${esc(i)}</span>`).join('')}</div></a>`).join('')}</div>
-  <div class="sec-h"><h2>주인공 타입 고르기</h2>${conf(weapons.typeGuide.confidence)}</div>
-  <div class="card"><p style="margin:0 0 6px">${esc(weapons.typeGuide.summary)}</p><ul class="plain">${weapons.typeGuide.advice.map(a => `<li>${esc(a)}</li>`).join('')}<li>${esc(weapons.typeGuide.disruptorUlt)}</li></ul></div>`;
-
-views.weapon = (q, id) => {
-  const w = WEP[id]; if (!w) return views.notfound();
-  const users = adventurers.list.filter(a => a.weapon === w.id);
+// ---------- 원소 · 각인 ----------
+views.elements = () => {
+  const ring = ELS.filter(e => !['light', 'dark'].includes(e.id));
   return `
-  <a class="note" href="${href('weapons')}" data-link>← 무기 목록</a>
-  <div class="page-h"><h1>${esc(w.name)} <span class="tier">${w.tier}</span> ${conf(w.confidence)}</h1><p>${esc(w.summary)}</p></div>
-  <div class="card"><h3>기본 운용</h3><ol class="steps">${w.howTo.map(s => `<li><div>${esc(s)}</div></li>`).join('')}</ol></div>
+  <div class="page-h"><h1>원소 상성 · 각인 ${conf(meta.chart.confidence)}</h1><p>${esc(meta.chart._note)} 상성은 클리어 시간이 빡빡한 고난도에서 중요해집니다.</p></div>
+  <div class="card" style="overflow-x:auto"><table class="chart"><thead><tr><th>공격 ↓ / 적 →</th>${ELS.map(e => `<th>${el(e.id)}</th>`).join('')}</tr></thead>
+    <tbody>${ELS.map(a => `<tr><th>${el(a.id)}</th>${ELS.map(d => { const m = matchup(meta.chart, a.id, d.id); return `<td class="${m > 0 ? 'up' : m < 0 ? 'down' : ''}">${m > 0 ? '+25%' : m < 0 ? '-25%' : ''}</td>`; }).join('')}</tr>`).join('')}</tbody></table>
+    <p class="note" style="margin:8px 0 0">고리 순서: ${ring.map(e => e.name).join(' · ')} — 각 원소가 둘을 이기고 둘에게 집니다. 적은 원소를 여러 개 가질 수 있습니다.</p></div>
+  <div class="sec-h"><h2>각인(조율 표식) 원소 효과</h2></div>
+  <div class="card note">${esc(meta.markRule)}</div>
+  <div class="grid">${ELS.map(e => {
+    const gain = ALL.filter(c => c.gains.includes(e.id));
+    const use = ALL.filter(c => c.consumes.includes(e.id) || c.requires.includes(e.id));
+    const chip = c => `<a class="chip" href="${href('character/' + c.id)}" data-link>${esc(c.name)}</a>`;
+    return `<div class="card elcard" style="--c:${e.color}"><h3>${el(e.id)} 각인</h3><p style="margin:0 0 8px">${esc(e.mark)}</p>
+      <dl class="kv"><dt>만드는 캐릭터</dt><dd class="chips">${gain.map(chip).join('') || '<span class="note">없음 · 키보</span>'}</dd><dt>쓰는 캐릭터</dt><dd class="chips">${use.map(chip).join('') || '<span class="note">없음</span>'}</dd></dl></div>`;
+  }).join('')}</div>
+  <p class="note">출처: ${srcLinks(['gw-elem', 'gw-tier', 'gw-char'])}</p>`;
+};
+
+// ---------- 가이드 ----------
+views.guide = () => `
+  <div class="page-h"><h1>입문 가이드 ${conf(guide.confidence)}</h1><p>파티 짜기 전에 알아 둘 기본 규칙과 출시 직후 육성 방향.</p></div>
+  <div class="card"><ol class="steps">${guide.basics.map(s => `<li><div><b>${esc(s.title)}</b><span class="note">${esc(s.desc)}</span></div></li>`).join('')}</ol></div>
   <div class="grid">
-    <div class="card"><h3>추천 깨달음</h3><div class="chips">${(w.insights || []).map(i => `<span class="chip acc">${esc(i)}</span>`).join('') || '<span class="note">정보 없음</span>'}</div>
-      <h3 style="margin-top:12px">초반 장비</h3><p class="note" style="margin:0">${esc(w.earlyGear || '')}</p>${w.partyNote ? `<p class="note">${esc(w.partyNote)}</p>` : ''}</div>
-    <div class="card"><h3>팁</h3><ul class="plain">${w.tips.map(t => `<li>${esc(t)}</li>`).join('')}</ul><h3 style="margin-top:10px">주의점</h3><ul class="plain">${w.cautions.map(t => `<li>${esc(t)}</li>`).join('')}</ul></div>
-    ${w.elementPicks ? `<div class="card"><h3>속성별 추천 무기</h3><dl class="kv">${Object.entries(w.elementPicks).map(([e, n]) => `<dt>${el(e)}</dt><dd>${esc(n)}</dd>`).join('')}</dl></div>` : ''}
+    <div class="card"><h3>육성 순서</h3><ul class="plain">${guide.growth.map(g => `<li>${esc(g)}</li>`).join('')}</ul></div>
+    <div class="card"><h3>관측(뽑기)</h3><ul class="plain">${guide.gacha.map(g => `<li>${esc(g)}</li>`).join('')}</ul></div>
+    <div class="card"><h3>무료 캐릭터</h3><ul class="plain">${guide.free.map(f => `<li><a href="${href('character/' + f.id)}" data-link>${esc(CH[f.id].name)}</a> <span class="note">${esc(f.how)}</span></li>`).join('')}</ul></div>
   </div>
-  <div class="card"><h3>이 무기를 쓰는 모험가</h3><div class="chips"><a class="chip acc" href="${href('adventurers')}" data-link>주인공 (${adventurers.fated.tierByWeapon[w.id]})</a>${users.map(a => `<a class="chip" href="${href('adventurer/' + a.id)}" data-link>${esc(a.name)} (${a.tier})</a>`).join('')}</div></div>`;
-};
-
-// ---------- 몬스터 ----------
-let monFilter = { q: '', kind: 'all', weak: '' };
-views.monsters = (q) => {
-  if (q.get('r')) monFilter.kind = 'radiant';
-  const rr = monsters.radiantRules;
-  return `
-  <div class="page-h"><h1>몬스터</h1><p>대형 몬스터 ${monsters.list.filter(m => m.size === 'large').length}종 · 소형 ${monsters.list.filter(m => m.size === 'small').length}종. 약점은 3★(최대) 속성 · 상태이상을 표시합니다.</p></div>
-  <div class="filters">
-    <input type="search" id="m-q" placeholder="이름 검색" value="${esc(monFilter.q)}">
-    <div class="seg" id="m-kind">${[['all', '전체'], ['normal', '일반'], ['radiant', '융광종'], ['small', '소형']].map(([v, t]) => `<button data-v="${v}" aria-pressed="${monFilter.kind === v}">${t}</button>`).join('')}</div>
-    <select id="m-weak"><option value="">약점 속성 전체</option>${meta.elements.map(e => `<option value="${e.id}" ${monFilter.weak === e.id ? 'selected' : ''}>${e.name} 3★</option>`).join('')}</select>
-  </div>
-  <div class="grid" id="m-list"></div>
-  <details class="card"><summary><b>${esc(rr.name)} 공통 규칙</b> ${conf(rr.confidence)}</summary><ul class="plain" style="margin-top:8px">${rr.rules.map(r => `<li>${esc(r)}</li>`).join('')}</ul></details>`;
-};
-function monListHtml() {
-  const k = monFilter.kind;
-  const list = monsters.list.filter(m => (k === 'small' ? m.size === 'small' : m.size === 'large') && (k !== 'normal' || !m.radiant) && (k !== 'radiant' || m.radiant)
-    && (!monFilter.q || m.name.includes(monFilter.q) || m.nameEn.toLowerCase().includes(monFilter.q.toLowerCase()))
-    && (!monFilter.weak || (m.weakness || {})[monFilter.weak] >= 3));
-  if (!list.length) return `<div class="card empty">조건에 맞는 몬스터가 없습니다.</div>`;
-  return list.map(m => {
-    const pic = (IMG.monsters || []).includes(m.id) ? `<img class="mon-img" src="${href('img/monsters/' + m.id + '.png')}" alt="" loading="lazy">` : '';
-    const body = `${pic}<span class="nm">${esc(m.name)} ${m.radiant ? '<span class="chip acc">융광종</span>' : ''}${m.class === 'elder' ? '<span class="chip">고룡</span>' : ''}</span>${m.size === 'large' ? `<span class="note">약점 ${weakList(m)}</span>` : '<span class="note">소형 몬스터</span>'}`;
-    return m.size === 'large' ? `<a class="card mon" href="${href('monster/' + m.id)}" data-link>${body}</a>` : `<div class="card mon">${body}</div>`;
-  }).join('');
-}
-function bindMonsters(root) {
-  const draw = () => { $('#m-list', root).innerHTML = monListHtml(); };
-  draw();
-  root.addEventListener('input', e => { if (e.target.id === 'm-q') { monFilter.q = e.target.value.trim(); draw(); } });
-  root.addEventListener('change', e => { if (e.target.id === 'm-weak') { monFilter.weak = e.target.value; draw(); } });
-  root.addEventListener('click', e => { const b = e.target.closest('#m-kind button'); if (!b) return; monFilter.kind = b.dataset.v; root.querySelectorAll('#m-kind button').forEach(x => x.setAttribute('aria-pressed', x === b)); draw(); });
-}
-
-views.monster = (q, id) => {
-  const m = MON[id]; if (!m || m.size !== 'large') return views.notfound();
-  const twin = m.radiant ? MON[m.baseId] : monsters.list.find(x => x.baseId === m.id);
-  const presets = teams.list.filter(t => t.target.type === 'monster' && t.target.id === m.id);
-  return `
-  <a class="note" href="${href('monsters')}" data-link>← 몬스터 목록</a>
-  ${(IMG.monsters || []).includes(m.id) ? `<img class="mon-hero" src="${href('img/monsters/' + m.id + '.png')}" alt="${esc(m.name)}">` : ''}
-  <div class="page-h"><h1>${esc(m.name)} ${m.species && m.species !== '융광종' && m.class !== 'elder' ? `<span class="chip">${esc(m.species)}</span>` : ''}${m.radiant ? '<span class="chip acc">융광종</span>' : ''}${m.class === 'elder' ? '<span class="chip">고룡</span>' : ''} ${conf(m.confidence)}</h1><p class="note">${esc(m.nameEn)}${m.nameJa ? ' · ' + esc(m.nameJa) : ''}</p></div>
-  <div class="card"><h3>속성 약점</h3>
-    <div class="weak-t">${meta.elements.map(e => { const n = (m.weakness || {})[e.id]; return `<div>${el(e.id)}${n ? stars(n) : `<span class="note">${m.weaknessComplete ? '-' : '?'}</span>`}</div>`; }).join('')}</div>
-    ${m.weaknessStates ? `<p class="note" style="margin:8px 0 0">상태에 따라 달라짐: ${Object.entries(m.weaknessStates).map(([e, v]) => `${EL[e]} ${Object.entries(v).map(([k, n]) => `${esc(k)} ★${n}`).join(' / ')}`).join(' · ')}</p>` : ''}
-    <h3 style="margin-top:14px">상태이상</h3>
-    <div class="weak-t">${meta.ailments.map(a => { const n = (m.ailmentWeakness || {})[a.id]; return `<div><span class="note" style="font-weight:700">${a.name}</span>${n ? stars(n) : '<span class="note">?</span>'}</div>`; }).join('')}</div>
-    ${m.weaknessComplete ? '' : '<p class="note" style="margin:8px 0 0">? 표시는 2★ 이하로, 아직 정확한 별점을 확인하지 못했습니다.</p>'}
-    <div class="row" style="margin-top:10px"><a class="btn primary sm" href="${href('builder?m=' + m.id)}" data-link>이 몬스터용 자동 편성</a>${twin ? `<a class="btn sm" href="${href('monster/' + twin.id)}" data-link>${esc(twin.name)}</a>` : ''}</div>
-  </div>
-  ${m.unlock || m.breakable ? `<div class="grid">${m.unlock ? `<div class="card"><h3>출현</h3><p style="margin:0">${esc(m.unlock)}</p></div>` : ''}${m.breakable ? `<div class="card"><h3>파괴 부위</h3><div class="chips">${m.breakable.map(b => `<span class="chip">${esc(b)}</span>`).join('')}</div>${m.inflicts ? `<p class="note">거는 상태이상: ${m.inflicts.map(esc).join(', ')}</p>` : ''}</div>` : ''}</div>` : ''}
-  ${m.hitzones && Object.keys(m.hitzones).length ? `<div class="card"><h3>약점 부위</h3><table class="hz"><thead><tr><th>부위</th><th>절단</th><th>타격</th><th>탄</th></tr></thead><tbody>${Object.entries(m.hitzones).map(([k, v]) => `<tr><td>${esc(k)}</td><td>${stars(v.cut)}</td><td>${stars(v.blunt)}</td><td>${stars(v.shot)}</td></tr>`).join('')}</tbody></table>
-    ${m.items ? `<div class="row" style="margin-top:10px">${[['flash', '섬광탄'], ['pitfall', '구멍 함정'], ['sonic', '음폭탄']].map(([k, t]) => `<span class="chip ${m.items[k] === '유효' ? 'ok' : ''}">${t} ${esc(m.items[k])}</span>`).join('')}</div>` : ''}</div>` : ''}
-  ${m.hitzoneStates ? `<div class="card note">${esc(m.hitzoneStates)}</div>` : ''}
-  ${m.eventNote ? `<div class="card note">${esc(m.eventNote)}</div>` : ''}
-  ${m.tips ? `<div class="card"><h3>파훼 포인트</h3><ul class="plain">${m.tips.map(t => `<li>${esc(t)}</li>`).join('')}</ul></div>` : ''}
-  ${m.radiant ? `<div class="card"><h3>융광종 공통 규칙</h3><ul class="plain">${monsters.radiantRules.rules.map(r => `<li>${esc(r)}</li>`).join('')}</ul></div>` : ''}
-  ${presets.length ? `<div class="sec-h"><h2>추천 편성</h2></div><div class="grid">${presets.map(presetCard).join('')}</div>` : ''}
-  <p class="note">출처: ${srcLinks(m.sources)}</p>`;
-};
-
-// ---------- 성장 가이드 ----------
-views.guide = () => {
-  const k = growth.keepsake, e = k.engravings;
-  return `
-  <div class="page-h"><h1>성장 가이드 ${conf(growth.confidence)}</h1><p>뉴비 기준 범용 진행 순서와 육성 자원 쓰는 법.</p></div>
-  <div class="card"><h3>초반 동선</h3><ol class="steps">${growth.earlyRoute.map(s => `<li><div><b>${esc(s.title)}</b><span class="note">${esc(s.desc)}</span></div></li>`).join('')}</ol></div>
-  <div class="grid">
-    <div class="card"><h3>매일 할 일</h3><ul class="plain">${growth.daily.map(d => `<li>${esc(d)}</li>`).join('')}</ul></div>
-    <div class="card"><h3>먼저 해금</h3><ul class="plain">${growth.unlockFirst.map(d => `<li>${esc(d)}</li>`).join('')}</ul></div>
-    <div class="card"><h3>나중에 해도 되는 것</h3><ul class="plain">${growth.later.map(d => `<li>${esc(d)}</li>`).join('')}</ul></div>
-  </div>
-  <div class="sec-h"><h2>${esc(k.name)} (Keepsake)</h2></div>
-  <div class="card"><p style="margin:0 0 8px">${esc(k.summary)}</p><dl class="kv"><dt>레벨 업</dt><dd>${esc(k.levelUp)}</dd><dt>한계 돌파</dt><dd>${esc(k.ascension.desc)}<br>${k.ascension.materials.map(m => `<span class="chip">${esc(m.name)} ${esc(m.range)}</span>`).join(' ')}<br><span class="note">${esc(k.ascension.source)}</span></dd></dl></div>
-  <div class="card"><h3>${esc(e.name)} (${esc(e.unlock)})</h3>
-    <dl class="kv">${e.list.map(x => `<dt>${esc(x.name)}</dt><dd>${esc(x.desc)} <span class="note">Lv ${esc(x.levels)}</span></dd>`).join('')}</dl>
-    <p class="note">${esc(e.materials)}</p><h3>투자 순서</h3><ul class="plain">${e.investOrder.map(x => `<li>${esc(x)}</li>`).join('')}</ul></div>
-  <div class="grid">
-    <div class="card"><h3>육성 우선순위</h3><ol class="plain" style="padding-left:20px;margin:0">${growth.priority.map(p => `<li>${esc(p.item)} <span class="stars">${'★'.repeat(p.weight)}</span></li>`).join('')}</ol></div>
-    <div class="card"><h3>동반자 육성</h3><p style="margin:0">${esc(growth.buddyGrowth)}</p></div>
-  </div>
-  <div class="card"><h3>낭비 줄이는 팁</h3><ul class="plain">${growth.tips.map(t => `<li>${esc(t)}</li>`).join('')}</ul></div>
-  <p class="note">출처: ${srcLinks(growth.sources)}</p>`;
-};
+  <div class="sec-h"><h2>직업과 구성</h2></div>
+  <div class="grid">${Object.entries(L.profDesc).map(([k, d]) => `<div class="card"><h3><span class="prof ${k}">${L.prof[k]}</span></h3><p class="note" style="margin:0">${esc(d)}</p></div>`).join('')}</div>
+  <div class="card"><h3>주의</h3><ul class="plain">${guide.caveats.map(g => `<li>${esc(g)}</li>`).join('')}</ul></div>
+  <p class="note">출처: ${srcLinks(guide.sources)}</p>`;
 
 views.notfound = () => `<div class="card empty"><h3>페이지를 찾을 수 없습니다</h3><a class="btn" href="${href('')}" data-link>홈으로</a></div>`;
 
-// ---------- 라우터 (레퍼런스와 같은 history 방식) ----------
-const BINDERS = { builder: (r) => { bindBuilder(r); renderBuild(); }, adventurers: bindAdventurers, monsters: bindMonsters };
+// ---------- 라우터 ----------
+const BINDERS = { builder: (r) => { bindBuilder(r); renderBuild(); }, characters: bindCharacters };
 function parse() {
   let p = decodeURIComponent(location.pathname);
-  if (p.startsWith(BASE)) p = p.slice(BASE.length); else p = p.replace(/^\//, '');
+  if (p.toLowerCase().startsWith(BASE.toLowerCase())) p = p.slice(BASE.length); else p = p.replace(/^\//, '');
   p = p.replace(/\.html$/, '').replace(/\/$/, '').replace(/^index$/, '');
   const [view, id] = p.split('/');
   return { view: view || 'home', id };
@@ -406,10 +330,11 @@ function show(view, id) {
   sec.innerHTML = views[view](q, id);
   sec.hidden = false;
   BINDERS[view]?.(sec);
-  const navKey = { adventurer: 'adventurers', weapon: 'weapons', monster: 'monsters' }[view] || view;
+  if (view === 'builder' && q.toString()) history.replaceState(null, '', href('builder'));
+  const navKey = { character: 'characters' }[view] || view;
   document.querySelectorAll('[data-nav]').forEach(a => { if (a.dataset.nav.split(' ').includes(navKey)) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
   const h1 = sec.querySelector('h1');
-  document.title = (view === 'home' ? '' : (h1 ? h1.textContent.trim().replace(/\s+(커뮤니티|공식|추정)$/, '') + ' · ' : '')) + '아웃랜더스 이모저모';
+  document.title = (view === 'home' ? '' : (h1 ? h1.textContent.trim().replace(/\s+(커뮤니티|공식|추정)$/, '') + ' · ' : '')) + SITE_NAME;
 }
 function route(keepScroll) { const { view, id } = parse(); show(view, id); if (!keepScroll) window.scrollTo(0, 0); }
 
@@ -429,10 +354,9 @@ document.querySelectorAll('header a[data-link], .tabbar a[data-link]').forEach(a
 // 테마
 const themeBtn = $('#btn-theme');
 function applyTheme(t) { document.documentElement.dataset.theme = t; themeBtn.textContent = t === 'dark' ? '☀' : '☾'; }
-let theme = 'dark'; try { theme = localStorage.getItem('mhol-theme') || 'dark'; } catch (e) { /* 무시 */ }
+let theme = 'dark'; try { theme = localStorage.getItem('azurp-theme') || 'dark'; } catch (e) { /* 무시 */ }
 applyTheme(theme);
-themeBtn.addEventListener('click', () => { theme = theme === 'dark' ? 'light' : 'dark'; applyTheme(theme); try { localStorage.setItem('mhol-theme', theme); } catch (e) { /* 무시 */ } });
+themeBtn.addEventListener('click', () => { theme = theme === 'dark' ? 'light' : 'dark'; applyTheme(theme); try { localStorage.setItem('azurp-theme', theme); } catch (e) { /* 무시 */ } });
 $('#foot-ver').textContent = `데이터 v${meta.dataVersion} · ${meta.updated}`;
 
-loadImages().then(() => route(true));
 route(true);

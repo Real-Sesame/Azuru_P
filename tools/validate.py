@@ -1,35 +1,40 @@
-import json,sys,os
-d=sys.argv[1]; L=lambda f: json.load(open(os.path.join(d,f)))
-meta,adv,bud,wep,mon,teams,rules=[L(f) for f in ["meta.json","adventurers.json","buddies.json","weapons.json","monsters.json","teams.json","builder-rules.json"]]
-err=[]
-A={a["id"]:a for a in adv["list"]}; B={b["id"] for b in bud["list"]}; W={w["id"] for w in wep["list"]}
-M={x["id"] for x in mon["list"]}; S={s["id"] for s in meta["sources"]}
-E={e["id"] for e in meta["elements"]}
-def ref(x,ctx):
-    if x.startswith("fated:"):
-        if x[6:] not in W: err.append(f"{ctx}: bad fated weapon {x}")
-    elif x not in A: err.append(f"{ctx}: unknown adventurer {x}")
-for a in adv["list"]:
-    if a["weapon"] not in W: err.append(f"{a['id']} weapon")
-    if a["element"] not in E: err.append(f"{a['id']} element")
-    for b in a["buddies"]:
-        if b not in B: err.append(f"{a['id']}: unknown buddy {b}")
-    for k,v in a["team"].items():
-        for x in v if isinstance(v,list) else [v]: ref(x,f"{a['id']}.team.{k}")
-    for s in a["sources"]:
-        if s not in S: err.append(f"{a['id']} source {s}")
-for b in bud["list"]:
-    if b.get("pair") and b["pair"] not in A: err.append(f"buddy {b['id']} pair")
+# 데이터 참조 점검: 캐릭터 · 원소 · 출처 · 추천 편성 id가 실제로 있는지 확인 (배포 때 자동 실행)
+import json, sys, os
+d = sys.argv[1]
+L = lambda f: json.load(open(os.path.join(d, f), encoding="utf-8"))
+meta, ch, teams, rules, guide = [L(f) for f in ["meta.json", "characters.json", "teams.json", "builder-rules.json", "guide.json"]]
+err = []
+E = {e["id"] for e in meta["elements"]}
+S = {s["id"] for s in meta["sources"]}
+P = set(meta["labels"]["prof"])
+G = set(meta["labels"]["group"])
+T = set(rules["scoring"]["tierBonus"]) | {"-"}
+allc = ch["list"] + [ch["starborn"]]
+C = {c["id"]: c for c in allc}
+if len(C) != len(allc): err.append("duplicate character id")
+for c in allc:
+    i = c["id"]
+    for k in ["elements", "gains", "consumes", "requires"]:
+        for e in c[k]:
+            if e not in E: err.append(f"{i}.{k}: unknown element {e}")
+    if c["prof"] not in P: err.append(f"{i}: unknown prof {c['prof']}")
+    if c["group"] not in G: err.append(f"{i}: unknown group {c['group']}")
+    if c["tier"] not in T: err.append(f"{i}: unknown tier {c['tier']}")
+    if c["rarity"] not in (4, 5): err.append(f"{i}: rarity")
+    for s in c["sources"]:
+        if s not in S: err.append(f"{i}: unknown source {s}")
+for e, xs in list(meta["chart"]["strong"].items()) + list(meta["chart"]["weak"].items()):
+    for x in [e] + xs:
+        if x not in E: err.append(f"chart: unknown element {x}")
 for t in teams["list"]:
-    if len(t["members"])!=4: err.append(f"team {t['id']} size")
-    for x in t["members"]: ref(x["id"],t["id"])
-    if t.get("buddy") and t["buddy"] not in B: err.append(f"team {t['id']} buddy")
-    if t["target"]["type"]=="monster" and t["target"]["id"] not in M: err.append(f"team {t['id']} target")
+    if len(t["members"]) != rules["partySize"]: err.append(f"team {t['id']} size")
+    for x in t["members"] + [s for w in t.get("swaps", []) for s in (w["out"], w["in"])]:
+        if x not in C: err.append(f"team {t['id']}: unknown character {x}")
+    if t["element"] not in E: err.append(f"team {t['id']} element")
     for s in t["sources"]:
         if s not in S: err.append(f"team {t['id']} source {s}")
-for x in mon["list"]:
-    for e in x.get("weakness",{}):
-        if e not in E: err.append(f"{x['id']} weakness {e}")
-    if x.get("baseId") and x["baseId"] not in M: err.append(f"{x['id']} baseId")
-print("adventurers",len(A),"buddies",len(B),"weapons",len(W),"monsters",len(M),"teams",len(teams["list"]))
-print("ERRORS:",err or "none")
+for f in guide["free"]:
+    if f["id"] not in C: err.append(f"guide.free: unknown character {f['id']}")
+print("characters", len(C), "teams", len(teams["list"]), "elements", len(E))
+print("ERRORS:", err or "none")
+sys.exit(1 if err else 0)

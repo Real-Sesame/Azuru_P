@@ -1,33 +1,50 @@
 {
-  "_note": "자동 편성 규칙. 게임이 공식 수치를 공개하지 않은 부분이 있어 가중치는 커뮤니티 조언을 점수로 옮긴 추정치(confidence: estimate). 수치만 고치면 로직 수정 없이 결과가 바뀐다.",
-  "partySize": 4,
-  "mainSlot": "첫 번째 슬롯 = 메인 조작",
+  "_note": "자동 편성 점수표. 공식 수치가 아니라 공략 조언(각인 수급, 하이퍼캐리/밸런스 구성, 원소 상성 ±25%)을 점수로 옮긴 추정치. 숫자만 고치면 로직 수정 없이 결과가 바뀜.",
+  "partySize": 3,
+  "maxParties": 3,
   "scoring": {
-    "elementMatchWeakness": { "3": 30, "2": 12, "1": 0, "desc": "멤버 속성이 타깃 몬스터 약점 별점과 맞을수록 가점" },
-    "resonance": { "maxElements": 2, "sameElementBonusPerMember": 8, "threeOrMoreElementsPenalty": -20, "desc": "파티 속성은 1~2종으로. 같은 속성 멤버마다 가점" },
-    "roleBalance": { "allAssaultPenalty": -25, "needSupportOrDisruptor": true, "desc": "4명 전원 돌격형 비추천, 서브 슬롯은 교란·지원으로" },
-    "tierBonus": { "SSS": 10, "SS": 8, "S": 6, "A": 4, "B": 2 },
-    "universalBuffer": { "ids": ["haze"], "bonus": 10, "desc": "속성 무관 회심률 버퍼는 어느 파티에나 가점" },
-    "linkSynergy": {
-      "desc": "연계기 발동 조건 궁합. special=메인 필살기 명중, dodge=메인 회피 성공, suppress=제압 발생",
-      "suppressNeedsDisruptor": 6,
-      "specialNeedsAssaultMain": 4
+    "mark": {
+      "desc": "메인 딜러의 핵심 각인(필요 각인 + 주 소모 각인)을 동료가 공급하면 가점. 보조로 소모하는 각인은 절반 가중치",
+      "mainNeedByAlly": 26,
+      "mainNeedBySelfOnly": 8,
+      "mainNeedMissing": -22,
+      "mainNeedByKibo": -6,
+      "requiresMultiplier": 1.3,
+      "starbornBoost": 4,
+      "subNeedByTeam": 5,
+      "subNeedMissing": -4,
+      "optionalMultiplier": 0.5,
+      "optionalMissing": -6,
+      "starbornSupplyRatio": 0.55
     },
-    "conflicts": [
-      { "main": "midori", "avoidRole": "disruptor", "penalty": -10, "desc": "제압 시 미도리 화력 유지가 어려움" }
-    ],
-    "monsterSpecific": [
-      { "class": "elder", "id": "raya", "note": "함정 오의는 고룡에게 통하지 않음(움찔은 유효)", "penalty": -6 },
-      { "radiant": true, "role": "disruptor", "bonus": 6, "note": "융광 광폭화 대처에 교란 오의 유효" }
-    ]
+    "composition": {
+      "desc": "딜러 1 + 서포터 2(하이퍼캐리) 또는 딜러 1 + 브레이커 1 + 서포터 1(밸런스)",
+      "hypercarry": 18,
+      "balanced": 14,
+      "twoMainDps": -26,
+      "noSupport": -18,
+      "breakerAsMain": -12,
+      "healOrShield": 6,
+      "noSustain": -3
+    },
+    "element": {
+      "desc": "적 원소 지정 시: 공격 원소가 우위면 가점, 열세면 감점. 메인은 크게, 서브는 작게",
+      "mainAdv": 24,
+      "mainDis": -24,
+      "subAdv": 5,
+      "subDis": -5
+    },
+    "tierBonus": {
+      "S": 14,
+      "A": 10,
+      "B": 6,
+      "C": 3,
+      "NEW": 8
+    },
+    "presetMatch": 12
   },
-  "fated": {
-    "fillsMissingElement": true,
-    "preferredWeaponAsResonance": "great-sword",
-    "preferredType": "disruptor|support",
-    "desc": "보유 모험가로 공명 속성이 부족하면 주인공이 그 속성 무기를 들고 빈 자리를 채운다"
+  "output": {
+    "topN": 3
   },
-  "buddyPick": "메인 조작 모험가의 모티프 동반자(buddies.pair) → 없으면 같은 타입 최고 티어 → 돌격형 대안 사니앙",
-  "output": { "topN": 3, "showReasons": true },
   "confidence": "estimate"
 }

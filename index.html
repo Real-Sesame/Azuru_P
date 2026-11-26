@@ -3,26 +3,25 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>아웃랜더스 이모저모</title>
-<meta name="description" content="몬스터헌터 아웃랜더스 범용 세팅 · 자동 파티 편성 · 모험가 · 무기 · 몬스터 약점 정리">
-<meta name="theme-color" content="#141413">
+<title>아주르 프로밀리아 AUTO TEAM MAKER</title>
+<meta name="description" content="아주르 프로밀리아 보유 캐릭터로 각인 수급 · 원소 상성을 맞춘 3파티 자동 편성">
+<meta name="theme-color" content="#0b1020">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="이모저모">
+<meta name="apple-mobile-web-app-title" content="아주프로 ATM">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2314130f'/%3E%3Cpath d='M18 46 L32 14 L46 46 L32 38 Z' fill='%23e6a93a'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b1020'/%3E%3Cpath d='M32 8l6 18 18 6-18 6-6 18-6-18-18-6 18-6z' fill='%237fb6ff'/%3E%3C/svg%3E">
 </head>
 <body>
 <header class="site" id="site-top">
   <div class="site-in">
-    <a class="logo" href="./" data-link aria-label="홈으로"><span class="logo-mark" aria-hidden="true">◆</span><span class="logo-t">아웃랜더스 <b>이모저모</b></span></a>
+    <a class="logo" href="./" data-link aria-label="홈으로"><span class="logo-mark" aria-hidden="true">✦</span><span class="logo-t">아주프로 <b>AUTO TEAM MAKER</b></span></a>
     <nav class="gnb" id="gnb" aria-label="주 메뉴">
       <a href="builder" data-link data-nav="builder">파티 편성</a>
-      <a href="adventurers" data-link data-nav="adventurers">모험가 · 동반자</a>
-      <a href="weapons" data-link data-nav="weapons">무기</a>
-      <a href="monsters" data-link data-nav="monsters">몬스터</a>
-      <a href="guide" data-link data-nav="guide">성장 가이드</a>
+      <a href="characters" data-link data-nav="characters">캐릭터</a>
+      <a href="elements" data-link data-nav="elements">원소 · 각인</a>
+      <a href="guide" data-link data-nav="guide">입문 가이드</a>
     </nav>
     <div class="site-act">
       <button class="icon-btn theme-btn" id="btn-theme" aria-label="화면 테마 바꾸기">☀</button>
@@ -33,30 +32,27 @@
 <main id="main">
   <section class="view" data-view="home" hidden></section>
   <section class="view" data-view="builder" hidden></section>
-  <section class="view" data-view="adventurers" hidden></section>
-  <section class="view" data-view="adventurer" hidden></section>
-  <section class="view" data-view="weapons" hidden></section>
-  <section class="view" data-view="weapon" hidden></section>
-  <section class="view" data-view="monsters" hidden></section>
-  <section class="view" data-view="monster" hidden></section>
+  <section class="view" data-view="characters" hidden></section>
+  <section class="view" data-view="character" hidden></section>
+  <section class="view" data-view="elements" hidden></section>
   <section class="view" data-view="guide" hidden></section>
   <section class="view" data-view="notfound" hidden></section>
 </main>
 
 <footer class="foot">
   <div class="foot-in">
-    <div class="foot-brand"><span class="logo-mark">◆</span> 아웃랜더스 이모저모 <span class="note" id="foot-ver"></span></div>
-    <p class="foot-note">팬이 만든 비공식 개인용 사이트입니다. 게임 이미지와 명칭의 권리는 CAPCOM · TiMi Studio Group에 있습니다. 티어 · 추천 편성은 커뮤니티 평가를 정리한 것이며 <b>공식</b> · <b>커뮤니티</b> · <b>추정</b> 배지로 구분합니다.</p>
+    <div class="foot-brand"><span class="logo-mark">✦</span> 아주르 프로밀리아 AUTO TEAM MAKER <span class="note" id="foot-ver"></span></div>
+    <p class="foot-note">팬이 만든 비공식 사이트입니다. 게임 명칭과 데이터의 권리는 Manjuu · 넥슨에 있습니다. 스킬 · 각인 정보는 CBT 기준이며, 티어 · 추천 편성은 커뮤니티 평가를 정리한 것으로 <b>공식</b> · <b>커뮤니티</b> · <b>추정</b> 배지로 구분합니다. 점수는 비교용 추정치입니다.</p>
   </div>
 </footer>
 
 <!-- 모바일 하단 탭바: 한 손 조작용 -->
 <nav class="tabbar" id="tabbar" aria-label="하단 메뉴">
   <a href="./" data-link data-nav="home"><span class="ti">⌂</span>홈</a>
-  <a href="builder" data-link data-nav="builder"><span class="ti">⚔</span>편성</a>
-  <a href="adventurers" data-link data-nav="adventurers"><span class="ti">☺</span>모험가</a>
-  <a href="monsters" data-link data-nav="monsters"><span class="ti">◈</span>몬스터</a>
-  <a href="weapons" data-link data-nav="weapons guide"><span class="ti">☰</span>무기·가이드</a>
+  <a href="builder" data-link data-nav="builder"><span class="ti">⚡</span>편성</a>
+  <a href="characters" data-link data-nav="characters"><span class="ti">☺</span>캐릭터</a>
+  <a href="elements" data-link data-nav="elements"><span class="ti">◈</span>원소</a>
+  <a href="guide" data-link data-nav="guide"><span class="ti">☰</span>가이드</a>
 </nav>
 
 <script type="module" src="/src/app.js"></script>

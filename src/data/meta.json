@@ -1,19 +1,31 @@
 {
-  "site": "MH_OL",
-  "dataVersion": "0.2.0",
-  "gameVersion": "1.0 (글로벌 출시판)",
-  "season": "S0",
-  "updated": "2026-11-20",
+  "site": "Azuru_P",
+  "name": "아주르 프로밀리아 AUTO TEAM MAKER",
+  "short": "아주프로 ATM",
+  "dataVersion": "0.1.0",
+  "gameVersion": "1.0 (한국 정식 출시 2026-11-26)",
+  "updated": "2026-11-26",
+  "dataBasis": "정식 출시 당일이라 스킬 · 각인 데이터는 CBT(클로즈 베타) 기준입니다. 정식판에서 수치 · 직업 성능(특히 파괴 직업 상향 예고)이 달라질 수 있습니다.",
   "labels": {
-    "roles": {
-      "assault": "돌격형",
-      "disruptor": "교란",
-      "support": "지원형"
+    "prof": {
+      "eruption": "폭발",
+      "assault": "맹공",
+      "rupture": "파괴",
+      "amplifier": "증폭",
+      "imbuement": "부여",
+      "none": "-"
     },
-    "buddyTypes": {
-      "assault": "아이루",
-      "disruptor": "루타코",
-      "support": "메들리"
+    "profDesc": {
+      "eruption": "각인을 소모하지 않고 큰 폭발 피해. 각인을 최대치로 유지하기 쉬움",
+      "assault": "각인을 빠르게 소모해 높은 피해",
+      "rupture": "각인을 계속 소모해 적의 자세(강인도) 게이지를 깎음",
+      "amplifier": "각인을 효율적으로 쌓는 서포터",
+      "imbuement": "각인을 소모해 회복 · 디버프 등 다양한 지원"
+    },
+    "group": {
+      "dps": "딜러",
+      "breaker": "브레이커",
+      "support": "서포터"
     },
     "confidence": {
       "official": "공식",
@@ -22,79 +34,51 @@
     }
   },
   "elements": [
-    {
-      "id": "fire",
-      "name": "불",
-      "color": "#e8553d"
-    },
-    {
-      "id": "water",
-      "name": "물",
-      "color": "#3d8ee8"
-    },
-    {
-      "id": "thunder",
-      "name": "번개",
-      "color": "#e8c23d"
-    },
-    {
-      "id": "ice",
-      "name": "얼음",
-      "color": "#7fd3ea"
-    },
-    {
-      "id": "dragon",
-      "name": "용",
-      "color": "#8b4fc9"
-    }
+    { "id": "fire", "name": "불", "color": "#e5533b", "mark": "파티 공격력 증가" },
+    { "id": "water", "name": "물", "color": "#2f84e0", "mark": "대상 방어력 잠시 감소" },
+    { "id": "ice", "name": "얼음", "color": "#38b6d6", "mark": "파티 물리 · 마법 관통 증가" },
+    { "id": "nature", "name": "나무", "color": "#3fa34d", "mark": "조작 캐릭터 HP 일부 회복" },
+    { "id": "wind", "name": "바람", "color": "#25b394", "mark": "파티 결전(필살) 게이지 충전 효율 증가" },
+    { "id": "earth", "name": "땅", "color": "#b07a35", "mark": "자세(강인도) 게이지 피해 증가" },
+    { "id": "thunder", "name": "번개", "color": "#8f6ae8", "mark": "파티 치명타 확률 · 치명타 피해 증가" },
+    { "id": "light", "name": "빛", "color": "#d9a90e", "mark": "고정 피해 1회 추가" },
+    { "id": "dark", "name": "어둠", "color": "#9a4a8f", "mark": "파티 모든 원소 피해 증가" }
   ],
-  "ailments": [
-    {
-      "id": "poison",
-      "name": "독"
+  "markRule": "같은 원소 각인이 쌓이면 그 원소의 파티 효과가 붙고, 5초마다 다음 공격에 그 원소의 추가 타격이 1회 들어갑니다.",
+  "chart": {
+    "_note": "공격 원소 → 상성 우위(+25%) / 열세(-25%). 불·물·얼음·나무·바람·땅·번개는 고리 상성, 빛·어둠은 서로만 상성.",
+    "bonus": 25,
+    "strong": {
+      "fire": ["ice", "nature"],
+      "water": ["fire", "earth"],
+      "ice": ["nature", "thunder"],
+      "nature": ["wind", "water"],
+      "wind": ["earth", "ice"],
+      "earth": ["thunder", "fire"],
+      "thunder": ["water", "wind"],
+      "light": ["dark"],
+      "dark": ["light"]
     },
-    {
-      "id": "sleep",
-      "name": "수면"
+    "weak": {
+      "fire": ["water", "earth"],
+      "water": ["nature", "thunder"],
+      "ice": ["fire", "wind"],
+      "nature": ["fire", "ice"],
+      "wind": ["nature", "thunder"],
+      "earth": ["water", "wind"],
+      "thunder": ["ice", "earth"],
+      "light": [],
+      "dark": []
     },
-    {
-      "id": "paralysis",
-      "name": "마비"
-    },
-    {
-      "id": "blast",
-      "name": "폭파"
-    },
-    {
-      "id": "stun",
-      "name": "기절"
-    }
-  ],
+    "confidence": "community"
+  },
   "sources": [
-    {
-      "id": "gw-ko",
-      "name": "GameWith 한국어",
-      "url": "https://gamewith.ai/monster-hunter-outlanders/ko"
-    },
-    {
-      "id": "gw-en",
-      "name": "GameWith English",
-      "url": "https://gamewith.ai/monster-hunter-outlanders/en"
-    },
-    {
-      "id": "tgw",
-      "name": "TheGamesWiki",
-      "url": "https://thegameswiki.com/monster-hunter-outlanders/wiki"
-    },
-    {
-      "id": "mhwiki",
-      "name": "Monster Hunter Wiki",
-      "url": "https://monsterhunterwiki.org/wiki/Adventurers"
-    },
-    {
-      "id": "grindnstrat",
-      "name": "GrindNStrat",
-      "url": "https://grindnstrat.com/?p=9368"
-    }
+    { "id": "gw-tier", "name": "GameWith 티어표(CBT)", "url": "https://gamewith.ai/azurpromilia/en/tier-list" },
+    { "id": "gw-team", "name": "GameWith 추천 파티(CBT)", "url": "https://gamewith.ai/azurpromilia/en/best-team" },
+    { "id": "gw-char", "name": "GameWith 캐릭터(CBT)", "url": "https://gamewith.ai/azurpromilia/en/characters" },
+    { "id": "gw-elem", "name": "GameWith 원소 상성", "url": "https://gamewith.ai/azurpromilia/en/element-matchups" },
+    { "id": "kr-tier", "name": "국내 티어 · 조합 정리(2026-11-24)", "url": "https://windsubok8.kr/2026/11/24/%EC%95%84%EC%A3%BC%EB%A5%B4-%ED%94%84%EB%A1%9C%EB%B0%80%EB%A6%AC%EC%95%84-%EC%BA%90%EB%A6%AD%ED%84%B0-%ED%8B%B0%EC%96%B4%ED%91%9C/" },
+    { "id": "tgw", "name": "TheGamesWiki 캐릭터 이름", "url": "https://thegameswiki.com/azur-promilia/wiki/characters" },
+    { "id": "nexon", "name": "넥슨 공식 사이트", "url": "https://azurpromilia.nexon.com/" }
   ]
 }

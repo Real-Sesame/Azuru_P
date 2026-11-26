@@ -1,23 +1,14 @@
 {
- "name": "아웃랜더스 이모저모",
- "short_name": "이모저모",
- "start_url": "/MH_OL/",
- "scope": "/MH_OL/",
+ "name": "아주르 프로밀리아 AUTO TEAM MAKER",
+ "short_name": "아주프로 ATM",
+ "start_url": "/Azuru_P/",
+ "scope": "/Azuru_P/",
  "display": "standalone",
- "background_color": "#141310",
- "theme_color": "#141310",
+ "background_color": "#0b1020",
+ "theme_color": "#0b1020",
  "lang": "ko",
  "icons": [
-  {
-   "src": "/MH_OL/icons/icon-192.png",
-   "sizes": "192x192",
-   "type": "image/png"
-  },
-  {
-   "src": "/MH_OL/icons/icon-512.png",
-   "sizes": "512x512",
-   "type": "image/png",
-   "purpose": "any maskable"
-  }
+  { "src": "/Azuru_P/icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+  { "src": "/Azuru_P/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
  ]
 }

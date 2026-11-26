@@ -1,338 +1,61 @@
 {
-  "_note": "큐레이션 추천 편성. 슬롯 표기 'fated:<무기>'는 주인공 모험가. fatedElement는 주인공에게 들려야 할 무기 속성. 편성은 4인, 첫 번째가 메인 조작.",
+  "_note": "공략 사이트 · 커뮤니티 추천 3인 편성. members 첫 번째가 메인 딜러. swaps는 대체 후보.",
   "list": [
     {
-      "id": "fire-midori",
-      "name": "미도리 불 파티",
-      "element": "fire",
-      "tier": "top",
-      "target": {
-        "type": "general"
-      },
-      "members": [
-        {
-          "id": "midori",
-          "slot": "main"
-        },
-        {
-          "id": "ryunosuke",
-          "slot": "buffer"
-        },
-        {
-          "id": "fated:long-sword",
-          "slot": "resonance",
-          "fatedElement": "fire",
-          "fatedType": "disruptor|support"
-        },
-        {
-          "id": "haze",
-          "slot": "buffer"
-        }
-      ],
-      "buddy": "kojiro",
-      "swaps": [
-        {
-          "out": "ryunosuke",
-          "in": "raya"
-        },
-        {
-          "out": "haze",
-          "in": "madelyn"
-        }
-      ],
-      "note": "미도리에게 버프를 몰아주는 순간 화력 파티. 류노스케 오의를 미도리 필살기 전에 쓴다. 제압 편성은 미도리 화력을 떨어뜨리니 교란 동반자는 피한다.",
-      "confidence": "community",
-      "sources": [
-        "gw-ko",
-        "gw-en"
-      ],
-      "updated": "2026-11-17"
+      "id": "xiaoyu-hc", "name": "도산소옥 하이퍼캐리", "element": "wind", "top": true,
+      "members": ["xiaoyu", "lily", "anais"],
+      "swaps": [{ "out": "lily", "in": "starborn" }, { "out": "anais", "in": "metsa" }],
+      "note": "릴리가 바람 각인을 대고, 애니스 스킬로 결전 연계를 엽니다. 애니스 스킬 → 릴리 결전 → 도산소옥 결전 순서.",
+      "confidence": "community", "sources": ["gw-team", "kr-tier"]
     },
     {
-      "id": "water-pepper",
-      "name": "페페 물 파티",
-      "element": "water",
-      "tier": "top",
-      "budget": true,
-      "target": {
-        "type": "general"
-      },
-      "members": [
-        {
-          "id": "pepper",
-          "slot": "main"
-        },
-        {
-          "id": "fated:great-sword",
-          "slot": "resonance",
-          "fatedElement": "water"
-        },
-        {
-          "id": "haze",
-          "slot": "buffer"
-        },
-        {
-          "id": "madelyn",
-          "slot": "support"
-        }
-      ],
-      "buddy": "delchamp",
-      "swaps": [
-        {
-          "out": "haze",
-          "in": "arkaya"
-        },
-        {
-          "out": "haze",
-          "in": "ouyang-varen"
-        }
-      ],
-      "note": "일반 모집·저레어·상점 모험가로 꾸릴 수 있는 가성비 파티. 피격으로 집중을 쌓고 공중에서 화력을 낸다.",
-      "confidence": "community",
-      "sources": [
-        "gw-ko",
-        "gw-en"
-      ],
-      "updated": "2026-11-17"
+      "id": "shalle-hc", "name": "샬레 하이퍼캐리", "element": "water", "top": true,
+      "members": ["shalle", "anais", "luruka"],
+      "swaps": [{ "out": "luruka", "in": "metsa" }],
+      "note": "애니스 스킬 → 루루카(또는 멧사)로 교체하면 빛 각인 3개. 루루카 · 멧사 강공격 디버프 후 샬레 강공격.",
+      "confidence": "community", "sources": ["gw-team"]
     },
     {
-      "id": "thunder-luka",
-      "name": "루카 번개 파티",
-      "element": "thunder",
-      "tier": "top",
-      "target": {
-        "type": "general"
-      },
-      "members": [
-        {
-          "id": "luka",
-          "slot": "main"
-        },
-        {
-          "id": "luxheart",
-          "slot": "resonance"
-        },
-        {
-          "id": "fated:great-sword",
-          "slot": "flex",
-          "fatedElement": "thunder"
-        },
-        {
-          "id": "haze",
-          "slot": "buffer"
-        }
-      ],
-      "buddy": "shmir",
-      "swaps": [
-        {
-          "out": "haze",
-          "in": "arkaya"
-        },
-        {
-          "out": "haze",
-          "in": "madelyn"
-        }
-      ],
-      "note": "전류병을 모으고 브릭스 오의로 몬스터를 묶은 뒤 필살기. 관통 각도가 중요하다.",
-      "confidence": "community",
-      "sources": [
-        "gw-ko",
-        "gw-en"
-      ],
-      "updated": "2026-11-17"
+      "id": "shalle-water", "name": "샬레 물 브레이크", "element": "water",
+      "members": ["shalle", "abby", "luruka"],
+      "swaps": [],
+      "note": "아비가 자세 파괴 효율 디버프를 걸고 루루카가 물 각인 · 회복 담당. 빛 각인은 샬레 자급 또는 키보로 보충.",
+      "confidence": "community", "sources": ["kr-tier"]
     },
     {
-      "id": "dragon-arkaya",
-      "name": "아케니아 용 파티",
-      "element": "dragon",
-      "tier": "top",
-      "target": {
-        "type": "general"
-      },
-      "members": [
-        {
-          "id": "arkaya",
-          "slot": "main"
-        },
-        {
-          "id": "keres",
-          "slot": "debuff"
-        },
-        {
-          "id": "pyro",
-          "slot": "flex"
-        },
-        {
-          "id": "haze",
-          "slot": "buffer"
-        }
-      ],
-      "buddy": "nailu",
-      "swaps": [
-        {
-          "out": "pyro",
-          "in": "luxheart"
-        },
-        {
-          "out": "pyro",
-          "in": "fated:great-sword"
-        }
-      ],
-      "note": "실드·회복으로 버티면서 용속성 버프를 쌓는 내구 파티. 엔쇼우를 메인으로 돌려도 된다.",
-      "confidence": "community",
-      "sources": [
-        "gw-ko",
-        "gw-en"
-      ],
-      "updated": "2026-11-17"
+      "id": "morwyn-hc", "name": "모르윈 번개", "element": "thunder", "top": true,
+      "members": ["morwyn", "mitty", "metsa"],
+      "swaps": [{ "out": "metsa", "in": "lily" }, { "out": "metsa", "in": "cathbelle" }],
+      "note": "미티가 모르윈이 쓰는 번개 각인을 계속 채우고, 멧사가 적을 모아 디버프 · 회복.",
+      "confidence": "community", "sources": ["gw-team", "kr-tier"]
     },
     {
-      "id": "ice-rhodes",
-      "name": "로드 얼음 파티",
-      "element": "ice",
-      "tier": "good",
-      "target": {
-        "type": "general"
-      },
-      "members": [
-        {
-          "id": "rhodes",
-          "slot": "main"
-        },
-        {
-          "id": "fated:hammer",
-          "slot": "resonance",
-          "fatedElement": "ice"
-        },
-        {
-          "id": "haze",
-          "slot": "buffer"
-        },
-        {
-          "id": "arkaya",
-          "slot": "support"
-        }
-      ],
-      "buddy": "krolla",
-      "swaps": [
-        {
-          "out": "arkaya",
-          "in": "pepper"
-        }
-      ],
-      "note": "머리를 노려 기절. 얼음 모험가가 로드뿐이라 주인공은 반드시 얼음 무기.",
-      "confidence": "community",
-      "sources": [
-        "gw-ko",
-        "gw-en"
-      ],
-      "updated": "2026-11-17"
+      "id": "ruby-hc", "name": "루비 불 · 번개", "element": "fire", "top": true,
+      "members": ["ruby", "hanyouyou", "mitty"],
+      "swaps": [{ "out": "mitty", "in": "luruka" }],
+      "note": "미티 스킬 · 강공격 · 결전 → 한요요 스킬 · 강공격 · 결전 → 루비 결전. 불 저항 적이 많다는 CBT 평가에 주의.",
+      "confidence": "community", "sources": ["gw-team", "kr-tier"]
     },
     {
-      "id": "kushala-thunder",
-      "name": "크샬다오라: 번개 파티",
-      "element": "thunder",
-      "tier": "good",
-      "target": {
-        "type": "monster",
-        "id": "kushala-daora"
-      },
-      "members": [
-        {
-          "id": "fated:heavy-bowgun",
-          "slot": "main",
-          "fatedElement": "thunder",
-          "fatedType": "disruptor"
-        },
-        {
-          "id": "luka",
-          "slot": "flex"
-        },
-        {
-          "id": "luxheart",
-          "slot": "resonance"
-        },
-        {
-          "id": "haze",
-          "slot": "buffer"
-        }
-      ],
-      "note": "공략 사이트 최우선 추천은 교란형 주인공 + 번개 헤비보우건: 오의의 섬광 효과로 날아오른 크샬다오라를 떨어뜨리고, 깨달음에 따라 철갑유탄으로 머리를 노린다. 육성된 루카도 추천. 나머지 두 자리는 루카 번개 파티 구성을 따른 것. 이벤트 솔로 도전 시에는 NPC가 합류하므로 메인만 의미가 있다.",
-      "confidence": "community",
-      "sources": [
-        "gw-ko"
-      ],
-      "updated": "2026-11-19"
+      "id": "xiaoyu-starborn", "name": "도산소옥 바람 범용", "element": "wind",
+      "members": ["xiaoyu", "starborn", "metsa"],
+      "swaps": [{ "out": "metsa", "in": "maple" }],
+      "note": "성림자가 바람 각인을 늘려 주고 멧사가 회복 · 몹몰이.",
+      "confidence": "community", "sources": ["kr-tier"]
     },
     {
-      "id": "ruger-fire-ice",
-      "name": "루가 에알다: 불2 + 얼음2",
-      "element": "mixed",
-      "tier": "good",
-      "target": {
-        "type": "monster",
-        "id": "ruger-aidal"
-      },
-      "members": [
-        {
-          "id": "fated:heavy-bowgun",
-          "slot": "main",
-          "fatedElement": "ice"
-        },
-        {
-          "id": "rhodes",
-          "slot": "resonance"
-        },
-        {
-          "id": "ryunosuke",
-          "slot": "buffer"
-        },
-        {
-          "id": "raya",
-          "slot": "disruptor"
-        }
-      ],
-      "note": "미도리가 없을 때. 불·얼음 3★ 약점을 둘 다 활용. 라야 함정은 고룡에게 통하지 않지만 움찔 효과로 채용. 류노스케 오의로 상태 이상 해제.",
-      "confidence": "community",
-      "sources": [
-        "gw-en"
-      ],
-      "updated": "2026-11"
+      "id": "f2p", "name": "무과금 땅 · 불", "element": "earth", "budget": true,
+      "members": ["peipei", "pengpeng", "nono"],
+      "swaps": [{ "out": "pengpeng", "in": "anais" }],
+      "note": "무료 5성 페페를 메인으로. 회복이 없으니 키보로 보충.",
+      "confidence": "community", "sources": ["kr-tier"]
     },
     {
-      "id": "budget-fire",
-      "name": "무과금 불 파티",
-      "element": "fire",
-      "tier": "budget",
-      "budget": true,
-      "target": {
-        "type": "general"
-      },
-      "members": [
-        {
-          "id": "fated:great-sword",
-          "slot": "main",
-          "fatedElement": "fire"
-        },
-        {
-          "id": "raya",
-          "slot": "disruptor"
-        },
-        {
-          "id": "ouyang-varen",
-          "slot": "flex"
-        },
-        {
-          "id": "madelyn",
-          "slot": "support"
-        }
-      ],
-      "note": "SR 위주 입문용 조합. 속성이 섞여 공명 효율은 낮으니 모집이 진행되면 상위 편성으로 교체.",
-      "confidence": "estimate",
-      "sources": [
-        "grindnstrat"
-      ],
-      "updated": "2026-11"
+      "id": "dark-mix", "name": "어둠 혼합", "element": "dark",
+      "members": ["cathbelle", "lanxiangzi", "anais"],
+      "swaps": [],
+      "note": "난향자가 캐시벨의 어둠 각인 공급원. 어둠 키보로도 대체 가능.",
+      "confidence": "estimate", "sources": ["kr-tier", "gw-team"]
     }
   ]
 }

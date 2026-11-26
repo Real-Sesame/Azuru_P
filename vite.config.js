@@ -2,10 +2,10 @@ import { defineConfig } from 'vite';
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 
-// GitHub Pages 주소: https://real-sesame.github.io/MH_OL/
-const BASE = '/MH_OL/';
+// GitHub Pages 주소: https://real-sesame.github.io/Azuru_P/
+const BASE = '/Azuru_P/';
 const SITE = 'https://real-sesame.github.io' + BASE;
-const NAME = '아웃랜더스 이모저모';
+const NAME = '아주르 프로밀리아 AUTO TEAM MAKER';
 
 const J = f => JSON.parse(readFileSync(resolve('src/data', f), 'utf8'));
 
@@ -60,19 +60,17 @@ export default defineConfig({
       const dist = resolve('dist');
       const html = readFileSync(resolve(dist, 'index.html'), 'utf8');
       const write = (file, meta) => { const f = resolve(dist, file); mkdirSync(dirname(f), { recursive: true }); writeFileSync(f, withMeta(html, meta)); };
-      const HOME = { path: '', title: '', desc: '몬스터헌터 아웃랜더스 범용 세팅 · 자동 파티 편성 · 모험가 · 무기 · 몬스터 약점 정리' };
+      const HOME = { path: '', title: '', desc: '아주르 프로밀리아 보유 캐릭터로 각인 수급 · 원소 상성을 맞춘 3파티 자동 편성' };
       write('index.html', HOME); write('404.html', HOME);
       const pages = [
-        ['builder', '파티 편성', '보유 모험가와 타깃 몬스터로 속성 공명 · 역할 밸런스를 맞춘 4인 편성을 추천합니다.'],
-        ['adventurers', '모험가 · 동반자', '모험가 13명과 주인공의 역할 · 무기 · 속성 · 오의 · 연계기 · 추천 동반자'],
-        ['weapons', '무기', '주인공 무기 8종 운용법 · 추천 깨달음 · 속성별 추천 무기'],
-        ['monsters', '몬스터', '몬스터 · 융광종 약점 속성과 공략'],
-        ['guide', '성장 가이드', '초반 동선 · 육성 우선순위 · 기념품 · 인장']
+        ['builder', '파티 편성', '보유 캐릭터로 겹치지 않는 1~3파티를 각인 수급 · 직업 구성 · 원소 상성으로 자동 편성합니다.'],
+        ['characters', '캐릭터', '아주르 프로밀리아 캐릭터 직업 · 속성 · 각인 · 티어'],
+        ['elements', '원소 · 각인', '원소 상성표(±25%)와 각인 원소별 효과 · 공급 캐릭터'],
+        ['guide', '입문 가이드', '파티 구성 기본 규칙 · 무료 캐릭터 · 관측 · 육성 순서']
       ];
       for (const [p, t, d] of pages) write(`${p}.html`, { path: p, title: t, desc: d });
-      for (const a of J('adventurers.json').list) write(`adventurer/${a.id}.html`, { path: `adventurer/${a.id}`, title: a.name, desc: `${a.name} 스킬 · 추천 파티 · 동반자` });
-      for (const w of J('weapons.json').list) write(`weapon/${w.id}.html`, { path: `weapon/${w.id}`, title: w.name, desc: `주인공 ${w.name} 운용법` });
-      for (const m of J('monsters.json').list) if (m.size === 'large') write(`monster/${m.id}.html`, { path: `monster/${m.id}`, title: m.name, desc: `${m.name} 약점 · 공략` });
+      const ch = J('characters.json');
+      for (const c of [...ch.list, ch.starborn]) write(`character/${c.id}.html`, { path: `character/${c.id}`, title: c.name, desc: `${c.name} 직업 · 각인 · 추천 파티` });
     }
   }]
 });
