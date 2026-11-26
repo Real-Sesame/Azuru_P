@@ -2,7 +2,7 @@
   "_note": "elements = 인게임 속성 표기(첫 번째가 주 공격 원소). gains/consumes/requires = 각인(조율 표식) 원소. tier = 국내 정리(S~C), gwTier = GameWith CBT 티어. CBT 기준이며 정식판에서 바뀔 수 있음.",
   "list": [
     {
-      "id": "xiaoyu", "name": "도산소옥", "nameEn": "Tushan Xiaoyu", "rarity": 5, "limited": true,
+      "id": "xiaoyu", "officialId": "tushan-xiaoyu", "name": "도산소옥", "nameEn": "Tushan Xiaoyu", "rarity": 5, "limited": true,
       "elements": ["wind", "light"], "prof": "assault", "group": "dps",
       "gains": ["wind"], "consumes": ["wind", "light"], "requires": [],
       "tier": "S", "gwTier": "T0",
@@ -50,7 +50,7 @@
       "confidence": "community", "sources": ["gw-tier", "gw-team", "gw-char", "kr-tier"]
     },
     {
-      "id": "chiyo", "name": "미나모토 치요", "nameEn": "Minamoto Chiyo", "rarity": 5, "limited": true,
+      "id": "chiyo", "officialId": "minamoto-chiyo", "name": "미나모토 치요", "nameEn": "Minamoto Chiyo", "rarity": 5, "limited": true,
       "elements": ["dark"], "prof": "eruption", "group": "dps",
       "gains": ["dark"], "consumes": [], "requires": ["dark"],
       "tier": "NEW", "gwTier": "-",
@@ -194,7 +194,7 @@
       "confidence": "community", "sources": ["gw-tier", "gw-team", "gw-char", "kr-tier"]
     },
     {
-      "id": "lanxiangzi", "name": "난향자", "nameEn": "Lan Xiangzi", "rarity": 5,
+      "id": "lanxiangzi", "officialId": "lan-xiangzi", "name": "난향자", "nameEn": "Lan Xiangzi", "rarity": 5,
       "elements": ["ice", "dark"], "prof": "amplifier", "group": "support",
       "gains": ["ice", "dark"], "consumes": [], "requires": [],
       "tier": "B", "gwTier": "-",
@@ -206,7 +206,7 @@
       "confidence": "estimate", "sources": ["kr-tier", "tgw"]
     },
     {
-      "id": "hanyouyou", "name": "한요요", "nameEn": "Han Youyou", "rarity": 4,
+      "id": "hanyouyou", "officialId": "han-youyou", "name": "한요요", "nameEn": "Han Youyou", "rarity": 4,
       "elements": ["fire"], "prof": "amplifier", "group": "support",
       "gains": ["fire"], "consumes": [], "requires": [],
       "tier": "B", "gwTier": "T1",

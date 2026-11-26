@@ -27,12 +27,21 @@ const el = id => EL[id] ? `<span class="el" style="--c:${EL[id].color}">${EL[id]
 const els = ids => (ids || []).map(el).join(' ');
 const prof = c => `<span class="prof ${c.prof}">${L.prof[c.prof]}</span>`;
 const conf = c => c ? `<span class="conf ${c}" title="정보 출처 신뢰도">${L.confidence[c]}</span>` : '';
-const rar = n => `<span class="rar r${n}">${n}★</span>`;
+const rar = n => n ? `<span class="rar r${n}">${n}★</span>` : '<span class="rar" title="등급 미확인">?★</span>';
+const autoBadge = c => c.auto ? '<span class="chip warn" title="공식 사이트에서 자동 추가 · 검증 전">자동 추가</span>' : '';
 const tier = t => t && t !== '-' ? `<span class="tier t-${t}">${t}</span>` : '';
 const srcLinks = ids => (ids || []).map(id => SRC[id] ? `<a href="${esc(SRC[id].url)}" target="_blank" rel="noopener">${esc(SRC[id].name)}</a>` : '').filter(Boolean).join(' · ');
+// 공식 이미지: tools/sync_official.py가 public/img/index.json에 목록을 적어 둠. 없으면 속성 색 이니셜
+let IMGIDX = { chars: {} };
+async function loadImages() {
+  try { const r = await fetch(href('img/index.json'), { cache: 'no-cache' }); if (r.ok) IMGIDX = await r.json(); } catch (e) { /* 이미지 없음 */ }
+}
+const imgOf = (c, kind) => (IMGIDX.chars && IMGIDX.chars[c.id] && IMGIDX.chars[c.id][kind]) ? href(IMGIDX.chars[c.id][kind]) : '';
 const pf = (c, big) => {
   const color = c.elements && c.elements[0] ? EL[c.elements[0]].color : 'var(--gold)';
-  return `<div class="pf${big ? ' big' : ''}" style="--c:${color}"><span class="ini">${esc(c.name.slice(0, c.name.length > 3 ? 2 : 1))}</span>${c.rarity === 5 ? '<i class="r5"></i>' : ''}</div>`;
+  const src = imgOf(c, 'thumb');
+  const inner = src ? `<img src="${src}" alt="" loading="lazy" decoding="async">` : `<span class="ini">${esc(c.name.slice(0, c.name.length > 3 ? 2 : 1))}</span>`;
+  return `<div class="pf${big ? ' big' : ''}${src ? ' has-img' : ''}" style="--c:${color}">${inner}${c.rarity === 5 ? '<i class="r5"></i>' : ''}</div>`;
 };
 const markChips = (ids, cls = '') => (ids || []).length ? ids.map(e => `<span class="mk ${cls}" style="--c:${EL[e].color}">${EL[e].name}</span>`).join('') : '<span class="note">없음</span>';
 
@@ -108,7 +117,7 @@ views.builder = (q) => {
   if (q.get('p')) state.parties = Math.max(1, Math.min(3, +q.get('p') || 1));
   if (q.get('main') && CH[q.get('main')]) { const m = q.get('main'); state.mains[0] = m; state.pinned = [null, null, null]; if (m !== 'starborn' && !state.owned.includes(m)) state.owned.push(m); }
   save();
-  const n5 = characters.list.filter(c => c.rarity === 5), n4 = characters.list.filter(c => c.rarity === 4);
+  const n5 = characters.list.filter(c => c.rarity === 5), n4 = characters.list.filter(c => c.rarity === 4), nx = characters.list.filter(c => !c.rarity);
   return `
   <div class="page-h"><h1>파티 편성</h1><p>보유 캐릭터로 겹치지 않는 1~3파티를 짭니다. 메인 딜러가 쓰는 각인을 동료가 공급하는지, 하이퍼캐리 · 밸런스 구성인지, 적 원소와 상성이 맞는지로 점수를 매깁니다.</p></div>
   <div class="card filters">
@@ -125,6 +134,7 @@ views.builder = (q) => {
     <div class="row" style="justify-content:flex-end;margin:10px 0"><button class="btn sm" data-act="all">전체</button><button class="btn sm" data-act="r5">5★만</button><button class="btn sm" data-act="free">무료만</button><button class="btn sm" data-act="none">해제</button></div>
     <h4 class="rost-h">5★</h4><div class="roster">${n5.map(rosterItem).join('')}</div>
     <h4 class="rost-h">4★</h4><div class="roster">${n4.map(rosterItem).join('')}</div>
+    ${nx.length ? `<h4 class="rost-h">등급 미확인 (자동 추가)</h4><div class="roster">${nx.map(rosterItem).join('')}</div>` : ''}
   </details>
   <div id="b-out"></div>`;
 };
@@ -229,7 +239,7 @@ views.characters = () => {
 function chListHtml() {
   const list = ALL.filter(c => (!chFilter.prof || c.prof === chFilter.prof) && (!chFilter.element || c.elements.includes(chFilter.element)) && (!chFilter.rarity || String(c.rarity) === chFilter.rarity));
   if (!list.length) return `<div class="card empty">조건에 맞는 캐릭터가 없습니다.</div>`;
-  return list.map(c => `<a class="card adv" href="${href('character/' + c.id)}" data-link>${pf(c)}<div><div class="nm"><span class="n">${esc(c.name)}</span> ${rar(c.rarity)} ${tier(c.tier)} ${c.limited ? '<span class="chip acc">한정</span>' : ''}</div>
+  return list.map(c => `<a class="card adv" href="${href('character/' + c.id)}" data-link>${pf(c)}<div><div class="nm"><span class="n">${esc(c.name)}</span> ${rar(c.rarity)} ${tier(c.tier)} ${c.limited ? '<span class="chip acc">한정</span>' : ''} ${autoBadge(c)}</div>
     <div class="row">${prof(c)} ${els(c.elements) || '<span class="note">무속성</span>'}</div>
     <div class="row mk-row"><span class="note">각인</span>${c.wildcard ? '<span class="mk any">기존 각인 증폭</span>' : markChips(c.gains)}${c.consumes.length ? `<span class="note">→ 소모</span>${markChips(c.consumes, 'use')}` : ''}</div></div></a>`).join('');
 }
@@ -250,9 +260,10 @@ views.character = (q, id) => {
   const link = x => `<a class="chip" href="${href('character/' + x.id)}" data-link>${esc(x.name)}</a>`;
   return `
   <a class="note" href="${href('characters')}" data-link>← 캐릭터 목록</a>
+  ${imgOf(c, 'art') ? `<div class="art-hero" style="--c:${c.elements[0] ? EL[c.elements[0]].color : 'var(--gold)'}"><img src="${imgOf(c, 'art')}" alt="${esc(c.name)} 공식 일러스트"><span class="credit">© Manjuu · NEXON</span></div>` : ''}
   <div class="card adv head">${pf(c, true)}<div>
-    <div class="nm" style="font-size:24px"><span class="n">${esc(c.name)}</span> ${rar(c.rarity)} ${tier(c.tier)} ${c.gwTier && c.gwTier !== '-' ? `<span class="chip">GameWith ${c.gwTier}</span>` : ''} ${conf(c.confidence)}</div>
-    <div class="note">${esc(c.nameEn)}</div>
+    <div class="nm" style="font-size:24px"><span class="n">${esc(c.name)}</span> ${rar(c.rarity)} ${tier(c.tier)} ${c.gwTier && c.gwTier !== '-' ? `<span class="chip">GameWith ${c.gwTier}</span>` : ''} ${conf(c.confidence)} ${autoBadge(c)}</div>
+    <div class="note">${esc(c.nameEn)}${c.official ? ' · <span class="conf official">속성 · 직업 공식</span>' : ''}</div>
     <div class="row">${prof(c)} <span class="note">${L.group[c.group]}</span> ${els(c.elements)}</div>
     <div class="note">입수: ${c.obtain.map(esc).join(', ')}</div>
     <div class="row" style="margin-top:8px"><a class="btn primary sm" href="${href('builder?main=' + c.id)}" data-link>이 캐릭터를 메인으로 편성</a></div></div></div>
@@ -360,3 +371,4 @@ themeBtn.addEventListener('click', () => { theme = theme === 'dark' ? 'light' : 
 $('#foot-ver').textContent = `데이터 v${meta.dataVersion} · ${meta.updated}`;
 
 route(true);
+loadImages().then(() => { if (IMGIDX.updated) $('#foot-ver').textContent += ` · 이미지 ${IMGIDX.updated}`; route(true); });

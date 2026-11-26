@@ -20,7 +20,7 @@ for c in allc:
     if c["prof"] not in P: err.append(f"{i}: unknown prof {c['prof']}")
     if c["group"] not in G: err.append(f"{i}: unknown group {c['group']}")
     if c["tier"] not in T: err.append(f"{i}: unknown tier {c['tier']}")
-    if c["rarity"] not in (4, 5): err.append(f"{i}: rarity")
+    if c.get("rarity") not in (4, 5, None): err.append(f"{i}: rarity")
     for s in c["sources"]:
         if s not in S: err.append(f"{i}: unknown source {s}")
 for e, xs in list(meta["chart"]["strong"].items()) + list(meta["chart"]["weak"].items()):
