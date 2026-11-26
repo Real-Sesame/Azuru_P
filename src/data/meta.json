@@ -2,7 +2,7 @@
   "site": "Azuru_P",
   "name": "아주르 프로밀리아 AUTO TEAM MAKER",
   "short": "아주프로 ATM",
-  "dataVersion": "0.1.0",
+  "dataVersion": "0.1.1",
   "gameVersion": "1.0 (한국 정식 출시 2026-11-26)",
   "updated": "2026-11-26",
   "dataBasis": "정식 출시 당일이라 스킬 · 각인 데이터는 CBT(클로즈 베타) 기준입니다. 정식판에서 수치 · 직업 성능(특히 파괴 직업 상향 예고)이 달라질 수 있습니다.",
@@ -34,51 +34,170 @@
     }
   },
   "elements": [
-    { "id": "fire", "name": "불", "color": "#e5533b", "mark": "파티 공격력 증가" },
-    { "id": "water", "name": "물", "color": "#2f84e0", "mark": "대상 방어력 잠시 감소" },
-    { "id": "ice", "name": "얼음", "color": "#38b6d6", "mark": "파티 물리 · 마법 관통 증가" },
-    { "id": "nature", "name": "나무", "color": "#3fa34d", "mark": "조작 캐릭터 HP 일부 회복" },
-    { "id": "wind", "name": "바람", "color": "#25b394", "mark": "파티 결전(필살) 게이지 충전 효율 증가" },
-    { "id": "earth", "name": "땅", "color": "#b07a35", "mark": "자세(강인도) 게이지 피해 증가" },
-    { "id": "thunder", "name": "번개", "color": "#8f6ae8", "mark": "파티 치명타 확률 · 치명타 피해 증가" },
-    { "id": "light", "name": "빛", "color": "#d9a90e", "mark": "고정 피해 1회 추가" },
-    { "id": "dark", "name": "어둠", "color": "#9a4a8f", "mark": "파티 모든 원소 피해 증가" }
+    {
+      "id": "fire",
+      "name": "불",
+      "color": "#e5533b",
+      "mark": "파티 공격력 증가"
+    },
+    {
+      "id": "water",
+      "name": "물",
+      "color": "#2f84e0",
+      "mark": "대상 방어력 잠시 감소"
+    },
+    {
+      "id": "ice",
+      "name": "얼음",
+      "color": "#38b6d6",
+      "mark": "파티 물리 · 마법 관통 증가"
+    },
+    {
+      "id": "nature",
+      "name": "나무",
+      "color": "#3fa34d",
+      "mark": "조작 캐릭터 HP 일부 회복"
+    },
+    {
+      "id": "wind",
+      "name": "바람",
+      "color": "#25b394",
+      "mark": "파티 결전(필살) 게이지 충전 효율 증가"
+    },
+    {
+      "id": "earth",
+      "name": "땅",
+      "color": "#b07a35",
+      "mark": "자세(강인도) 게이지 피해 증가"
+    },
+    {
+      "id": "thunder",
+      "name": "번개",
+      "color": "#8f6ae8",
+      "mark": "파티 치명타 확률 · 치명타 피해 증가"
+    },
+    {
+      "id": "light",
+      "name": "빛",
+      "color": "#d9a90e",
+      "mark": "고정 피해 1회 추가"
+    },
+    {
+      "id": "dark",
+      "name": "어둠",
+      "color": "#9a4a8f",
+      "mark": "파티 모든 원소 피해 증가"
+    }
   ],
   "markRule": "같은 원소 각인이 쌓이면 그 원소의 파티 효과가 붙고, 5초마다 다음 공격에 그 원소의 추가 타격이 1회 들어갑니다.",
   "chart": {
     "_note": "공격 원소 → 상성 우위(+25%) / 열세(-25%). 불·물·얼음·나무·바람·땅·번개는 고리 상성, 빛·어둠은 서로만 상성.",
     "bonus": 25,
     "strong": {
-      "fire": ["ice", "nature"],
-      "water": ["fire", "earth"],
-      "ice": ["nature", "thunder"],
-      "nature": ["wind", "water"],
-      "wind": ["earth", "ice"],
-      "earth": ["thunder", "fire"],
-      "thunder": ["water", "wind"],
-      "light": ["dark"],
-      "dark": ["light"]
+      "fire": [
+        "ice",
+        "nature"
+      ],
+      "water": [
+        "fire",
+        "earth"
+      ],
+      "ice": [
+        "nature",
+        "thunder"
+      ],
+      "nature": [
+        "wind",
+        "water"
+      ],
+      "wind": [
+        "earth",
+        "ice"
+      ],
+      "earth": [
+        "thunder",
+        "fire"
+      ],
+      "thunder": [
+        "water",
+        "wind"
+      ],
+      "light": [
+        "dark"
+      ],
+      "dark": [
+        "light"
+      ]
     },
     "weak": {
-      "fire": ["water", "earth"],
-      "water": ["nature", "thunder"],
-      "ice": ["fire", "wind"],
-      "nature": ["fire", "ice"],
-      "wind": ["nature", "thunder"],
-      "earth": ["water", "wind"],
-      "thunder": ["ice", "earth"],
+      "fire": [
+        "water",
+        "earth"
+      ],
+      "water": [
+        "nature",
+        "thunder"
+      ],
+      "ice": [
+        "fire",
+        "wind"
+      ],
+      "nature": [
+        "fire",
+        "ice"
+      ],
+      "wind": [
+        "nature",
+        "thunder"
+      ],
+      "earth": [
+        "water",
+        "wind"
+      ],
+      "thunder": [
+        "ice",
+        "earth"
+      ],
       "light": [],
       "dark": []
     },
     "confidence": "community"
   },
   "sources": [
-    { "id": "gw-tier", "name": "GameWith 티어표(CBT)", "url": "https://gamewith.ai/azurpromilia/en/tier-list" },
-    { "id": "gw-team", "name": "GameWith 추천 파티(CBT)", "url": "https://gamewith.ai/azurpromilia/en/best-team" },
-    { "id": "gw-char", "name": "GameWith 캐릭터(CBT)", "url": "https://gamewith.ai/azurpromilia/en/characters" },
-    { "id": "gw-elem", "name": "GameWith 원소 상성", "url": "https://gamewith.ai/azurpromilia/en/element-matchups" },
-    { "id": "kr-tier", "name": "국내 티어 · 조합 정리(2026-11-24)", "url": "https://windsubok8.kr/2026/11/24/%EC%95%84%EC%A3%BC%EB%A5%B4-%ED%94%84%EB%A1%9C%EB%B0%80%EB%A6%AC%EC%95%84-%EC%BA%90%EB%A6%AD%ED%84%B0-%ED%8B%B0%EC%96%B4%ED%91%9C/" },
-    { "id": "tgw", "name": "TheGamesWiki 캐릭터 이름", "url": "https://thegameswiki.com/azur-promilia/wiki/characters" },
-    { "id": "nexon", "name": "넥슨 공식 사이트", "url": "https://azurpromilia.nexon.com/" }
+    {
+      "id": "gw-tier",
+      "name": "GameWith 티어표(CBT)",
+      "url": "https://gamewith.ai/azurpromilia/en/tier-list"
+    },
+    {
+      "id": "gw-team",
+      "name": "GameWith 추천 파티(CBT)",
+      "url": "https://gamewith.ai/azurpromilia/en/best-team"
+    },
+    {
+      "id": "gw-char",
+      "name": "GameWith 캐릭터(CBT)",
+      "url": "https://gamewith.ai/azurpromilia/en/characters"
+    },
+    {
+      "id": "gw-elem",
+      "name": "GameWith 원소 상성",
+      "url": "https://gamewith.ai/azurpromilia/en/element-matchups"
+    },
+    {
+      "id": "kr-tier",
+      "name": "국내 티어 · 조합 정리(2026-11-24)",
+      "url": "https://windsubok8.kr/2026/11/24/%EC%95%84%EC%A3%BC%EB%A5%B4-%ED%94%84%EB%A1%9C%EB%B0%80%EB%A6%AC%EC%95%84-%EC%BA%90%EB%A6%AD%ED%84%B0-%ED%8B%B0%EC%96%B4%ED%91%9C/"
+    },
+    {
+      "id": "tgw",
+      "name": "TheGamesWiki 캐릭터 이름",
+      "url": "https://thegameswiki.com/azur-promilia/wiki/characters"
+    },
+    {
+      "id": "nexon",
+      "name": "넥슨 공식 사이트",
+      "url": "https://azurpromilia.nexon.com/"
+    }
   ]
 }

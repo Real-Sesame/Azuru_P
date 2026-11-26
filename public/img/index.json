@@ -1,0 +1,86 @@
+{
+ "chars": {
+  "abby": {
+   "art": "img/chars/art/abby.webp",
+   "artSrc": "kr",
+   "thumb": "img/chars/thumb/abby.webp",
+   "thumbSrc": "kr"
+  },
+  "anais": {
+   "art": "img/chars/art/anais.webp",
+   "artSrc": "kr",
+   "thumb": "img/chars/thumb/anais.webp",
+   "thumbSrc": "kr"
+  },
+  "cathbelle": {
+   "art": "img/chars/art/cathbelle.webp",
+   "artSrc": "kr",
+   "thumb": "img/chars/thumb/cathbelle.webp",
+   "thumbSrc": "kr"
+  },
+  "chiyo": {
+   "art": "img/chars/art/chiyo.webp",
+   "artSrc": "kr",
+   "thumb": "img/chars/thumb/chiyo.webp",
+   "thumbSrc": "kr"
+  },
+  "lanxiangzi": {
+   "art": "img/chars/art/lanxiangzi.webp",
+   "artSrc": "kr",
+   "thumb": "img/chars/thumb/lanxiangzi.webp",
+   "thumbSrc": "kr"
+  },
+  "maple": {
+   "art": "img/chars/art/maple.webp",
+   "artSrc": "kr",
+   "thumb": "img/chars/thumb/maple.webp",
+   "thumbSrc": "kr"
+  },
+  "metsa": {
+   "thumb": "img/chars/thumb/metsa.webp",
+   "thumbSrc": "sea"
+  },
+  "mitty": {
+   "art": "img/chars/art/mitty.webp",
+   "artSrc": "kr",
+   "thumb": "img/chars/thumb/mitty.webp",
+   "thumbSrc": "kr"
+  },
+  "peipei": {
+   "art": "img/chars/art/peipei.webp",
+   "artSrc": "kr",
+   "thumb": "img/chars/thumb/peipei.webp",
+   "thumbSrc": "kr"
+  },
+  "pengpeng": {
+   "art": "img/chars/art/pengpeng.webp",
+   "artSrc": "kr",
+   "thumb": "img/chars/thumb/pengpeng.webp",
+   "thumbSrc": "kr"
+  },
+  "shalle": {
+   "art": "img/chars/art/shalle.webp",
+   "artSrc": "kr",
+   "thumb": "img/chars/thumb/shalle.webp",
+   "thumbSrc": "kr"
+  },
+  "symphoria": {
+   "thumb": "img/chars/thumb/symphoria.webp",
+   "thumbSrc": "sea"
+  },
+  "terara": {
+   "art": "img/chars/art/terara.webp",
+   "artSrc": "kr",
+   "thumb": "img/chars/thumb/terara.webp",
+   "thumbSrc": "kr"
+  },
+  "xiaoyu": {
+   "art": "img/chars/art/xiaoyu.webp",
+   "artSrc": "kr",
+   "thumb": "img/chars/thumb/xiaoyu.webp",
+   "thumbSrc": "kr"
+  }
+ },
+ "credit": "이미지 © Manjuu · NEXON (공식 사이트에서 자동 수집 · 크기/여백 편집)",
+ "updated": "2026-11-26"
+}

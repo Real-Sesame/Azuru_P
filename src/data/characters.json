@@ -2,280 +2,952 @@
   "_note": "elements = 인게임 속성 표기(첫 번째가 주 공격 원소). gains/consumes/requires = 각인(조율 표식) 원소. tier = 국내 정리(S~C), gwTier = GameWith CBT 티어. CBT 기준이며 정식판에서 바뀔 수 있음.",
   "list": [
     {
-      "id": "xiaoyu", "officialId": "tushan-xiaoyu", "name": "도산소옥", "nameEn": "Tushan Xiaoyu", "rarity": 5, "limited": true,
-      "elements": ["wind", "light"], "prof": "assault", "group": "dps",
-      "gains": ["wind"], "consumes": ["wind", "light"], "requires": [],
-      "tier": "S", "gwTier": "T0",
-      "obtain": ["첫 한정 픽업(운명 관측)"],
+      "id": "xiaoyu",
+      "officialId": "tushan-xiaoyu",
+      "name": "도산소옥",
+      "nameEn": "Tushan Xiaoyu",
+      "rarity": 5,
+      "limited": true,
+      "elements": [
+        "wind",
+        "light"
+      ],
+      "prof": "assault",
+      "group": "dps",
+      "gains": [
+        "wind"
+      ],
+      "consumes": [
+        "wind",
+        "light"
+      ],
+      "requires": [],
+      "tier": "S",
+      "gwTier": "T0",
+      "obtain": [
+        "첫 한정 픽업(운명 관측)"
+      ],
       "summary": "원거리 맹공 딜러. 바람 각인을 쓰고 다시 모으기를 반복하며 버프를 쌓고, 결전 스킬을 자주 돌립니다.",
       "passive": "강공격 · 완벽 패링 · 동료 · 결전 스킬 발동 때 각인 강도와 공격력이 올라가며 최대 4중첩",
-      "pros": ["원거리라 날아다니는 적도 문제없음", "바람 각인 하나로 굴러가 파티 짜기 쉬움"],
-      "cons": ["바람 각인 공급원(릴리 · 성림자 등)이 있어야 최대 성능"],
-      "confidence": "community", "sources": ["gw-tier", "gw-team", "gw-char", "kr-tier"]
+      "pros": [
+        "원거리라 날아다니는 적도 문제없음",
+        "바람 각인 하나로 굴러가 파티 짜기 쉬움"
+      ],
+      "cons": [
+        "바람 각인 공급원(릴리 · 성림자 등)이 있어야 최대 성능"
+      ],
+      "confidence": "community",
+      "sources": [
+        "gw-tier",
+        "gw-team",
+        "gw-char",
+        "kr-tier",
+        "nexon"
+      ],
+      "official": {
+        "order": 1,
+        "elements": true,
+        "prof": true
+      }
     },
     {
-      "id": "shalle", "name": "샬레", "nameEn": "Shalle", "rarity": 5,
-      "elements": ["water", "light"], "prof": "eruption", "group": "dps",
-      "gains": ["water", "light"], "consumes": [], "requires": ["water", "light"],
-      "tier": "A", "gwTier": "T0",
-      "obtain": ["상시 관측"],
+      "id": "shalle",
+      "name": "샬레",
+      "nameEn": "Shalle",
+      "rarity": 5,
+      "elements": [
+        "water",
+        "light"
+      ],
+      "prof": "eruption",
+      "group": "dps",
+      "gains": [
+        "water",
+        "light"
+      ],
+      "consumes": [],
+      "requires": [
+        "water",
+        "light"
+      ],
+      "tier": "A",
+      "gwTier": "T0",
+      "obtain": [
+        "상시 관측"
+      ],
       "summary": "폭발 강공격 딜러. 흩어진 적을 한곳에 모은 뒤 강공격으로 쓸어 담습니다. 각인을 소모하지 않아 최대치를 유지하기 쉽습니다.",
       "passive": "별의 공명 마지막 타격 후 자신의 공격력 증가(16초)",
-      "pros": ["몹몰이 + 슈퍼아머로 안정적", "빛 각인만 받쳐 주면 CBT 최상위 화력"],
-      "cons": ["계속 날아다니는 적에게 약함"],
-      "confidence": "community", "sources": ["gw-tier", "gw-team", "gw-char", "kr-tier"]
+      "pros": [
+        "몹몰이 + 슈퍼아머로 안정적",
+        "빛 각인만 받쳐 주면 CBT 최상위 화력"
+      ],
+      "cons": [
+        "계속 날아다니는 적에게 약함"
+      ],
+      "confidence": "community",
+      "sources": [
+        "gw-tier",
+        "gw-team",
+        "gw-char",
+        "kr-tier",
+        "nexon"
+      ],
+      "official": {
+        "order": 9,
+        "elements": true,
+        "prof": true
+      }
     },
     {
-      "id": "morwyn", "name": "모르윈", "nameEn": "Morwyn Halcon", "rarity": 5,
-      "elements": ["thunder", "wind"], "prof": "assault", "group": "dps",
-      "gains": ["thunder"], "consumes": ["thunder", "wind"], "requires": ["thunder"],
-      "tier": "A", "gwTier": "T1",
-      "obtain": ["상시 관측"],
+      "id": "morwyn",
+      "name": "모르윈",
+      "nameEn": "Morwyn Halcon",
+      "rarity": 5,
+      "elements": [
+        "thunder",
+        "wind"
+      ],
+      "prof": "assault",
+      "group": "dps",
+      "gains": [
+        "thunder"
+      ],
+      "consumes": [
+        "thunder",
+        "wind"
+      ],
+      "requires": [
+        "thunder"
+      ],
+      "tier": "A",
+      "gwTier": "T1",
+      "obtain": [
+        "상시 관측"
+      ],
       "summary": "쌍검 맹공 딜러. 번개 각인을 계속 소모하며 초과(오버리밋) 피해로 딜합니다.",
       "passive": "초과 피해 대폭 증가",
-      "pros": ["미티와 묶으면 번개 각인이 끊기지 않음"],
-      "cons": ["번개 각인이 없으면 화력이 크게 떨어짐"],
-      "confidence": "community", "sources": ["gw-tier", "gw-team", "gw-char", "kr-tier"]
+      "pros": [
+        "미티와 묶으면 번개 각인이 끊기지 않음"
+      ],
+      "cons": [
+        "번개 각인이 없으면 화력이 크게 떨어짐"
+      ],
+      "confidence": "community",
+      "sources": [
+        "gw-tier",
+        "gw-team",
+        "gw-char",
+        "kr-tier"
+      ]
     },
     {
-      "id": "ruby", "name": "루비", "nameEn": "Ruby", "rarity": 5,
-      "elements": ["fire", "thunder"], "prof": "assault", "group": "dps",
-      "gains": ["fire", "thunder"], "consumes": ["fire", "thunder"], "requires": [],
-      "tier": "A", "gwTier": "T1",
-      "obtain": ["상시 관측"],
+      "id": "ruby",
+      "name": "루비",
+      "nameEn": "Ruby",
+      "rarity": 5,
+      "elements": [
+        "fire",
+        "thunder"
+      ],
+      "prof": "assault",
+      "group": "dps",
+      "gains": [
+        "fire",
+        "thunder"
+      ],
+      "consumes": [
+        "fire",
+        "thunder"
+      ],
+      "requires": [],
+      "tier": "A",
+      "gwTier": "T1",
+      "obtain": [
+        "상시 관측"
+      ],
       "summary": "총기 맹공 딜러. 불 · 번개 각인과 탄약을 모으고 쓰며 꾸준히 딜합니다.",
       "passive": "'달아오름' 중첩마다 각인 강도 증가(최대 6중첩)",
-      "pros": ["한요요 · 미티로 각인 공급이 쉬움"],
-      "cons": ["CBT에서 불 저항 적이 많아 상성 확인 필요"],
-      "confidence": "community", "sources": ["gw-tier", "gw-team", "gw-char", "kr-tier"]
+      "pros": [
+        "한요요 · 미티로 각인 공급이 쉬움"
+      ],
+      "cons": [
+        "CBT에서 불 저항 적이 많아 상성 확인 필요"
+      ],
+      "confidence": "community",
+      "sources": [
+        "gw-tier",
+        "gw-team",
+        "gw-char",
+        "kr-tier"
+      ]
     },
     {
-      "id": "chiyo", "officialId": "minamoto-chiyo", "name": "미나모토 치요", "nameEn": "Minamoto Chiyo", "rarity": 5, "limited": true,
-      "elements": ["dark"], "prof": "eruption", "group": "dps",
-      "gains": ["dark"], "consumes": [], "requires": ["dark"],
-      "tier": "NEW", "gwTier": "-",
-      "obtain": ["출시 픽업(발표)"],
+      "id": "chiyo",
+      "officialId": "minamoto-chiyo",
+      "name": "미나모토 치요",
+      "nameEn": "Minamoto Chiyo",
+      "rarity": 5,
+      "limited": true,
+      "elements": [
+        "dark"
+      ],
+      "prof": "eruption",
+      "group": "dps",
+      "gains": [
+        "dark"
+      ],
+      "consumes": [],
+      "requires": [
+        "dark"
+      ],
+      "tier": "NEW",
+      "gwTier": "-",
+      "obtain": [
+        "출시 픽업(발표)"
+      ],
       "summary": "어둠 폭발 딜러. 태도와 귀수를 활용한 협공형으로 소개됐습니다. 상세 스킬은 아직 검증 전입니다.",
       "passive": "검증 전",
-      "pros": ["어둠 각인 파티(캐시벨 · 난향자)와 원소가 겹침"],
-      "cons": ["출시 직후라 평가 대기"],
-      "confidence": "estimate", "sources": ["kr-tier", "tgw"]
+      "pros": [
+        "어둠 각인 파티(캐시벨 · 난향자)와 원소가 겹침"
+      ],
+      "cons": [
+        "출시 직후라 평가 대기"
+      ],
+      "confidence": "estimate",
+      "sources": [
+        "kr-tier",
+        "tgw",
+        "nexon"
+      ],
+      "official": {
+        "order": 2,
+        "elements": true,
+        "prof": true
+      }
     },
     {
-      "id": "peipei", "name": "페페", "nameEn": "Peipei", "rarity": 5,
-      "elements": ["earth", "light"], "prof": "eruption", "group": "dps",
-      "gains": ["earth", "light"], "consumes": [], "requires": ["earth"],
-      "tier": "C", "gwTier": "-",
-      "obtain": ["성장 이벤트(무료)"],
+      "id": "peipei",
+      "name": "페페",
+      "nameEn": "Peipei",
+      "rarity": 5,
+      "elements": [
+        "earth",
+        "light"
+      ],
+      "prof": "eruption",
+      "group": "dps",
+      "gains": [
+        "earth",
+        "light"
+      ],
+      "consumes": [],
+      "requires": [
+        "earth"
+      ],
+      "tier": "C",
+      "gwTier": "-",
+      "obtain": [
+        "성장 이벤트(무료)"
+      ],
       "summary": "무료 5성 폭발 강공격 딜러. 샬레처럼 몹몰이가 가능합니다.",
       "passive": "검증 전",
-      "pros": ["무료 5성", "각인 소모가 없어 파티를 덜 가림"],
-      "cons": ["화력은 픽업 딜러보다 낮은 편"],
-      "confidence": "estimate", "sources": ["kr-tier"]
+      "pros": [
+        "무료 5성",
+        "각인 소모가 없어 파티를 덜 가림"
+      ],
+      "cons": [
+        "화력은 픽업 딜러보다 낮은 편"
+      ],
+      "confidence": "estimate",
+      "sources": [
+        "kr-tier",
+        "nexon"
+      ],
+      "official": {
+        "order": 11,
+        "elements": true,
+        "prof": true
+      }
     },
     {
-      "id": "symphoria", "name": "심포리아", "nameEn": "Symphoria", "rarity": 4,
-      "elements": ["wind"], "prof": "eruption", "group": "dps",
-      "gains": ["wind"], "consumes": [], "requires": ["wind"],
-      "tier": "C", "gwTier": "-",
-      "obtain": ["상시 관측"],
+      "id": "symphoria",
+      "name": "심포리아",
+      "nameEn": "Symphoria",
+      "rarity": 4,
+      "elements": [
+        "wind"
+      ],
+      "prof": "eruption",
+      "group": "dps",
+      "gains": [
+        "wind"
+      ],
+      "consumes": [],
+      "requires": [
+        "wind"
+      ],
+      "tier": "C",
+      "gwTier": "-",
+      "obtain": [
+        "상시 관측"
+      ],
       "summary": "우드엘프 궁수. 바람 각인 3개 이상일 때 공격력이 오르는 바람 폭발 딜러.",
       "passive": "바람 각인 3개 이상이면 공격력 증가",
-      "pros": ["바람 각인 파티에 그대로 들어감"],
-      "cons": ["4성이라 화력 한계"],
-      "confidence": "community", "sources": ["gw-char", "kr-tier"]
+      "pros": [
+        "바람 각인 파티에 그대로 들어감"
+      ],
+      "cons": [
+        "4성이라 화력 한계"
+      ],
+      "confidence": "community",
+      "sources": [
+        "gw-char",
+        "kr-tier"
+      ]
     },
     {
-      "id": "pengpeng", "name": "펭펭", "nameEn": "Pengpeng", "rarity": 4,
-      "elements": ["fire"], "prof": "eruption", "group": "dps",
-      "gains": ["fire"], "consumes": [], "requires": ["fire"],
-      "tier": "B", "gwTier": "-",
-      "obtain": ["상시 관측"],
+      "id": "pengpeng",
+      "name": "펭펭",
+      "nameEn": "Pengpeng",
+      "rarity": 4,
+      "elements": [
+        "fire",
+        "earth"
+      ],
+      "prof": "amplifier",
+      "group": "support",
+      "gains": [
+        "fire"
+      ],
+      "consumes": [],
+      "requires": [
+        "fire"
+      ],
+      "tier": "B",
+      "gwTier": "-",
+      "obtain": [
+        "상시 관측"
+      ],
       "summary": "쿵후 소녀. 일반 공격 4타부터 치명타 확률이 오르는 불 폭발 딜러.",
       "passive": "일반 공격 4타째부터 치명타 확률 증가(6초)",
-      "pros": ["무과금 파티의 서브 화력"],
-      "cons": ["불 저항 적 주의"],
-      "confidence": "community", "sources": ["gw-char", "kr-tier"]
+      "pros": [
+        "무과금 파티의 서브 화력"
+      ],
+      "cons": [
+        "불 저항 적 주의"
+      ],
+      "confidence": "community",
+      "sources": [
+        "gw-char",
+        "kr-tier",
+        "nexon"
+      ],
+      "official": {
+        "order": 10,
+        "elements": true,
+        "prof": true
+      }
     },
     {
-      "id": "terara", "name": "테라라", "nameEn": "Terara", "rarity": 4,
-      "elements": ["fire", "wind"], "prof": "assault", "group": "dps",
-      "gains": ["fire"], "consumes": ["fire", "wind"], "requires": [],
-      "tier": "B", "gwTier": "-",
-      "obtain": ["상시 관측"],
+      "id": "terara",
+      "name": "테라라",
+      "nameEn": "Terara",
+      "rarity": 4,
+      "elements": [
+        "fire",
+        "wind"
+      ],
+      "prof": "assault",
+      "group": "dps",
+      "gains": [
+        "fire"
+      ],
+      "consumes": [
+        "fire",
+        "wind"
+      ],
+      "requires": [],
+      "tier": "B",
+      "gwTier": "-",
+      "obtain": [
+        "상시 관측"
+      ],
       "summary": "샤루루 마을의 늑대족 사냥꾼. 불 · 바람 각인을 써서 초과 피해를 넣는 맹공 딜러.",
       "passive": "'연소' 획득 시 파티 결전 게이지 회복 + 조작 캐릭터 방어력 증가",
-      "pros": ["불 · 바람 어느 쪽 각인이든 활용"],
-      "cons": ["주력 딜러로는 5성보다 약함"],
-      "confidence": "community", "sources": ["gw-char", "kr-tier"]
+      "pros": [
+        "불 · 바람 어느 쪽 각인이든 활용"
+      ],
+      "cons": [
+        "주력 딜러로는 5성보다 약함"
+      ],
+      "confidence": "community",
+      "sources": [
+        "gw-char",
+        "kr-tier",
+        "nexon"
+      ],
+      "official": {
+        "order": 6,
+        "elements": true,
+        "prof": true
+      }
     },
     {
-      "id": "abby", "name": "아비", "nameEn": "Abby", "rarity": 5,
-      "elements": ["water", "nature"], "prof": "rupture", "group": "breaker",
-      "gains": ["water"], "consumes": ["water", "nature"], "requires": [],
-      "tier": "B", "gwTier": "-",
-      "obtain": ["상시 관측"],
+      "id": "abby",
+      "name": "아비",
+      "nameEn": "Abby",
+      "rarity": 5,
+      "elements": [
+        "water",
+        "nature"
+      ],
+      "prof": "rupture",
+      "group": "breaker",
+      "gains": [
+        "water"
+      ],
+      "consumes": [
+        "water",
+        "nature"
+      ],
+      "requires": [],
+      "tier": "B",
+      "gwTier": "-",
+      "obtain": [
+        "상시 관측"
+      ],
       "summary": "용족 소녀. 강공격으로 적에게 자세 파괴 효율 증가 디버프를 거는 물 브레이커.",
       "passive": "강공격 1타 명중 시 적의 자세 파괴 효율 증가(30초)",
-      "pros": ["샬레 물 파티의 브레이커"],
-      "cons": ["CBT 기준. 정식판 파괴 직업 상향 예고"],
-      "confidence": "community", "sources": ["gw-char", "kr-tier"]
+      "pros": [
+        "샬레 물 파티의 브레이커"
+      ],
+      "cons": [
+        "CBT 기준. 정식판 파괴 직업 상향 예고"
+      ],
+      "confidence": "community",
+      "sources": [
+        "gw-char",
+        "kr-tier",
+        "nexon"
+      ],
+      "official": {
+        "order": 3,
+        "elements": true,
+        "prof": true
+      }
     },
     {
-      "id": "faridah", "name": "파란타", "nameEn": "Faridah", "rarity": 5,
-      "elements": ["wind", "thunder"], "prof": "rupture", "group": "breaker",
-      "gains": ["wind"], "consumes": ["wind", "thunder"], "requires": [],
-      "tier": "C", "gwTier": "-",
-      "obtain": ["상시 관측"],
+      "id": "faridah",
+      "name": "파란타",
+      "nameEn": "Faridah",
+      "rarity": 5,
+      "elements": [
+        "wind",
+        "thunder"
+      ],
+      "prof": "rupture",
+      "group": "breaker",
+      "gains": [
+        "wind"
+      ],
+      "consumes": [
+        "wind",
+        "thunder"
+      ],
+      "requires": [],
+      "tier": "C",
+      "gwTier": "-",
+      "obtain": [
+        "상시 관측"
+      ],
       "summary": "날개 종족의 최연소 족장. 바람 · 번개 각인을 쓰는 브레이커.",
       "passive": "추격 발동 시 공격력 증가(최대 3중첩)",
-      "pros": ["바람 각인을 같이 쌓아 줌"],
-      "cons": ["CBT 기준. 정식판 파괴 직업 상향 예고"],
-      "confidence": "community", "sources": ["gw-char", "kr-tier"]
+      "pros": [
+        "바람 각인을 같이 쌓아 줌"
+      ],
+      "cons": [
+        "CBT 기준. 정식판 파괴 직업 상향 예고"
+      ],
+      "confidence": "community",
+      "sources": [
+        "gw-char",
+        "kr-tier"
+      ]
     },
     {
-      "id": "cathbelle", "name": "캐시벨", "nameEn": "Cathbelle", "rarity": 4,
-      "elements": ["thunder", "dark"], "prof": "rupture", "group": "breaker",
-      "gains": ["thunder"], "consumes": ["thunder", "dark"], "requires": [],
-      "tier": "C", "gwTier": "-",
-      "obtain": ["상시 관측"],
+      "id": "cathbelle",
+      "name": "캐시벨",
+      "nameEn": "Cathbelle",
+      "rarity": 4,
+      "elements": [
+        "thunder",
+        "dark"
+      ],
+      "prof": "rupture",
+      "group": "breaker",
+      "gains": [
+        "thunder"
+      ],
+      "consumes": [
+        "thunder",
+        "dark"
+      ],
+      "requires": [],
+      "tier": "C",
+      "gwTier": "-",
+      "obtain": [
+        "상시 관측"
+      ],
       "summary": "플리스 영주 저택의 수인 메이드. 번개 · 어둠 각인을 쓰는 브레이커.",
       "passive": "특수 강공격 2 · 3타가 별의 공명 쿨타임 감소",
-      "pros": ["난향자 · 어둠 키보가 있으면 어둠 각인 충족"],
-      "cons": ["어둠 각인을 주는 캐릭터가 적음"],
-      "confidence": "community", "sources": ["gw-char", "gw-team", "kr-tier"]
+      "pros": [
+        "난향자 · 어둠 키보가 있으면 어둠 각인 충족"
+      ],
+      "cons": [
+        "어둠 각인을 주는 캐릭터가 적음"
+      ],
+      "confidence": "community",
+      "sources": [
+        "gw-char",
+        "gw-team",
+        "kr-tier",
+        "nexon"
+      ],
+      "official": {
+        "order": 4,
+        "elements": true,
+        "prof": true
+      }
     },
     {
-      "id": "nono", "name": "노노", "nameEn": "Nono", "rarity": 4,
-      "elements": ["earth"], "prof": "rupture", "group": "breaker",
-      "gains": ["earth"], "consumes": ["earth"], "requires": [],
-      "tier": "C", "gwTier": "-",
-      "obtain": ["상시 관측"],
+      "id": "nono",
+      "name": "노노",
+      "nameEn": "Nono",
+      "rarity": 4,
+      "elements": [
+        "earth"
+      ],
+      "prof": "rupture",
+      "group": "breaker",
+      "gains": [
+        "earth"
+      ],
+      "consumes": [
+        "earth"
+      ],
+      "requires": [],
+      "tier": "C",
+      "gwTier": "-",
+      "obtain": [
+        "상시 관측"
+      ],
       "summary": "큰 망치를 든 파미족 보물 사냥꾼. 풀차지 강공격 마지막 타격에 파티 공격력 버프를 줍니다.",
       "passive": "풀차지 강공격 마지막 타격 시 파티 공격력 증가(6초)",
-      "pros": ["땅 각인 자급"],
-      "cons": ["CBT 기준. 정식판 파괴 직업 상향 예고"],
-      "confidence": "community", "sources": ["gw-char", "kr-tier"]
+      "pros": [
+        "땅 각인 자급"
+      ],
+      "cons": [
+        "CBT 기준. 정식판 파괴 직업 상향 예고"
+      ],
+      "confidence": "community",
+      "sources": [
+        "gw-char",
+        "kr-tier"
+      ]
     },
     {
-      "id": "anais", "name": "애니스", "nameEn": "Anais", "rarity": 4,
-      "elements": ["light", "earth"], "prof": "imbuement", "group": "support", "heal": true,
-      "gains": ["light"], "consumes": ["light", "earth"], "requires": [],
-      "tier": "B", "gwTier": "T0",
-      "obtain": ["사전등록 보상(무료)"],
+      "id": "anais",
+      "name": "애니스",
+      "nameEn": "Anais",
+      "rarity": 4,
+      "elements": [
+        "light",
+        "earth"
+      ],
+      "prof": "imbuement",
+      "group": "support",
+      "heal": true,
+      "gains": [
+        "light"
+      ],
+      "consumes": [
+        "light",
+        "earth"
+      ],
+      "requires": [],
+      "tier": "B",
+      "gwTier": "T0",
+      "obtain": [
+        "사전등록 보상(무료)"
+      ],
       "summary": "칼논 요양원의 간호사. 빛 각인 공급 + 회복. 스킬 후 교체 스킬까지 이어 빛 각인 3개를 줍니다.",
       "passive": "HP 30% 이하 아군의 받는 회복량 대폭 증가",
-      "pros": ["무료인데 샬레 · 도산소옥의 빛 각인을 책임짐", "결전 스킬 연계 시동"],
-      "cons": ["딜 기여는 낮음"],
-      "confidence": "community", "sources": ["gw-tier", "gw-team", "gw-char", "kr-tier"]
+      "pros": [
+        "무료인데 샬레 · 도산소옥의 빛 각인을 책임짐",
+        "결전 스킬 연계 시동"
+      ],
+      "cons": [
+        "딜 기여는 낮음"
+      ],
+      "confidence": "community",
+      "sources": [
+        "gw-tier",
+        "gw-team",
+        "gw-char",
+        "kr-tier",
+        "nexon"
+      ],
+      "official": {
+        "order": 8,
+        "elements": true,
+        "prof": true
+      }
     },
     {
-      "id": "metsa", "name": "멧사", "nameEn": "Metsa", "rarity": 5,
-      "elements": ["nature", "wind"], "prof": "imbuement", "group": "support", "heal": true,
-      "gains": ["nature"], "consumes": ["nature", "wind"], "requires": [],
-      "tier": "A", "gwTier": "T1",
-      "obtain": ["상시 관측"],
+      "id": "metsa",
+      "name": "멧사",
+      "nameEn": "Metsa",
+      "rarity": 5,
+      "elements": [
+        "nature",
+        "wind"
+      ],
+      "prof": "imbuement",
+      "group": "support",
+      "heal": true,
+      "gains": [
+        "nature"
+      ],
+      "consumes": [
+        "nature",
+        "wind"
+      ],
+      "requires": [],
+      "tier": "A",
+      "gwTier": "T1",
+      "obtain": [
+        "상시 관측"
+      ],
       "summary": "상록 정원의 우드엘프 정원사. 적을 모으고 방어력을 깎는 회복 서포터.",
       "passive": "씨앗을 주우면 파티 각인 강도 증가(최대 4중첩)",
-      "pros": ["몹몰이 + 디버프 + 회복", "어느 딜러에게나 무난"],
-      "cons": ["각인 공급은 나무 위주"],
-      "confidence": "community", "sources": ["gw-tier", "gw-team", "gw-char", "kr-tier"]
+      "pros": [
+        "몹몰이 + 디버프 + 회복",
+        "어느 딜러에게나 무난"
+      ],
+      "cons": [
+        "각인 공급은 나무 위주"
+      ],
+      "confidence": "community",
+      "sources": [
+        "gw-tier",
+        "gw-team",
+        "gw-char",
+        "kr-tier"
+      ]
     },
     {
-      "id": "luruka", "name": "루루카", "nameEn": "Luruka", "rarity": 5,
-      "elements": ["water", "ice"], "prof": "imbuement", "group": "support", "heal": true,
-      "gains": ["water", "ice"], "consumes": ["water", "ice"], "requires": [],
-      "tier": "A", "gwTier": "T1",
-      "obtain": ["상시 관측"],
+      "id": "luruka",
+      "name": "루루카",
+      "nameEn": "Luruka",
+      "rarity": 5,
+      "elements": [
+        "water",
+        "ice"
+      ],
+      "prof": "imbuement",
+      "group": "support",
+      "heal": true,
+      "gains": [
+        "water",
+        "ice"
+      ],
+      "consumes": [
+        "water",
+        "ice"
+      ],
+      "requires": [],
+      "tier": "A",
+      "gwTier": "T1",
+      "obtain": [
+        "상시 관측"
+      ],
       "summary": "샤루루 마을의 어린 샤먼. 강공격 디버프와 회복, 치명타 피해 버프를 줍니다.",
       "passive": "동료 스킬 회복을 받은 아군에게 결전 게이지 + 치명타 피해 증가",
-      "pros": ["물 각인 공급으로 샬레와 궁합", "회복 + 치피 버프"],
+      "pros": [
+        "물 각인 공급으로 샬레와 궁합",
+        "회복 + 치피 버프"
+      ],
       "cons": [],
-      "confidence": "community", "sources": ["gw-tier", "gw-team", "gw-char", "kr-tier"]
+      "confidence": "community",
+      "sources": [
+        "gw-tier",
+        "gw-team",
+        "gw-char",
+        "kr-tier"
+      ]
     },
     {
-      "id": "lanxiangzi", "officialId": "lan-xiangzi", "name": "난향자", "nameEn": "Lan Xiangzi", "rarity": 5,
-      "elements": ["ice", "dark"], "prof": "amplifier", "group": "support",
-      "gains": ["ice", "dark"], "consumes": [], "requires": [],
-      "tier": "B", "gwTier": "-",
-      "obtain": ["상시 관측"],
+      "id": "lanxiangzi",
+      "officialId": "lan-xiangzi",
+      "name": "난향자",
+      "nameEn": "Lan Xiangzi",
+      "rarity": 5,
+      "elements": [
+        "ice",
+        "dark"
+      ],
+      "prof": "amplifier",
+      "group": "support",
+      "gains": [
+        "ice",
+        "dark"
+      ],
+      "consumes": [],
+      "requires": [],
+      "tier": "B",
+      "gwTier": "-",
+      "obtain": [
+        "상시 관측"
+      ],
       "summary": "관에서 나온 수줍은 소녀. 얼음 · 어둠 공격 지원형. 어둠 각인을 주는 몇 안 되는 캐릭터로 추정됩니다.",
       "passive": "검증 전",
-      "pros": ["캐시벨 · 치요의 어둠 각인 공급원 후보"],
-      "cons": ["CBT 이후 공개라 각인 정보는 추정"],
-      "confidence": "estimate", "sources": ["kr-tier", "tgw"]
+      "pros": [
+        "캐시벨 · 치요의 어둠 각인 공급원 후보"
+      ],
+      "cons": [
+        "CBT 이후 공개라 각인 정보는 추정"
+      ],
+      "confidence": "estimate",
+      "sources": [
+        "kr-tier",
+        "tgw",
+        "nexon"
+      ],
+      "official": {
+        "order": 7,
+        "elements": true,
+        "prof": true
+      }
     },
     {
-      "id": "hanyouyou", "officialId": "han-youyou", "name": "한요요", "nameEn": "Han Youyou", "rarity": 4,
-      "elements": ["fire"], "prof": "amplifier", "group": "support",
-      "gains": ["fire"], "consumes": [], "requires": [],
-      "tier": "B", "gwTier": "T1",
-      "obtain": ["황혼의 연무 보상(무료)"],
+      "id": "hanyouyou",
+      "officialId": "han-youyou",
+      "name": "한요요",
+      "nameEn": "Han Youyou",
+      "rarity": 4,
+      "elements": [
+        "fire"
+      ],
+      "prof": "amplifier",
+      "group": "support",
+      "gains": [
+        "fire"
+      ],
+      "consumes": [],
+      "requires": [],
+      "tier": "B",
+      "gwTier": "T1",
+      "obtain": [
+        "황혼의 연무 보상(무료)"
+      ],
       "summary": "기관술에 능한 보물 사냥꾼. 강공격 · 스킬 · 교체 스킬로 불 각인을 쌓습니다.",
       "passive": "'염화' 폭발 후 조작 캐릭터 공격력 증가(24초)",
-      "pros": ["무료", "루비 · 테라라의 불 각인 담당"],
+      "pros": [
+        "무료",
+        "루비 · 테라라의 불 각인 담당"
+      ],
       "cons": [],
-      "confidence": "community", "sources": ["gw-tier", "gw-team", "gw-char", "kr-tier"]
+      "confidence": "community",
+      "sources": [
+        "gw-tier",
+        "gw-team",
+        "gw-char",
+        "kr-tier"
+      ]
     },
     {
-      "id": "mitty", "name": "미티", "nameEn": "Mitty", "rarity": 4,
-      "elements": ["thunder"], "prof": "amplifier", "group": "support",
-      "gains": ["thunder"], "consumes": [], "requires": [],
-      "tier": "B", "gwTier": "-",
-      "obtain": ["상시 관측"],
+      "id": "mitty",
+      "name": "미티",
+      "nameEn": "Mitty",
+      "rarity": 4,
+      "elements": [
+        "thunder"
+      ],
+      "prof": "amplifier",
+      "group": "support",
+      "gains": [
+        "thunder"
+      ],
+      "consumes": [],
+      "requires": [],
+      "tier": "B",
+      "gwTier": "-",
+      "obtain": [
+        "상시 관측"
+      ],
       "summary": "날개 종족 궁수. 번개 각인을 쌓고 파티 결전 게이지를 채워 결전 연계를 시작합니다.",
       "passive": "별의 공명 후 파티 결전 게이지 지속 회복 + 조작 캐릭터 공격력 증가",
-      "pros": ["모르윈 · 루비의 번개 각인 담당", "결전 회전 가속"],
+      "pros": [
+        "모르윈 · 루비의 번개 각인 담당",
+        "결전 회전 가속"
+      ],
       "cons": [],
-      "confidence": "community", "sources": ["gw-team", "gw-char", "kr-tier"]
+      "confidence": "community",
+      "sources": [
+        "gw-team",
+        "gw-char",
+        "kr-tier",
+        "nexon"
+      ],
+      "official": {
+        "order": 12,
+        "elements": true,
+        "prof": true
+      }
     },
     {
-      "id": "lily", "name": "릴리", "nameEn": "Lily", "rarity": 4,
-      "elements": ["wind"], "prof": "amplifier", "group": "support",
-      "gains": ["wind"], "consumes": [], "requires": [],
-      "tier": "B", "gwTier": "T1",
-      "obtain": ["상시 관측"],
+      "id": "lily",
+      "name": "릴리",
+      "nameEn": "Lily",
+      "rarity": 4,
+      "elements": [
+        "wind"
+      ],
+      "prof": "amplifier",
+      "group": "support",
+      "gains": [
+        "wind"
+      ],
+      "consumes": [],
+      "requires": [],
+      "tier": "B",
+      "gwTier": "T1",
+      "obtain": [
+        "상시 관측"
+      ],
       "summary": "수련 여행 중인 견습 기사(창). 스킬과 완벽 가드 반격으로 바람 각인을 쌓는 탱커형 서포터.",
       "passive": "완벽 가드 반격 명중 시 바람 각인 2개 획득",
-      "pros": ["도산소옥의 바람 각인 담당", "결전 회전 가속"],
+      "pros": [
+        "도산소옥의 바람 각인 담당",
+        "결전 회전 가속"
+      ],
       "cons": [],
-      "confidence": "community", "sources": ["gw-tier", "gw-team", "gw-char", "kr-tier"]
+      "confidence": "community",
+      "sources": [
+        "gw-tier",
+        "gw-team",
+        "gw-char",
+        "kr-tier"
+      ]
     },
     {
-      "id": "katalua", "name": "카타루", "nameEn": "Katalua", "rarity": 4,
-      "elements": ["earth"], "prof": "amplifier", "group": "support", "shield": true,
-      "gains": ["earth"], "consumes": [], "requires": [],
-      "tier": "B", "gwTier": "-",
-      "obtain": ["상시 관측"],
+      "id": "katalua",
+      "name": "카타루",
+      "nameEn": "Katalua",
+      "rarity": 4,
+      "elements": [
+        "earth"
+      ],
+      "prof": "amplifier",
+      "group": "support",
+      "shield": true,
+      "gains": [
+        "earth"
+      ],
+      "consumes": [],
+      "requires": [],
+      "tier": "B",
+      "gwTier": "-",
+      "obtain": [
+        "상시 관측"
+      ],
       "summary": "마을 자경단의 방패. 보호막과 땅 각인을 주는 탱커형 서포터.",
       "passive": "보호막을 얻으면 조작 캐릭터 공격력이 카타루 물리 방어력에 비례해 증가",
-      "pros": ["보호막으로 생존 보강"],
-      "cons": ["각인은 땅 하나"],
-      "confidence": "community", "sources": ["gw-char", "kr-tier"]
+      "pros": [
+        "보호막으로 생존 보강"
+      ],
+      "cons": [
+        "각인은 땅 하나"
+      ],
+      "confidence": "community",
+      "sources": [
+        "gw-char",
+        "kr-tier"
+      ]
     },
     {
-      "id": "maple", "name": "메이플", "nameEn": "Maple", "rarity": 4,
-      "elements": ["light", "nature"], "prof": "amplifier", "group": "support",
-      "gains": ["light", "nature"], "consumes": [], "requires": [],
-      "tier": "C", "gwTier": "-",
-      "obtain": ["상시 관측"],
+      "id": "maple",
+      "name": "메이플",
+      "nameEn": "Maple",
+      "rarity": 4,
+      "elements": [
+        "light",
+        "nature"
+      ],
+      "prof": "amplifier",
+      "group": "support",
+      "gains": [
+        "light",
+        "nature"
+      ],
+      "consumes": [],
+      "requires": [],
+      "tier": "C",
+      "gwTier": "-",
+      "obtain": [
+        "상시 관측"
+      ],
       "summary": "모험가 길드 접수원. 빛 · 나무 증폭 서포터(CBT 이후 공개, 각인은 속성 기준 추정).",
       "passive": "검증 전",
-      "pros": ["빛 각인 대체 공급원 후보"],
-      "cons": ["각인 정보 추정"],
-      "confidence": "estimate", "sources": ["tgw", "kr-tier"]
+      "pros": [
+        "빛 각인 대체 공급원 후보"
+      ],
+      "cons": [
+        "각인 정보 추정"
+      ],
+      "confidence": "estimate",
+      "sources": [
+        "tgw",
+        "kr-tier",
+        "nexon"
+      ],
+      "official": {
+        "order": 5,
+        "elements": true,
+        "prof": true
+      }
     }
   ],
   "starborn": {
-    "id": "starborn", "name": "성림자", "nameEn": "Starborn", "rarity": 4,
-    "elements": [], "prof": "amplifier", "group": "support", "wildcard": true,
-    "gains": [], "consumes": [], "requires": [],
-    "tier": "B", "gwTier": "-",
-    "obtain": ["주인공(항상 보유)"],
+    "id": "starborn",
+    "name": "성림자",
+    "nameEn": "Starborn",
+    "rarity": 4,
+    "elements": [],
+    "prof": "amplifier",
+    "group": "support",
+    "wildcard": true,
+    "gains": [],
+    "consumes": [],
+    "requires": [],
+    "tier": "B",
+    "gwTier": "-",
+    "obtain": [
+      "주인공(항상 보유)"
+    ],
     "summary": "주인공. 파티에 이미 있는 각인을 더 쌓아 주는 만능 증폭 서포터. 별의 공명 후 파티 공격력 증가 + 적 방어력 감소.",
     "passive": "별의 공명 후 파티 공격력 증가 · 맞은 적 방어력 감소(20초)",
-    "pros": ["항상 보유", "딜러가 쓰는 각인을 그대로 늘려 줌"],
-    "cons": ["스스로 새 원소 각인을 만들지는 못함"],
-    "confidence": "community", "sources": ["gw-char", "kr-tier"]
+    "pros": [
+      "항상 보유",
+      "딜러가 쓰는 각인을 그대로 늘려 줌"
+    ],
+    "cons": [
+      "스스로 새 원소 각인을 만들지는 못함"
+    ],
+    "confidence": "community",
+    "sources": [
+      "gw-char",
+      "kr-tier"
+    ]
   }
 }
