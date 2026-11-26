@@ -13,7 +13,7 @@
 | 필드 | 설명 |
 |---|---|
 | `id` `name` `nameEn` | 슬러그 · 한국어 이름 · 영문 |
-| `rarity` | 4 또는 5 |
+| `rarity` | 4 · 5 · null(미확인) |
 | `limited` | 한정 여부(선택) |
 | `elements[]` | 인게임 속성 표기. **첫 번째가 공격 원소**(상성 계산에 사용) |
 | `prof` `group` | 직업 · 그룹 |
@@ -23,6 +23,9 @@
 | `heal` `shield` | 회복 · 보호막 제공(선택) |
 | `wildcard` | 성림자 전용: 파티에 이미 있는 각인을 증폭 |
 | `tier` `gwTier` | 국내 티어(S/A/B/C/NEW) · GameWith CBT 티어 |
+| `officialId` | 공식 사이트 id가 다를 때(예: tushan-xiaoyu) |
+| `official` | 자동 갱신이 공식 값으로 맞춘 표시(`order` 등) |
+| `auto` | 공식 사이트에서 자동 추가 · 검토 전. 검토 후 지움 |
 | `obtain[]` `summary` `passive` `pros[]` `cons[]` | 화면 표시용 |
 
 ## teams.json

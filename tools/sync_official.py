@@ -83,7 +83,16 @@ def parse_kr_roster(texts):
 
 def edit_thumb(data):
     from PIL import Image
+    from PIL import ImageDraw
     im = Image.open(io.BytesIO(data)).convert("RGBA")
+    alpha = im.getchannel("A")
+    if alpha.getextrema()[0] == 255:
+        # 투명 배경이 없는 사각 썸네일(동남아 공식 등)은 한국 공식처럼 원형으로 맞춤
+        side = min(im.size)
+        im = im.crop(((im.width - side) // 2, (im.height - side) // 2, (im.width + side) // 2, (im.height + side) // 2))
+        mask = Image.new("L", (side * 4, side * 4), 0)
+        ImageDraw.Draw(mask).ellipse((0, 0, side * 4 - 1, side * 4 - 1), fill=255)
+        im.putalpha(mask.resize((side, side), Image.LANCZOS))
     box = im.getchannel("A").getbbox()
     if box:
         im = im.crop(box)

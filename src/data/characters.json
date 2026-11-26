@@ -317,26 +317,25 @@
       "prof": "amplifier",
       "group": "support",
       "gains": [
-        "fire"
+        "fire",
+        "earth"
       ],
       "consumes": [],
-      "requires": [
-        "fire"
-      ],
+      "requires": [],
       "tier": "B",
       "gwTier": "-",
       "obtain": [
         "상시 관측"
       ],
-      "summary": "쿵후 소녀. 일반 공격 4타부터 치명타 확률이 오르는 불 폭발 딜러.",
+      "summary": "쿵후 소녀. 공식 사이트 기준 불 · 땅 속성의 증폭(서포터) 직업입니다. CBT에선 불 폭발 딜러였으나 정식판에서 바뀐 것으로 보이며, 각인은 속성 기준으로 임시 표시합니다.",
       "passive": "일반 공격 4타째부터 치명타 확률 증가(6초)",
       "pros": [
-        "무과금 파티의 서브 화력"
+        "불 · 땅 각인 공급 후보"
       ],
       "cons": [
-        "불 저항 적 주의"
+        "정식판 스킬 검증 전"
       ],
-      "confidence": "community",
+      "confidence": "estimate",
       "sources": [
         "gw-char",
         "kr-tier",
