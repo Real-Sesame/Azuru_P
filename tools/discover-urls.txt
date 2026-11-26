@@ -1,11 +1,5 @@
-# 공식 사이트 후보 (한국 · 일본 · 중국 · 동남아)
-https://azurpromilia.nexon.com/
-https://azurpromilia.nexon.com/events/2025/12/preregistration
-https://azurpromilia.nexon.com/characters
-https://azurpromilia.nexon.com/character
-https://azurpromilia.jp/
-https://azurpromilia.jp/character/
-https://www.azurpromilia.jp/
-https://azurpromilia.com/
-https://www.azurpromilia.com/
+# 공식 사이트 후보 (한국 · 동남아) + 커뮤니티 데이터(GameWith)
+https://azurpromilia.nexon.com/main
 https://azurpromilia.playpark.com/
+https://gamewith.ai/azurpromilia/en/tier-list
+https://gamewith.ai/azurpromilia/en/characters
