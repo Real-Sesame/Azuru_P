@@ -264,9 +264,13 @@ def main():
             report["warn"].append(f"동남아 공식 사이트 읽기 실패: {e}")
         try:  # 일본 공식: 캐릭터 목록(slug · posterId) → roles/<posterId>/poster.jpg
             jp_final, _, jp_texts = page_texts(JP_CHAR)
+            real = {}  # 빌드된 사이트는 원래 경로 → 해시 붙은 실제 주소 대응표를 JS에 가지고 있음
+            for t in jp_texts:
+                for m in re.finditer(r'"/src/assets/images/roles/(r\d+)/poster\.(?:jpg|png|webp)":"([^"]+)"', t):
+                    real.setdefault(m.group(1), urllib.parse.urljoin(jp_final, m.group(2)))
             for t in jp_texts:
                 for m in re.finditer(r'posterId:"(r\d+)",slug:"([a-z0-9-]+)"', t):
-                    jp_posters.setdefault(m.group(2), urllib.parse.urljoin(jp_final, f"/src/assets/images/roles/{m.group(1)}/poster.jpg"))
+                    jp_posters.setdefault(m.group(2), real.get(m.group(1)) or urllib.parse.urljoin(jp_final, f"/src/assets/images/roles/{m.group(1)}/poster.jpg"))
         except Exception as e:  # noqa: BLE001
             report["warn"].append(f"일본 공식 사이트 읽기 실패: {e}")
         print("  한국 이미지 경로", kr_base, "| 동남아 썸네일", sorted(sea_thumbs), "| 일본 포스터", sorted(jp_posters))
