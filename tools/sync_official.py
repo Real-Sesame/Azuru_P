@@ -3,7 +3,7 @@
 1) 한국 공식 사이트(azurpromilia.nexon.com/main)의 캐릭터 배열에서 id · 이름 · 영문명 · 속성 · 직업을 읽어
    src/data/characters.json의 공식 필드를 갱신하고, 새 캐릭터는 '자동 추가' 항목으로 넣는다.
 2) 공식 이미지를 받아 사이트에 맞게 편집해 public/img/에 저장한다.
-   우선순위: 직접 넣은 이미지(assets-src/manual) > 한국 공식 > 일본 공식(포스터) > 동남아 공식(썸네일)
+   우선순위: 직접 넣은 이미지(assets-src/manual) > 한국 공식 > 일본 공식(포스터) > 동남아 공식(썸네일) > GameWith(공식 이미지 재게시, 보조)
    - 썸네일: 투명 여백 잘라내기 → 정사각형 맞춤 → 256px WebP (카드 · 편성 초상화)
    - 일러스트: 가로 1400px WebP. 세로 포스터는 흐린 배경을 깔아 16:9 배너로 편집
    - 썸네일이 없으면 일러스트에서 얼굴 인식(OpenCV)으로 잘라 원형 썸네일 생성
@@ -29,6 +29,7 @@ UA = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.3
 KR_MAIN = "https://azurpromilia.nexon.com/main"
 SEA_MAIN = "https://azurpromilia.playpark.com/en/"
 JP_CHAR = "https://azurpromilia.jp/character"
+GW_CHAR = "https://gamewith.ai/azurpromilia/en/characters"  # 공식 사이트에 없는 캐릭터용 보조 출처(공식 이미지를 GameWith가 다시 올린 것)
 MANUAL = ROOT / "assets-src" / "manual"  # 직접 넣는 공식 이미지: <id>.png(일러스트) · <id>-thumb.png(썸네일)
 
 # 공식 사이트 표기 → 사이트 내부 id
@@ -273,6 +274,16 @@ def main():
                     jp_posters.setdefault(m.group(2), real.get(m.group(1)) or urllib.parse.urljoin(jp_final, f"/src/assets/images/roles/{m.group(1)}/poster.jpg"))
         except Exception as e:  # noqa: BLE001
             report["warn"].append(f"일본 공식 사이트 읽기 실패: {e}")
+        gw_base, gw_slugs = None, set()
+        try:
+            _, gw_raw = get(GW_CHAR)
+            gw_html = gw_raw.decode("utf-8", "replace")
+            m = re.search(r'(https://assets\.gamewith\.ai/azurpromilia/[^/"\']+/site-assets/characters/official/)thumbs/', gw_html)
+            gw_base = m.group(1) if m else None
+            gw_slugs = set(re.findall(r'/characters/official/thumbs/([a-z0-9-]+)-\d+\.webp', gw_html))
+        except Exception as e:  # noqa: BLE001
+            report["warn"].append(f"GameWith 읽기 실패: {e}")
+        print("  GameWith", gw_base, sorted(gw_slugs))
         print("  한국 이미지 경로", kr_base, "| 동남아 썸네일", sorted(sea_thumbs), "| 일본 포스터", sorted(jp_posters))
         manual = {}
         if MANUAL.exists():
@@ -280,7 +291,7 @@ def main():
                 m = re.fullmatch(r"([a-z0-9-]+?)(-thumb)?\.(png|jpe?g|webp)", f.name.lower())
                 if m:
                     manual[(m.group(1), "thumb" if m.group(2) else "art")] = f
-        RANK = {"manual": 4, "kr": 3, "jp": 2, "sea": 1, "derived": 0}
+        RANK = {"manual": 5, "kr": 4, "jp": 3, "sea": 2, "gw": 1, "derived": 0}
         for c in chars["list"] + [chars["starborn"]]:
             oid = c.get("officialId", c["id"])
             keys = {c["id"], oid}
@@ -301,6 +312,19 @@ def main():
                 if k in sea_thumbs:
                     cands.append(("thumb", "sea", lambda u=sea_thumbs[k]: get(u)[1]))
                     break
+            if gw_base:
+                for k in keys:
+                    if k in gw_slugs or k == "starborn":
+                        def first(urls):
+                            for u in urls:
+                                try:
+                                    return get(u)[1]
+                                except Exception:  # noqa: BLE001
+                                    continue
+                            raise RuntimeError("없음")
+                        cands.append(("art", "gw", lambda k=k: first([gw_base + f"display/{k}-1280.webp", gw_base + f"display/{k}-960.webp"])))
+                        cands.append(("thumb", "gw", lambda k=k: first([gw_base + f"thumbs/{k}-320.webp", gw_base + f"thumbs/{k}-160.webp"])))
+                        break
             cands.sort(key=lambda x: -RANK[x[1]])
             got = {}
             for kind, src, fetch in cands:
@@ -324,7 +348,7 @@ def main():
             for kind, (src, data, _) in got.items():
                 rel = f"img/chars/{kind}/{c['id']}.webp"
                 if save_if_changed(ROOT / "public" / rel, data):
-                    label = {"kr": "한국 공식", "jp": "일본 공식", "sea": "동남아 공식", "manual": "직접 넣은 공식 이미지", "derived": "일러스트에서 잘라 냄"}[src]
+                    label = {"kr": "한국 공식", "jp": "일본 공식", "sea": "동남아 공식", "manual": "직접 넣은 공식 이미지", "gw": "GameWith 경유", "derived": "일러스트에서 잘라 냄"}[src]
                     report["images"].append(f"{c['name']} {'썸네일' if kind == 'thumb' else '일러스트'} ({label})")
                 entry[kind] = rel
                 entry[kind + "Src"] = src
