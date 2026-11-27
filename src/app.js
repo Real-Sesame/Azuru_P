@@ -260,7 +260,8 @@ views.character = (q, id) => {
   const link = x => `<a class="chip" href="${href('character/' + x.id)}" data-link>${esc(x.name)}</a>`;
   return `
   <a class="note" href="${href('characters')}" data-link>← 캐릭터 목록</a>
-  ${imgOf(c, 'art') ? `<div class="art-hero" style="--c:${c.elements[0] ? EL[c.elements[0]].color : 'var(--gold)'}"><img src="${imgOf(c, 'art')}" alt="${esc(c.name)} 공식 일러스트"><span class="credit">© Manjuu · NEXON</span></div>` : ''}
+  ${imgOf(c, 'art') ? `<div class="art-hero" style="--c:${c.elements[0] ? EL[c.elements[0]].color : 'var(--gold)'}"><img src="${imgOf(c, 'art')}" alt="${esc(c.name)} 공식 일러스트"><span class="credit">© Manjuu · NEXON</span></div>`
+    : imgOf(c, 'thumb') ? `<div class="art-hero alt" style="--c:${c.elements[0] ? EL[c.elements[0]].color : 'var(--gold)'};--bg:url('${imgOf(c, 'thumb')}')"><img src="${imgOf(c, 'thumb')}" alt="${esc(c.name)} 공식 이미지"><span class="credit">© Manjuu · NEXON · 일러스트 공개 전</span></div>` : ''}
   <div class="card adv head">${pf(c, true)}<div>
     <div class="nm" style="font-size:24px"><span class="n">${esc(c.name)}</span> ${rar(c.rarity)} ${tier(c.tier)} ${c.gwTier && c.gwTier !== '-' ? `<span class="chip">GameWith ${c.gwTier}</span>` : ''} ${conf(c.confidence)} ${autoBadge(c)}</div>
     <div class="note">${esc(c.nameEn)}${c.official ? ' · <span class="conf official">속성 · 직업 공식</span>' : ''}</div>

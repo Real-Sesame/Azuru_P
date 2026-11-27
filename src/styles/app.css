@@ -215,3 +215,7 @@ a.card:hover { border-color: var(--gold); }
 .art-hero { position: relative; border-radius: 16px; overflow: hidden; border: 1px solid var(--line); background: color-mix(in srgb, var(--c) 20%, var(--surface)); }
 .art-hero img { width: 100%; max-height: 420px; object-fit: cover; object-position: center 25%; }
 .art-hero .credit { position: absolute; right: 10px; bottom: 8px; font-size: 11px; color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,.7); }
+.art-hero.alt { height: 260px; display: grid; place-items: center; background: linear-gradient(120deg, color-mix(in srgb, var(--c) 45%, var(--surface)), var(--surface-2)); }
+.art-hero.alt::before { content: ""; position: absolute; inset: -30px; background: var(--bg) center / cover; filter: blur(30px) saturate(1.2); opacity: .45; }
+.art-hero.alt img { position: relative; width: 210px; height: 210px; max-height: none; object-fit: contain; filter: drop-shadow(0 8px 24px rgba(0,0,0,.35)); }
+@media (max-width: 760px) { .art-hero.alt { height: 200px; } .art-hero.alt img { width: 160px; height: 160px; } }

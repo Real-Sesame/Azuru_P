@@ -4,3 +4,4 @@ dist/
 __pycache__/
 _pages/
 tools/.sync-report.md
+tools/.cache/

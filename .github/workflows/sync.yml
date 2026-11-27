@@ -1,5 +1,5 @@
 # 공식 데이터 자동 갱신: 매일(또는 Actions → 공식 데이터 자동 갱신 → Run workflow)
-# 한국 · 동남아 공식 사이트에서 캐릭터 목록(이름 · 속성 · 직업)과 공식 이미지를 받아
+# 한국 · 일본 · 동남아 공식 사이트(+ assets-src/manual에 직접 넣은 이미지)에서 캐릭터 목록(이름 · 속성 · 직업)과 공식 이미지를 받아
 # src/data/characters.json · public/img/를 갱신하고, 바뀌면 커밋 → 재배포 → 검토 이슈를 갱신합니다.
 name: 공식 데이터 자동 갱신
 
@@ -10,7 +10,7 @@ on:
     - cron: '41 9 * * *'    # 매일 18:41 (한국 시간) — 업데이트 · 픽업 당일 반영용
   push:
     branches: [main]
-    paths: ['tools/sync_official.py', '.github/workflows/sync.yml']
+    paths: ['tools/sync_official.py', '.github/workflows/sync.yml', 'assets-src/manual/**']
 
 permissions:
   contents: write
@@ -30,7 +30,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: pip install pillow
+      - run: pip install pillow opencv-python-headless
       - name: 공식 사이트에서 받기
         run: python3 tools/sync_official.py
       - name: 데이터 점검
