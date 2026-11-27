@@ -24,11 +24,41 @@
    "thumb": "img/chars/thumb/chiyo.webp",
    "thumbSrc": "kr"
   },
+  "faridah": {
+   "art": "img/chars/art/faridah.webp",
+   "artSrc": "gw",
+   "thumb": "img/chars/thumb/faridah.webp",
+   "thumbSrc": "gw"
+  },
+  "hanyouyou": {
+   "art": "img/chars/art/hanyouyou.webp",
+   "artSrc": "gw",
+   "thumb": "img/chars/thumb/hanyouyou.webp",
+   "thumbSrc": "gw"
+  },
+  "katalua": {
+   "art": "img/chars/art/katalua.webp",
+   "artSrc": "gw",
+   "thumb": "img/chars/thumb/katalua.webp",
+   "thumbSrc": "gw"
+  },
   "lanxiangzi": {
    "art": "img/chars/art/lanxiangzi.webp",
    "artSrc": "kr",
    "thumb": "img/chars/thumb/lanxiangzi.webp",
    "thumbSrc": "kr"
+  },
+  "lily": {
+   "art": "img/chars/art/lily.webp",
+   "artSrc": "gw",
+   "thumb": "img/chars/thumb/lily.webp",
+   "thumbSrc": "gw"
+  },
+  "luruka": {
+   "art": "img/chars/art/luruka.webp",
+   "artSrc": "gw",
+   "thumb": "img/chars/thumb/luruka.webp",
+   "thumbSrc": "gw"
   },
   "maple": {
    "art": "img/chars/art/maple.webp",
@@ -48,6 +78,18 @@
    "thumb": "img/chars/thumb/mitty.webp",
    "thumbSrc": "kr"
   },
+  "morwyn": {
+   "art": "img/chars/art/morwyn.webp",
+   "artSrc": "gw",
+   "thumb": "img/chars/thumb/morwyn.webp",
+   "thumbSrc": "gw"
+  },
+  "nono": {
+   "art": "img/chars/art/nono.webp",
+   "artSrc": "gw",
+   "thumb": "img/chars/thumb/nono.webp",
+   "thumbSrc": "gw"
+  },
   "peipei": {
    "art": "img/chars/art/peipei.webp",
    "artSrc": "kr",
@@ -65,6 +107,12 @@
    "artSrc": "kr",
    "thumb": "img/chars/thumb/shalle.webp",
    "thumbSrc": "kr"
+  },
+  "starborn": {
+   "art": "img/chars/art/starborn.webp",
+   "artSrc": "gw",
+   "thumb": "img/chars/thumb/starborn.webp",
+   "thumbSrc": "gw"
   },
   "symphoria": {
    "art": "img/chars/art/symphoria.webp",
