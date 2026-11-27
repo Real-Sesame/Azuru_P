@@ -12,4 +12,4 @@
 - 직접 넣은 이미지가 공식 사이트 이미지보다 우선합니다. 빼고 싶으면 파일을 지우세요.
 - 원본은 이 폴더에만 있고, 사이트에는 편집본(`public/img/chars/`)만 올라갑니다.
 
-현재 일러스트가 없는 캐릭터 id: morwyn, ruby, luruka, lily, hanyouyou, katalua, nono, faridah, starborn
+현재 일러스트가 없는 캐릭터 id: ruby (공식 사이트 · GameWith 모두 없음)
