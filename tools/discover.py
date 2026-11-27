@@ -19,7 +19,7 @@ for line in open(sys.argv[1], encoding="utf-8"):
     html = body.decode("utf-8", "replace")
     print("  final:", final, "| type:", ct, "| bytes:", len(body))
     t = re.search(r"<title>(.*?)</title>", html, re.S); print("  title:", t and t.group(1).strip()[:120])
-    texts = [("page", html)]
+    texts = [(final, html)]
     for js in sorted(set(re.findall(r'<script[^>]+src="([^"]+)"', html)))[:25]:
         ju = urllib.parse.urljoin(final, js)
         if any(x in ju for x in ("googletag", "gtag", "facebook", "analytics", "nexon.com/js/", "beacon")): continue
@@ -27,6 +27,19 @@ for line in open(sys.argv[1], encoding="utf-8"):
             _, _, jb = get(ju); texts.append((ju, jb.decode("utf-8", "replace"))); print("  script:", ju, len(jb))
         except Exception as e:
             print("  script FAIL", ju, e)
+    # JS 안에서 지연 로딩되는 조각(.js)도 한 단계 따라감
+    seen = {u for u, _ in texts}
+    extra = []
+    for src, t in list(texts[1:]):
+        for m in re.finditer(r'["\'(]((?:\.{0,2}/)?[\w./-]*?assets/[\w.-]+\.js|\./[\w.-]+\.js)["\')]', t):
+            ju = urllib.parse.urljoin(src, m.group(1))
+            if ju not in seen and len(extra) < 60:
+                seen.add(ju); extra.append(ju)
+    for ju in extra:
+        try:
+            _, _, jb = get(ju); texts.append((ju, jb.decode("utf-8", "replace"))); print("  chunk:", ju, len(jb))
+        except Exception as e:
+            print("  chunk FAIL", ju, e)
     for m in re.finditer(r'<script[^>]*id="__NEXT_DATA__"[^>]*>(.*?)</script>', html, re.S):
         print("  __NEXT_DATA__ head:", m.group(1)[:3000])
     imgs, apis = {}, set()
@@ -43,5 +56,5 @@ for line in open(sys.argv[1], encoding="utf-8"):
     for a in sorted(apis)[:80]: print("   ", a)
     if kw:
         for src, t in texts:
-            for m in re.finditer(re.escape(kw), t):
-                print("  KW", src[-40:], re.sub(r"\s+", " ", t[max(0, m.start()-200):m.end()+300]))
+            for m in list(re.finditer(re.escape(kw), t))[:6]:
+                print("  KW", src[-40:], re.sub(r"\s+", " ", t[max(0, m.start()-300):m.end()+700]))

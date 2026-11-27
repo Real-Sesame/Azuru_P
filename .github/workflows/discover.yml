@@ -19,4 +19,4 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
-      - run: python3 tools/discover.py "${{ inputs.list || 'tools/discover-urls.txt' }}" "${{ inputs.kw || 'character' }}"
+      - run: python3 tools/discover.py "${{ inputs.list || 'tools/discover-urls.txt' }}" "${{ inputs.kw || 'englishName:' }}"
